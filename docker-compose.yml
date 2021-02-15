@@ -1,0 +1,10 @@
+version: "3.9"
+services:
+  react_template:
+    build: .
+    ports:
+     - "8080:8080"
+    stdin_open: true
+    volumes:
+      - ./react-template:/usr/src/app/react-template
+      - /usr/src/app/react-template/node_modules
