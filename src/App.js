@@ -11,9 +11,9 @@ import './css/style.css'
 
 //Views
 import MainView from "./views/MainView";
-import LoginView from "./views/LoginView";
-import NoMatchView from "./views/NoMatchView";
-
+import LoginView from "./views/auth/LoginView";
+import NoMatchView from "./views/auth/NoMatchView";
+import RegisterView from "./views/auth/RegisterView";
 // init icons
 library.add(fab, far, fas);
 
@@ -21,8 +21,7 @@ class App extends React.Component {
     constructor(props) {
         super(props);
 
-        const login = () => {
-            const user = {name:'america',lastName: 'mendoza'}
+        const login = (user) => {
             this.setState({isLoggedIn:true,user:user});
         }
         const logout = () => {
@@ -51,6 +50,9 @@ class App extends React.Component {
                         </Route>
                         <Route path='/login'>
                             <LoginView></LoginView>
+                        </Route>
+                        <Route path='/register'>
+                            <RegisterView></RegisterView>
                         </Route>
                         <Route>
                             <NoMatchView></NoMatchView>

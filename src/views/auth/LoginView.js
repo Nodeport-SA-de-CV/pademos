@@ -6,7 +6,7 @@ import Card from 'react-bootstrap/Card';
 import Button from "react-bootstrap/Button";
 
 //components
-import NPInput from "../components/NPInput";
+import NPInput from "../../components/NPInput";
 
 class LoginView extends React.Component{
     constructor(props) {
