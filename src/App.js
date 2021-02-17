@@ -51,7 +51,7 @@ class App extends React.Component {
                 <Router>
                     <Switch>
                         <Route exact path='/'>
-                            <MainView/>
+                            {this.state.isLoggedIn ? <MainView /> : <Redirect to="/login"/>}
                         </Route>
                         <Route path='/login'>
                             {this.state.isLoggedIn ? <Redirect to="/" /> : <LoginView />}
