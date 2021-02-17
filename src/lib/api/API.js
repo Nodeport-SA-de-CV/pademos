@@ -20,6 +20,39 @@ const API = {
             .catch((error) => {
                 return error;
             });
+    },
+    /*
+     * Create user
+     */
+    createUser(name,last_name,email,password) {
+        let params = {
+            name:name,
+            last_name:last_name,
+            email: email,
+            password: password,
+        };
+        let formBody = [];
+        for (let property in params) {
+            let encodedKey = encodeURIComponent(property);
+            let encodedValue = encodeURIComponent(params[property]);
+            formBody.push(encodedKey + "=" + encodedValue);
+        }
+        formBody = formBody.join("&");
+        return fetch(`${API.API_URL}/users/create`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/x-www-form-urlencoded",
+            },
+            body: formBody,
+            credentials: "include",
+        })
+            .then((response) => response.json())
+            .then((response) => {
+                return response;
+            })
+            .catch((error) => {
+                return error;
+            });
     }
 };
 export default API;

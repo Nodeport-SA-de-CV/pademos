@@ -5,6 +5,7 @@ import Col from 'react-bootstrap/Col';
 import Card from 'react-bootstrap/Card';
 import Button from "react-bootstrap/Button";
 import {AuthContext} from "../../lib/AuthContext";
+import PADEMOSAPI from '../../lib/api/API';
 
 //components
 import NPInput from "../../components/NPInput";
@@ -16,7 +17,7 @@ class RegisterView extends React.Component{
         super(props);
         this.state = {
             name:'',
-            lastName:'',
+            last_name:'',
             email: '',
             pwd: '',
             pwdConfirm: '',
@@ -31,9 +32,20 @@ class RegisterView extends React.Component{
     }
 
     onClickRegister(){
-        const user = {name:this.state.name,lastName:this.state.lastName}
-        this.context.login(user);
-    //validate form and call to api
+        //TODO: validate values
+        const name = this.state.name;
+        const last_name = this.state.last_name;
+        const email = this.state.email;
+        const pwd = this.state.pwd;
+
+        PADEMOSAPI.createUser(name,last_name,email,pwd).then((res) => {
+            if(res.success){
+                this.context.login(res.result.user)
+            }else{
+                //TODO:
+                //show error msg (german)
+            }
+        })
     }
 
     render(){
@@ -52,13 +64,13 @@ class RegisterView extends React.Component{
                                          onChange={(e) => this.onChange(e)}
                                          value={this.state.name}
                                 />
-                                <NPInput id={'lastName'}
+                                <NPInput id={'last_name'}
                                          label={'Last name'}
                                          placeholder={'Last name'}
                                          wrapperClass={'form-group mt-4'}
                                          inputClass={'form-control'}
                                          onChange={(e) => this.onChange(e)}
-                                         value={this.state.lastName}
+                                         value={this.state.last_name}
                                 />
                                 <NPInput id={'email'}
                                          label={'Email'}

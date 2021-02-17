@@ -13,7 +13,6 @@ class MainView extends React.Component{
                 <div style={{backgroundColor: 'plum'}} onClick={() => this.context.logout()}>Logout</div>
                 <NPElse>
                     <div style={{backgroundColor: 'pink'}} onClick={() => this.context.login()}>Login</div>
-
                 </NPElse>
             </NPIf>
         )

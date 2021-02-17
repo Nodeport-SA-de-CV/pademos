@@ -27,8 +27,12 @@ class App extends React.Component {
         const logout = () => {
             const user = {
                 name:'',
-                lastName:'',
-                email:''
+                last_name:'',
+                email:'',
+                roles:[],
+                uid:'',
+                _id:'',
+                is_disabled:false
             }
             this.setState({isLoggedIn:false,user:user});
         }
@@ -37,8 +41,12 @@ class App extends React.Component {
             isLoggedIn: false,
             user: {
                 name:'',
-                lastName:'',
-                email:''
+                last_name:'',
+                email:'',
+                roles:[],
+                uid:'',
+                _id:'',
+                is_disabled:false
             },
             login: login,
             logout: logout
