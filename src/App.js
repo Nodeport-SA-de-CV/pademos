@@ -13,6 +13,7 @@ import './css/style.css'
 import MainView from "./views/MainView";
 import LoginView from "./views/LoginView";
 import NoMatchView from "./views/NoMatchView";
+import PlotView from "./views/plots/PlotView";
 
 // init icons
 library.add(fab, far, fas);
@@ -51,6 +52,9 @@ class App extends React.Component {
                         </Route>
                         <Route path='/login'>
                             <LoginView></LoginView>
+                        </Route>
+                        <Route path='/plot'>
+                            <PlotView></PlotView>
                         </Route>
                         <Route>
                             <NoMatchView></NoMatchView>
