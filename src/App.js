@@ -13,9 +13,10 @@ import './css/style.css'
 
 //Views
 import MainView from "./views/MainView";
+import PlotView from "./views/plots/PlotView";
+import RegisterView from "./views/auth/RegisterView";
 import LoginView from "./views/auth/LoginView";
 import NoMatchView from "./views/auth/NoMatchView";
-import RegisterView from "./views/auth/RegisterView";
 // init icons
 library.add(fab, far, fas);
 
@@ -76,6 +77,9 @@ class App extends React.Component {
                         </Route>
                         <Route path='/register'>
                             {this.state.isLoggedIn ? <Redirect to="/" /> : <RegisterView />}
+                        </Route>
+                        <Route path='/plot'>
+                            <PlotView></PlotView>
                         </Route>
                         <Route>
                             <NoMatchView />
