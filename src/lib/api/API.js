@@ -53,6 +53,37 @@ const API = {
             .catch((error) => {
                 return error;
             });
+    },
+    /*
+     * login
+     */
+    login(email,password) {
+        let params = {
+            email: email,
+            password: password,
+        };
+        let formBody = [];
+        for (let property in params) {
+            let encodedKey = encodeURIComponent(property);
+            let encodedValue = encodeURIComponent(params[property]);
+            formBody.push(encodedKey + "=" + encodedValue);
+        }
+        formBody = formBody.join("&");
+        return fetch(`${API.API_URL}/users/login`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/x-www-form-urlencoded",
+            },
+            body: formBody,
+            credentials: "include",
+        })
+            .then((response) => response.json())
+            .then((response) => {
+                return response;
+            })
+            .catch((error) => {
+                return error;
+            });
     }
 };
 export default API;
