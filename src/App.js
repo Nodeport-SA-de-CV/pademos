@@ -5,6 +5,8 @@ import {far} from '@fortawesome/free-regular-svg-icons';
 import {fas} from '@fortawesome/free-solid-svg-icons';
 import {BrowserRouter as Router, Switch, Route, Redirect} from 'react-router-dom';
 import {AuthContext} from "./lib/AuthContext";
+import PADEMOS from "./lib/api/API";
+
 //style
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './css/style.css'
@@ -51,6 +53,14 @@ class App extends React.Component {
             login: login,
             logout: logout
         }
+    }
+
+    componentDidMount() {
+        PADEMOS.getMe().then(res => {
+            if(res.success){
+                this.setState({isLoggedIn: true, user: res.user});
+            }
+        })
     }
 
     render() {

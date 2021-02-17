@@ -34,7 +34,6 @@ class LoginView extends React.Component{
         const pwd = this.state.pwd;
 
         PADEMOSAPI.login(email,pwd).then(res => {
-            debugger;
             if(res.success){
                 this.context.login(res.result.user);
             }else{
