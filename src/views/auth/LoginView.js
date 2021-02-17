@@ -4,11 +4,15 @@ import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Card from 'react-bootstrap/Card';
 import Button from "react-bootstrap/Button";
+import {AuthContext} from "../../lib/AuthContext";
+import PADEMOSAPI from '../../lib/api/API';
 
 //components
-import NPInput from "../components/NPInput";
+import NPInput from "../../components/NPInput";
 
 class LoginView extends React.Component{
+    static contextType = AuthContext;
+
     constructor(props) {
         super(props);
         this.state = {
@@ -25,7 +29,17 @@ class LoginView extends React.Component{
     }
 
     onClickLogin(){
-    //validate form and call to api
+        //TODO: validate values
+        const email = this.state.email;
+        const pwd = this.state.pwd;
+
+        PADEMOSAPI.login(email,pwd).then(res => {
+            if(res.success){
+                this.context.login(res.result.user);
+            }else{
+                //TODO: show error
+            }
+        })
     }
 
     render(){
