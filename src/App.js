@@ -3,7 +3,7 @@ import {library} from '@fortawesome/fontawesome-svg-core';
 import {fab} from '@fortawesome/free-brands-svg-icons';
 import {far} from '@fortawesome/free-regular-svg-icons';
 import {fas} from '@fortawesome/free-solid-svg-icons';
-import {BrowserRouter as Router, Switch, Route} from 'react-router-dom';
+import {BrowserRouter as Router, Switch, Route, Redirect} from 'react-router-dom';
 import {AuthContext} from "./lib/AuthContext";
 //style
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -46,16 +46,16 @@ class App extends React.Component {
                 <Router>
                     <Switch>
                         <Route exact path='/'>
-                            <MainView></MainView>
+                            <MainView/>
                         </Route>
                         <Route path='/login'>
-                            <LoginView></LoginView>
+                            {this.state.isLoggedIn ? <Redirect to="/" /> : <LoginView />}
                         </Route>
                         <Route path='/register'>
-                            <RegisterView></RegisterView>
+                            {this.state.isLoggedIn ? <Redirect to="/" /> : <RegisterView />}
                         </Route>
                         <Route>
-                            <NoMatchView></NoMatchView>
+                            <NoMatchView />
                         </Route>
                     </Switch>
                 </Router>
