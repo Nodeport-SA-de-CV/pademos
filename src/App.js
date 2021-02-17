@@ -25,15 +25,20 @@ class App extends React.Component {
             this.setState({isLoggedIn:true,user:user});
         }
         const logout = () => {
-            const user = {name:'',lastName: ''}
-            this.setState({isLoggedIn:false});
+            const user = {
+                name:'',
+                lastName:'',
+                email:''
+            }
+            this.setState({isLoggedIn:false,user:user});
         }
 
         this.state = {
             isLoggedIn: false,
             user: {
                 name:'',
-                lastName:''
+                lastName:'',
+                email:''
             },
             login: login,
             logout: logout
