@@ -1,6 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import NPIf from "np-if";
 import Navbar from "react-bootstrap/Navbar";
 import Nav from "react-bootstrap/Nav";
 import NavDropdown from "react-bootstrap/cjs/NavDropdown";
@@ -8,6 +7,9 @@ import Form from "react-bootstrap/Form";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {AuthContext} from "../lib/AuthContext";
 import {Link} from "react-router-dom";
+
+
+
 class Header extends React.Component{
     constructor(props) {
         super(props);
