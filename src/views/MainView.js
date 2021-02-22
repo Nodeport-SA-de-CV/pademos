@@ -2,6 +2,7 @@ import React from 'react';
 import {AuthContext} from "../lib/AuthContext";
 import NPIf from "np-if";
 import NPElse from "np-if/src/NPElse";
+import Header from "../components/Header";
 
 class MainView extends React.Component{
     static contextType = AuthContext;
@@ -9,6 +10,7 @@ class MainView extends React.Component{
     render(){
         return(
             <NPIf condition={this.context.isLoggedIn}>
+                <Header />
                 <div>MainView Protected</div>
                 <div style={{backgroundColor: 'plum'}} onClick={() => this.context.logout()}>Logout</div>
                 <NPElse>
