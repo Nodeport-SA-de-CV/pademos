@@ -11,9 +11,13 @@ class MainView extends React.Component{
     render(){
         return(
             <NPIf condition={this.context.isLoggedIn}>
-                <NavBar />
-                <Sidebar />
-
+                <div className={'h-100'}>
+                    <NavBar />
+                    <div className={'wrapper-content'}>
+                        <Sidebar />
+                        <div className={'content'}>content</div>
+                    </div>
+                </div>
             </NPIf>
         )
     }
