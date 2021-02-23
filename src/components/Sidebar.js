@@ -1,13 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import Navbar from "react-bootstrap/Navbar";
-import Nav from "react-bootstrap/Nav";
-import NavDropdown from "react-bootstrap/cjs/NavDropdown";
 import Form from "react-bootstrap/Form";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {AuthContext} from "../lib/AuthContext";
-import {Link} from "react-router-dom";
-
+import Topic from "./Topic";
 
 
 class Sidebar extends React.Component{
@@ -39,7 +35,14 @@ class Sidebar extends React.Component{
                     <div className={'txt-right'}>neue Verbindung zum Forschungsthema definieren</div>
                 </div>
                 <div className={'sidebar-content'}>
-                    <div className={'topic'}>topic</div>
+                    <Topic title={'Diversity ...'} color={'burgundy'} icon={'arrow-up'}/>
+                    <Topic title={'Explainability of ...'} color={'military'} icon={'chalkboard'}/>
+                    <Topic title={'Privacy ...'} color={'dark-gray'} icon={'lock'}/>
+                    <Topic title={'Topic 4'} />
+                    <Topic title={'Topic 5'} />
+
+
+
                 </div>
                 <Form>
                     <Form.Check id="sidebar-checkbox"

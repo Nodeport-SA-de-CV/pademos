@@ -228,13 +228,45 @@ body {
 /*---------------------------------------------------Topic-------------------------------------------------------------*/
 /*--------------------------------------------------------------------------------------------------------------------*/
 .topic{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
     padding:  0.3rem 0.5rem;
-    border: 1.5px solid #5C1919;
     box-sizing: border-box;
     border-radius: 4px;
-    color: #333333;
+    color: #f7f7f7;
     font-weight: 450;
+    margin-bottom: 0.5rem;
+    cursor:pointer;
 }
+.burgundy{
+    background-color: #5C1919;
+}
+.burgundy:hover{
+    background-color: #5c1919e6;
+}
+.military{
+    background-color: #595727;
+}
+.military:hover{
+    background-color: #595727e6;
+}
+.dark-gray{
+    background-color: #362f2f;
+}
+.dark-gray:hover{
+    background-color: #362f2fe6;
+}
+/*.icon-burgundy{*/
+/*    color: #5C1919*/
+/*}*/
+/*.icon-military{*/
+/*    color: #595727;*/
+/*}*/
+/*.icon-dark-gray{*/
+/*    color: #362f2f;*/
+/*}*/
 /*--------------------------------------------------------------------------------------------------------------------*/
 /*---------------------------------------------------BTNS-------------------------------------------------------------*/
 /*--------------------------------------------------------------------------------------------------------------------*/
