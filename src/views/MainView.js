@@ -4,6 +4,7 @@ import NPIf from "np-if";
 import NPElse from "np-if/src/NPElse";
 import NavBar from "../components/NavBar";
 import Sidebar from "../components/Sidebar";
+import Header from "../components/Header";
 
 class MainView extends React.Component{
     static contextType = AuthContext;
@@ -15,7 +16,9 @@ class MainView extends React.Component{
                     <NavBar />
                     <div className={'wrapper-content'}>
                         <Sidebar />
-                        <div className={'content'}>content</div>
+                        <div className={'content'}>
+                            <Header />
+                        </div>
                     </div>
                 </div>
             </NPIf>
