@@ -10,7 +10,7 @@ import {Link} from "react-router-dom";
 
 
 
-class Header extends React.Component{
+class NavBar extends React.Component{
     constructor(props) {
         super(props);
         this.state = {
@@ -58,12 +58,12 @@ class Header extends React.Component{
     }
 }
 
-export default Header;
+export default NavBar;
 
-Header.propTypes = {
+NavBar.propTypes = {
 
 };
 
-Header.defaultProps = {
+NavBar.defaultProps = {
 
 };

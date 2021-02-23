@@ -2,7 +2,7 @@ import React from 'react';
 import {AuthContext} from "../lib/AuthContext";
 import NPIf from "np-if";
 import NPElse from "np-if/src/NPElse";
-import Header from "../components/Header";
+import NavBar from "../components/NavBar";
 import Sidebar from "../components/Sidebar";
 
 class MainView extends React.Component{
@@ -11,7 +11,7 @@ class MainView extends React.Component{
     render(){
         return(
             <NPIf condition={this.context.isLoggedIn}>
-                <Header />
+                <NavBar />
                 <Sidebar />
 
             </NPIf>
