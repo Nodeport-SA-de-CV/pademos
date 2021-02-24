@@ -5,6 +5,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import Topic from "./Topic";
 import NPIf from "np-if";
 import NPElse from "np-if/src/NPElse";
+import ConnectionForm from "./ConnectionForm";
 
 
 class Sidebar extends React.Component{
@@ -54,7 +55,7 @@ class Sidebar extends React.Component{
                     </Form>
                 </div>
                 <NPElse>
-                    form
+                    <ConnectionForm  onCancel={() => this.setState({showConnectionForm:false})}/>
                 </NPElse>
             </NPIf>
 
