@@ -18,6 +18,8 @@ class MainView extends React.Component{
                         <Sidebar />
                         <div className={'content'}>
                             <Header />
+
+                            CONTENT HERE
                         </div>
                     </div>
                 </div>

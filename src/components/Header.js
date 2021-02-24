@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import NPIf from "np-if";
+import SearchBox from "./SearchBox";
 
 
 
@@ -34,7 +35,7 @@ class Header extends React.Component{
                 {/*action row*/}
                 <NPIf condition={this.props.showActions}>
                     <div className={'header-row justify-content-between align-items-start pt-3 pb-3'}>
-                        <div className={'search-box'}><input placeholder={'Suche...'}/> <FontAwesomeIcon icon={'search'}/></div>
+                        <SearchBox />
                         <select>
                             <option>Stichwort</option>
                         </select>

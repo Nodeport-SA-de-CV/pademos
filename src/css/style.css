@@ -338,6 +338,11 @@ select{
 /*---------------------------------------------------------------------------------------------------------------------*/
 /*---------------------------------------------------SEARCH BOX--------------------------------------------------------*/
 /*---------------------------------------------------------------------------------------------------------------------*/
+search-box-wrapper{
+    display: flex;
+    flex-direction: column;
+    position: relative;
+}
 .search-box{
     display: flex;
     flex-direction: row;
@@ -345,6 +350,7 @@ select{
     padding: 0.5rem;
     color:#4D4C4C;
     align-items: center;
+    min-width: 200px;
 }
 .search-box input{
     flex:1;
@@ -352,3 +358,21 @@ select{
     border: none;
     color:#4D4C4C;
 }
+.search-box-results{
+    position: absolute;
+    background-color: #F1F1F1;
+    min-width: 200px;
+    border-top: 1px solid  #E6E6E6;
+}
+.search-box-result{
+    padding: 0.25rem 0.5rem;
+}
+.search-box-result:hover{
+    background-color: #B7B4B4;
+    color:black;
+}
+.search-box-result.selected{
+    background-color: #B7B4B4;
+    color:black;
+}
+
