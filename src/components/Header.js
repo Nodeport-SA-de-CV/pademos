@@ -1,12 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import Navbar from "react-bootstrap/Navbar";
-import Nav from "react-bootstrap/Nav";
-import NavDropdown from "react-bootstrap/cjs/NavDropdown";
-import Form from "react-bootstrap/Form";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import {AuthContext} from "../lib/AuthContext";
-import {Link} from "react-router-dom";
+import NPIf from "np-if";
+import SearchBox from "./SearchBox";
 
 
 
@@ -19,7 +15,6 @@ class Header extends React.Component{
         this.onClickHelp = this.onClickHelp.bind(this);
     }
 
-    static contextType = AuthContext;
 
 
     onClickHelp(){
@@ -28,32 +23,32 @@ class Header extends React.Component{
 
     render(){
         return(
-            <Navbar bg="dark" variant="dark" expand="lg">
-
-                <Link to="/"><Navbar.Brand>Visualizierung der Bürger- und Forschungsthemen</Navbar.Brand></Link>
-                <Navbar.Toggle aria-controls="basic-navbar-nav" />
-                <Navbar.Collapse id="basic-navbar-nav" className="justify-content-end">
-                    <Form inline>
-                        <Form.Label className={'mr-2'} htmlFor={'custom-switch'}>Bürger </Form.Label>
-                        <Form.Check
-                            type="switch"
-                            id="custom-switch"
-                            label="Wissenschaftler"
-                            checked={this.state.enabledWissenschaftler}
-                            onChange={() => this.setState({enabledWissenschaftler: !this.state.enabledWissenschaftler})}
-                        />
-                    </Form>
-                    <Nav>
-                        <Nav.Link href={"/"}>Journalists stories</Nav.Link>
-                        <Nav.Link onClick={() => this.onClickHelp()}><FontAwesomeIcon icon="question" /></Nav.Link>
-                        <NavDropdown id="basic-nav-dropdown" title={<FontAwesomeIcon icon={'user'}/>}>
-                            <NavDropdown.Item >{this.context.user.name}</NavDropdown.Item>
-                            {/*<NavDropdown.Divider />*/}
-                            <NavDropdown.Item onClick={() => this.context.logout()}>Logout</NavDropdown.Item>
-                        </NavDropdown>
-                    </Nav>
-                </Navbar.Collapse>
-            </Navbar>
+            <div className={'header'}>
+                {/*title row*/}
+                <div className={'header-row justify-content-between'}>
+                    <div className={'txt-right'}>
+                        <h2>{this.props.title}</h2>
+                        <div className={'btn btn-tiny'}>Anweisungen <FontAwesomeIcon icon={'caret-down'}/></div>
+                    </div>
+                    <div className={'txt-right'}><h2>{this.props.contributions}</h2><div>{this.props.subContributions}</div></div>
+                </div>
+                {/*action row*/}
+                <NPIf condition={this.props.showActions}>
+                    <div className={'header-row justify-content-between align-items-start pt-3 pb-3'}>
+                        <SearchBox />
+                        <select>
+                            <option>Stichwort</option>
+                        </select>
+                        <select>
+                            <option>Beitragsart</option>
+                        </select>
+                        <div className={'d-flex flex-column align-items-end'}>
+                            <div className={'btn btn-icon'}><FontAwesomeIcon icon={'plus'}/></div>
+                            einen Beitrag leisten
+                        </div>
+                    </div>
+                </NPIf>
+            </div>
         )
     }
 }
@@ -61,9 +56,15 @@ class Header extends React.Component{
 export default Header;
 
 Header.propTypes = {
-
+    title: PropTypes.string,
+    contributions: PropTypes.string,
+    subContributions: PropTypes.string,
+    showActions: PropTypes.string,
 };
 
 Header.defaultProps = {
-
+    title: 'Bürgerthemen',
+    contributions: '36',
+    subContributions: 'Eingereichte Beiträge',
+    showActions: true,
 };

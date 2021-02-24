@@ -40,9 +40,8 @@ class Sidebar extends React.Component{
                     <Topic title={'Privacy ...'} color={'dark-gray'} icon={'lock'}/>
                     <Topic title={'Topic 4'} />
                     <Topic title={'Topic 5'} />
-
-
-
+                    <Topic title={'Topic 6'} />
+                    <Topic title={'Topic 7'} />
                 </div>
                 <Form>
                     <Form.Check id="sidebar-checkbox"
