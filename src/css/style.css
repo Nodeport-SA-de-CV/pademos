@@ -226,6 +226,10 @@ body {
     background-color: #5c1919;
     color:#f7f7f7;
     font-size: 1.4rem;
+    cursor: pointer;
+}
+.sidebar-icon-link:hover{
+    background-color: #5c1919e6;
 }
 .sidebar-content{
     flex:1;
