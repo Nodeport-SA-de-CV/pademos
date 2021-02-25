@@ -5,6 +5,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import Topic from "./Topic";
 import NPIf from "np-if";
 import NPElse from "np-if/src/NPElse";
+import NPInput from "./NPInput";
 
 
 class ConnectionForm extends React.Component{
@@ -24,25 +25,30 @@ class ConnectionForm extends React.Component{
     render(){
         return(
             <div className={'sidebar'}>
-                <h4>Forschungsthemen</h4>
-                <div className={'btn btn-tiny txt-right'}>Anweisungen <FontAwesomeIcon icon={'caret-down'}/></div>
-                <div className={'sidebar-header'}>
-                    <h2>12</h2>
-                    <div className={'sidebar-header-row'}>
-                        <div>definierte Verbindungen</div>
-                        <div className={'sidebar-icon-link'}
-                             onClick={() => this.setState({showConnectionForm:true})}>
-                            <FontAwesomeIcon icon={'link'}/>
-                        </div>
+                <div className={'sidebar-form-header'}>
+                    <div>
+                        <div><b>Neue Verbindung definieren</b></div>
+                        <div className={'btn btn-tiny txt-right'}>Anweisungen <FontAwesomeIcon icon={'caret-down'}/></div>
                     </div>
-                    <div className={'txt-right'}>neue Verbindung zum Forschungsthema definieren</div>
+                    <FontAwesomeIcon className={'icon-link'} icon={'link'}/>
                 </div>
-                <div className={'sidebar-content'}>
+                <div className={'sidebar-form'}>
+                    <label>1. Select the citizen’s contributions on the left side. </label>
+                    <NPInput label={'If not on the list, add a new topic:  '}/>
+
+                    <NPInput label={'If not on the list, add a new perspective: '}/>
+                    <NPInput label={'4. Please explain the connection of the contributions to the topic'}
+                             placeholder={'This contribution is related ... '}/>
+                    <NPInput label={'5. Can you add some links to research resources? (optional)'}
+                             placeholder={'Research about AI (www.researchgate.net/789890) '}/>
+                    <NPInput label={'6. Can you propose topics for new ministry funding calls? (optional)'}
+                             placeholder={'A topic to the ministry comprises ... '}/>
+
 
                 </div>
-                <div className={'sidebar-row'}>
-                    <div>SAVE</div>
-                    <div onClick={() => this.props.onCancel()}>CANCEL</div>
+                <div className={'sidebar-form-buttons'}>
+                    <div className={'btn btn-burgundy'}>SAVE</div>
+                    <div className={'btn btn-outline-burgundy'}onClick={() => this.props.onCancel()}>CANCEL</div>
                 </div>
             </div>
         )

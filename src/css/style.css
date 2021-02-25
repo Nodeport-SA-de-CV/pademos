@@ -241,6 +241,39 @@ body {
 .sidebar .form-check-label{
     font-size: 0.85rem;
 }
+.sidebar-form-header{
+    display: flex;
+    flex-direction: row;
+}
+.sidebar-form-header h5{
+    margin-bottom: 0;
+}
+.sidebar-form-header .icon-link{
+    color:#5c1919;
+    font-size: 1.75rem;
+}
+.sidebar-form{
+    /*display: flex;*/
+    /*flex-direction: column;*/
+    flex:1;
+    overflow-y: auto;
+    font-size: 0.9rem;
+}
+.sidebar-form label{
+    font-size: 0.9rem;
+}
+.sidebar-form input{
+    width: 100%;
+    font-size: 0.9rem;
+    color:white;
+    background-color: #5c1919;
+    border: none;
+}
+.sidebar-form-buttons{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
 /*--------------------------------------------------------------------------------------------------------------------*/
 /*---------------------------------------------------Topic-------------------------------------------------------------*/
 /*--------------------------------------------------------------------------------------------------------------------*/
@@ -296,6 +329,25 @@ body {
     background-color: #e1e1e1;
     border-radius: 0px;
     color:white;
+}
+.btn-burgundy{
+    background-color: #5c1919;
+    color:#f7f7f7;
+    border-radius: 0px;
+}
+.btn-burgundy:hover{
+    background-color: #5c1919e6;
+    color:#f7f7f7;
+}
+.btn-outline-burgundy{
+    background-color: #f7f7f7;
+    color: #5c1919;
+    border: 1px solid #5c1919;
+    border-radius: 0px;
+}
+.btn-outline-burgundy:hover{
+    background-color: #5c1919;
+    color: #f7f7f7;
 }
 /*--------------------------------------------------------------------------------------------------------------------*/
 /*---------------------------------------------------TXT-------------------------------------------------------------*/
