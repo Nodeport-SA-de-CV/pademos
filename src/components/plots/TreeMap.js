@@ -1,10 +1,10 @@
 import React from "react";
 import * as d3 from "d3";
 import {Col, Row, Container} from "react-bootstrap";
+import ReactResizeDetector from 'react-resize-detector';
 const data =
           {"children":[{"name":"boss1","children":[{"name":"mister_a","group":"A","value":28,"colname":"level3"},{"name":"mister_b","group":"A","value":19,"colname":"level3"},{"name":"mister_c","group":"C","value":18,"colname":"level3"},{"name":"mister_d","group":"C","value":19,"colname":"level3"}],"colname":"level2"},{"name":"boss2","children":[{"name":"mister_e","group":"C","value":14,"colname":"level3"},{"name":"mister_f","group":"A","value":11,"colname":"level3"},{"name":"mister_g","group":"B","value":15,"colname":"level3"},{"name":"mister_h","group":"B","value":16,"colname":"level3"}],"colname":"level2"},{"name":"boss3","children":[{"name":"mister_i","group":"B","value":10,"colname":"level3"},{"name":"mister_j","group":"A","value":13,"colname":"level3"},{"name":"mister_k","group":"A","value":13,"colname":"level3"},{"name":"mister_l","group":"D","value":25,"colname":"level3"},{"name":"mister_m","group":"D","value":16,"colname":"level3"},{"name":"mister_n","group":"D","value":28,"colname":"level3"}],"colname":"level2"}],"name":"CEO"};
-
-class TreePlot extends React.Component {
+class TreeMap extends React.Component {
 
     constructor(props) {
         super(props);
@@ -13,19 +13,22 @@ class TreePlot extends React.Component {
     }
 
     componentDidMount() {
-        this.drawChart();
     }
-
-    drawChart() {
+    onResize(w,h){
+        this.drawChart(w,h);
+    }
+    drawChart(w,h) {
+        console.log(w,h)
+        d3.select("#treemap").selectAll("*").remove()
         // append the svg object to the body of the page
 
         // set the dimensions and margins of the graph
-        var margin = {top: 10, right: 10, bottom: 10, left: 10},
-            width = 445 - margin.left - margin.right,
-            height = 445 - margin.top - margin.bottom;
+        var margin = {top: 10, right: 10, bottom: 100, left: 10},
+            width = w - margin.left - margin.right,
+            height = h - margin.top - margin.bottom;
 
 // append the svg object to the body of the page
-        var svg = d3.select("#my_dataviz")
+        var svg = d3.select("#treemap")
             .append("svg")
             .attr("width", width + margin.left + margin.right)
             .attr("height", height + margin.top + margin.bottom)
@@ -120,9 +123,11 @@ class TreePlot extends React.Component {
 
     render() {
         return (
-            <div id={"my_dataviz"}>
+            <div id={"treemap"} ref={(ref) => this.treeMapDiv = ref}>
+                <ReactResizeDetector handleWidth handleHeight onResize={(w,h) => this.drawChart(w,h)}>
+                </ReactResizeDetector>
             </div>
         )
     }
 };
-export default TreePlot;
+export default TreeMap;
