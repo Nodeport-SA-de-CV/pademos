@@ -262,15 +262,24 @@ body {
     font-size: 0.9rem;
 }
 .sidebar-form label{
-    font-size: 0.9rem;
+    font-size: 0.85rem;
+    margin-bottom: 0.25rem;
 }
 .sidebar-form input{
     width: 100%;
-    font-size: 0.9rem;
+    font-size: 0.85rem;
     color:white;
     background-color: #5c1919;
     border: none;
 }
+.sidebar-form textarea{
+     width: 100%;
+     font-size: 0.85rem;
+     color:white;
+     background-color: #5c1919;
+     border: none;
+ }
+
 .sidebar-form-buttons{
     display: flex;
     flex-direction: row;
@@ -393,7 +402,16 @@ select{
     -webkit-appearance: none;
 }
 
-
+.sidebar-form select{
+    border: 1px solid #5c1919;
+    background-color: #f7f7f7;
+    color: #5c1919;
+    border-radius: 4px;
+    padding: 0.1rem;
+    width: content-box;
+    width: 100%;
+    font-size: 0.85rem;
+}
 /*---------------------------------------------------------------------------------------------------------------------*/
 /*---------------------------------------------------SEARCH BOX--------------------------------------------------------*/
 /*---------------------------------------------------------------------------------------------------------------------*/
