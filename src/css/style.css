@@ -259,7 +259,7 @@ body {
     /*flex-direction: column;*/
     flex:1;
     overflow-y: auto;
-    font-size: 0.9rem;
+    font-size: 0.85rem;
 }
 .sidebar-form label{
     font-size: 0.85rem;
@@ -304,19 +304,19 @@ body {
 .burgundy{
     background-color: #5C1919;
 }
-.burgundy:hover{
+topic .burgundy:hover{
     background-color: #5c1919e6;
 }
 .military{
     background-color: #595727;
 }
-.military:hover{
+topic .military:hover{
     background-color: #595727e6;
 }
 .dark-gray{
     background-color: #362f2f;
 }
-.dark-gray:hover{
+topic .dark-gray:hover{
     background-color: #362f2fe6;
 }
 /*.icon-burgundy{*/
@@ -328,6 +328,44 @@ body {
 /*.icon-dark-gray{*/
 /*    color: #362f2f;*/
 /*}*/
+/*--------------------------------------------------------------------------------------------------------------------*/
+/*------------------------------------------Topic details-------------------------------------------------------------*/
+/*--------------------------------------------------------------------------------------------------------------------*/
+.topic-details{
+    flex:1;
+    display: flex;
+    flex-direction: column;
+    padding: 0.25rem 0.5rem 0.5rem;
+    color: white;
+    border-radius: 10px;
+    font-size: 0.85rem;
+}
+.tp-close-btn{
+    font-size: 0.9rem;
+    cursor: pointer;
+    align-self: end;
+}
+.tp-title{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 1.1rem;
+}
+/*--------------------------------------------------------------------------------------------------------------------*/
+/*------------------------------------------Topic details-------------------------------------------------------------*/
+/*--------------------------------------------------------------------------------------------------------------------*/
+.perspective{
+    display: flex;
+    flex-direction: column;
+    border: 1px solid white;
+    padding: 0.25rem;
+}
+.perspective .btn-tiny{
+    color: white;
+    text-decoration: underline;
+    align-self: end;
+}
 /*--------------------------------------------------------------------------------------------------------------------*/
 /*---------------------------------------------------BTNS-------------------------------------------------------------*/
 /*--------------------------------------------------------------------------------------------------------------------*/

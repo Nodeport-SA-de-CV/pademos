@@ -19,7 +19,8 @@ class Topic extends React.Component{
 
     render(){
         return(
-            <div className={`topic ${this.props.color} ${this.props.className}`}>
+            <div className={`topic ${this.props.color} ${this.props.className}`}
+                 onClick={() => this.props.onClick()}>
                 {this.props.title}
                 <NPIf condition={this.props.icon !== ''}>
                     <FontAwesomeIcon className={`icon-${this.props.color}`} icon={this.props.icon}/>
@@ -35,12 +36,14 @@ Topic.propTypes = {
     title: PropTypes.string,
     icon: PropTypes.string,
     color: PropTypes.string,
-    className: PropTypes.string
+    className: PropTypes.string,
+    onClick: PropTypes.func
 };
 
 Topic.defaultProps = {
     title: '',
     icon: '',
     color:'burgundy',
-    className: ''
+    className: '',
+    onClick: () => {}
 };
