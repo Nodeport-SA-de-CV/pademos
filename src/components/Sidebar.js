@@ -7,20 +7,28 @@ import NPIf from "np-if";
 import NPElse from "np-if/src/NPElse";
 import ConnectionForm from "./ConnectionForm";
 
+const topic = {id:'div',title:'Diversity'};
 
 class Sidebar extends React.Component{
     constructor(props) {
         super(props);
         this.state = {
-            showConnectionForm:false
+            showConnectionForm:false,
+            topicSelected:{
+                title:'',
+            }
         }
-        this.onClickHelp = this.onClickHelp.bind(this);
+        this.onClickHelp        = this.onClickHelp.bind(this);
+        this.showTopicDetails   = this.showTopicDetails.bind(this);
     }
 
     onClickHelp(){
         console.log('help clicked');
     }
 
+    showTopicDetails(topic){
+        this.setState({showTopicDetails:true,topicSelected:topic});
+    }
 
     render(){
         return(
@@ -40,7 +48,10 @@ class Sidebar extends React.Component{
                         <div className={'txt-right'}>neue Verbindung zum Forschungsthema definieren</div>
                     </div>
                     <div className={'sidebar-content'}>
-                        <Topic title={'Diversity ...'} color={'burgundy'} icon={'arrow-up'}/>
+                        <Topic title={'Diversity ...'}
+                               color={'burgundy'}
+                               icon={'arrow-up'}
+                               onClick={() => this.showTopicDetails(topic)}/>
                         <Topic title={'Explainability of ...'} color={'military'} icon={'chalkboard'}/>
                         <Topic title={'Privacy ...'} color={'dark-gray'} icon={'lock'}/>
                         <Topic title={'Topic 4'} />
