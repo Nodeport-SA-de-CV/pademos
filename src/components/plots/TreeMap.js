@@ -73,6 +73,7 @@ class TreeMap extends React.Component {
     }
 
     drawChart(w, h) {
+        const _this = this;
         // clear all
         d3.select("#treemap").selectAll("*").remove()
         // append the svg object to the body of the page
@@ -89,7 +90,11 @@ class TreeMap extends React.Component {
             .attr("height", height + margin.top + margin.bottom)
             .append("g")
             .attr("transform",
-                "translate(" + margin.left + "," + margin.top + ")");
+                "translate(" + margin.left + "," + margin.top + ")")
+            .call(d3.zoom().on("zoom", function (event) {
+                console.log(event)
+                _this.svg.attr("transform", event.transform)
+            }));
 
 // read json data
 
