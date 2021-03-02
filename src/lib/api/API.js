@@ -84,6 +84,19 @@ const API = {
             .catch((error) => {
                 return error;
             });
-    }
+    },
+    getContributions() {
+        return fetch(`${API.API_URL}/contributions`, {
+            method: "GET",
+            credentials: "include",
+        })
+            .then((response) => response.json())
+            .then((response) => {
+                return response;
+            })
+            .catch((error) => {
+                return error;
+            });
+    },
 };
 export default API;
