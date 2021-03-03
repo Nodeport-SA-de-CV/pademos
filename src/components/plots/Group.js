@@ -21,12 +21,11 @@ class Group extends React.Component {
     }
 
     render(){
-        var c = Math.floor(Math.random()*16777215).toString(16);
-        const color = `#${c}`;
+        const color = this.props.group.color;
         return(
             <div>
                 <div className={'group-title'} style={{color:color}}>
-                    <div className={'mr-auto'}>{this.props.title}</div>
+                    <div className={'mr-auto'}>{this.props.group.title}</div>
                     <div className={'group-keywords'}>
                          <div>#keyword 1</div>
                          <div>#keyword 2</div>
@@ -37,7 +36,7 @@ class Group extends React.Component {
                 </div>
                 <div className={'group-container'} >
                     {
-                        this.props.group.map((contribution,index   ) =>{
+                        this.props.group.contributions.map((contribution,index   ) =>{
                             return(
                                 <Contribution contribution={contribution}
                                               key={index}

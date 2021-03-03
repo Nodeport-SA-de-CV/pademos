@@ -35,7 +35,7 @@ class Header extends React.Component{
                 {/*action row*/}
                 <NPIf condition={this.props.showActions}>
                     <div className={'header-row justify-content-between align-items-start pt-3 pb-3'}>
-                        <SearchBox />
+                        <SearchBox onChange={(value) => this.props.onSearchBoxChange(value)}/>
                         <select>
                             <option>Stichwort</option>
                         </select>
@@ -60,6 +60,7 @@ Header.propTypes = {
     contributions: PropTypes.string,
     subContributions: PropTypes.string,
     showActions: PropTypes.string,
+    onSearchBoxChange: PropTypes.func
 };
 
 Header.defaultProps = {
@@ -67,4 +68,5 @@ Header.defaultProps = {
     contributions: '36',
     subContributions: 'Eingereichte Beiträge',
     showActions: true,
+    onSearchBoxChange: (value) => {}
 };
