@@ -10,6 +10,9 @@ import PlotView from "./plots/PlotView";
 class MainView extends React.Component{
     static contextType = AuthContext;
 
+    onSearchBoxChange(value){
+        this.plotView.search(value);
+    }
     render(){
         return(
             <NPIf condition={this.context.isLoggedIn}>
@@ -17,8 +20,8 @@ class MainView extends React.Component{
                     <NavBar />
                     <div className={'wrapper-content'}>
                         <div className={'content'}>
-                            <Header />
-                            <PlotView></PlotView>
+                            <Header onSearchBoxChange={(value) => this.onSearchBoxChange(value)}/>
+                            <PlotView ref={(ref) => this.plotView = ref}></PlotView>
                         </div>
                         <Sidebar />
                     </div>

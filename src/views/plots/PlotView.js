@@ -10,11 +10,14 @@ class PlotView extends React.Component {
 
     componentDidMount() {
     }
+    search(value){
+        this.treeMapHtml.search(value);
+    }
 
     render() {
         return (
             <div className={'h-100 d-flex'}>
-                <TreeMapHtml></TreeMapHtml>
+                <TreeMapHtml ref={(ref) => this.treeMapHtml = ref}></TreeMapHtml>
             </div>
         )
     }
