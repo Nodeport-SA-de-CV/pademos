@@ -5,7 +5,7 @@ import NPElse from "np-if/src/NPElse";
 import NavBar from "../components/NavBar";
 import Sidebar from "../components/Sidebar";
 import Header from "../components/Header";
-import TreeMap from "../components/plots/TreeMap";
+import PlotView from "./plots/PlotView";
 
 class MainView extends React.Component{
     static contextType = AuthContext;
@@ -18,7 +18,7 @@ class MainView extends React.Component{
                     <div className={'wrapper-content'}>
                         <div className={'content'}>
                             <Header />
-                            <TreeMap></TreeMap>
+                            <PlotView></PlotView>
                         </div>
                         <Sidebar />
                     </div>
