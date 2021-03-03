@@ -9,16 +9,35 @@ class TreeMapHtml extends React.Component {
         super(props);
         this.state     = {d3: '', data: null}
         this.svg       = null;
+        this.search    = this.search.bind(this);
     }
 
     componentDidMount() {
         this.loadData();
     }
+    search(value){
+        var search = new RegExp(value , 'i');
+        // console.log(this.state.data)
+        const data = this.state.topics.filter((t) =>{
+            // search in all contributions
+            t = t.contributions.map((contribution) =>{
+                contribution.isDisabled = ! search.test(contribution.document_what);
+                return contribution;
+            })
+
+            return t;
+        })
+        this.setState({
+            data:data
+        })
+
+    }
     loadData(){
-        API.getContributions().then((contributions) =>{
-            if(contributions.success){
+        API.getContributions().then((res) =>{
+            if(res.success){
                 this.setState({
-                    data:contributions.contributions
+                    data:res.topics,
+                    topics:res.topics
                 }, () =>{
                 })
             }
@@ -29,14 +48,13 @@ class TreeMapHtml extends React.Component {
             return null;
         }
         const data = this.state.data;
-        const keys = Object.keys(this.state.data);
+
         return(
             <div className={'groups'} >
                     {
-                        keys.map((key,index   ) =>{
+                        data.map((group,index   ) =>{
                             return(
-                                <Group group={data[key]} title={key} key={index}>
-
+                                <Group group={group}  key={index}>
                                 </Group>
                             )
 

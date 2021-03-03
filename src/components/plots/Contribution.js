@@ -13,8 +13,9 @@ class Contribution extends React.Component {
     componentDidMount() {
     }
     render(){
+        const bgColor = this.props.contribution.isDisabled ? 'gray' : this.props.bgColor;
         return(
-            <div className={`contribution ${this.props.index}`} style={{backgroundColor:this.props.bgColor}}>
+            <div className={`contribution ${this.props.index}`} style={{backgroundColor:bgColor}}>
                 <div className={'c-title mb-auto mt-auto'}>{this.props.contribution.document_what}</div>
                 <div className={'c-wrapper-icons'}>
                     <img className={'c-icon'} src={Icon1}/>

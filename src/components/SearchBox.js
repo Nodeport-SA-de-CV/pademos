@@ -23,6 +23,7 @@ class SearchBox extends React.Component{
             <div className={'search-box-wrapper'}>
                 <div className={`search-box ${this.props.searchBoxClass}`}>
                     <input className={this.props.inputClass}
+                           onChange={(e) => this.props.onChange(e.target.value)}
                            placeholder={this.props.placeholder}/>
                     <FontAwesomeIcon icon={'search'}/>
                 </div>
