@@ -497,6 +497,7 @@ search-box-wrapper{
 #treemap{
     flex:1;
 }
+
 .groups{
     display: flex;
     width: 100%;
@@ -506,6 +507,22 @@ search-box-wrapper{
     flex-direction: column;
     flex-wrap: wrap;
 }
+.group-title{
+    padding: 0 12px 5px 2px;
+    font-size: 1.2rem;
+    display: flex;
+}
+.group-keywords{
+    display: flex;
+    flex-direction: column;
+    font-size: 0.9rem;
+}
+.group-icon{
+    cursor: pointer;
+    font-size: 2rem;
+    margin-left: 0.25rem;
+}
+
 .group-container{
     display: flex;
     flex-wrap: wrap;
@@ -514,9 +531,10 @@ search-box-wrapper{
 
 }
 .contribution {
-    width: 193px;
+    width: 194px;
     height: 100px;
     overflow: hidden;
-    padding: 6%;
+    padding: 0.5rem;
     border: 2px solid white;
+    color: #01080D;
 }
