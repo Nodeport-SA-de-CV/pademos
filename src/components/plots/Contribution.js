@@ -11,18 +11,20 @@ class Contribution extends React.Component {
     }
     render(){
         return(
-            <div className={`contribution ${this.props.index}`}>
+            <div className={`contribution ${this.props.index}`} style={{backgroundColor:this.props.bgColor}}>
                 {this.props.index} - {this.props.contribution.document_what}
             </div>
         )
     }
 }
 Contribution.propTypes = {
-    contribution : PropTypes.object
+    contribution    : PropTypes.object,
+    bgColor         : PropTypes.string
 };
 
 Contribution.defaultProps = {
-    contribution : {}
+    contribution    : {},
+    bgColor         : '#1A87D7'
 
 };
 export default Contribution;
