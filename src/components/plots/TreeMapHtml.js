@@ -51,15 +51,15 @@ class TreeMapHtml extends React.Component {
 
         return(
             <div className={'groups'} >
-                    {
-                        data.map((group,index   ) =>{
-                            return(
-                                <Group group={group}  key={index}>
-                                </Group>
-                            )
+                {
+                    data.map((group,index   ) =>{
+                        return(
+                            <Group group={group}  key={index}>
+                            </Group>
+                        )
 
-                        })
-                    }
+                    })
+                }
             </div>
         )
     }
