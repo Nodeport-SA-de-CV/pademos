@@ -78,9 +78,8 @@ class TreeMapHtml extends React.Component {
                                        onContributionSelected={(contribution) => this.onContributionSelected(contribution)}>
                                 </Group>
                             )
-
-                        })
-                    }
+                    })
+                }
             </div>
         )
     }
