@@ -3,17 +3,36 @@ import API from "../../lib/api/API";
 import NPIf from "np-if";
 import Contribution from "./Contribution";
 import Group from "./Group";
+import PropTypes from "prop-types";
+import Sidebar from "../Sidebar";
 class TreeMapHtml extends React.Component {
 
     constructor(props) {
         super(props);
-        this.state     = {d3: '', data: null}
+        this.state     = {
+            d3: '',
+            data: null,
+            selectedContributions: []
+        }
         this.svg       = null;
         this.search    = this.search.bind(this);
     }
 
     componentDidMount() {
         this.loadData();
+    }
+    onContributionSelected(contribution){
+        let newContributions = this.state.selectedContributions;
+
+        if(newContributions.find((c) => c._id === contribution._id)){
+            newContributions = newContributions.filter((c) => c._id !== contribution._id);
+        }else{
+            newContributions.push(contribution)
+        }
+        this.setState({
+            selectedContributions:newContributions
+        });
+        this.props.onContributionSelected(newContributions);
     }
     search(value){
         var search = new RegExp(value , 'i');
@@ -54,7 +73,9 @@ class TreeMapHtml extends React.Component {
                     {
                         data.map((group,index   ) =>{
                             return(
-                                <Group group={group}  key={index}>
+                                <Group group={group}  key={index} selectedTopic={this.props.selectedTopic}
+                                       selectedContributions={this.state.selectedContributions}
+                                       onContributionSelected={(contribution) => this.onContributionSelected(contribution)}>
                                 </Group>
                             )
 
@@ -64,4 +85,16 @@ class TreeMapHtml extends React.Component {
         )
     }
 }
+
+TreeMapHtml.propTypes = {
+    onContributionSelected: PropTypes.func,
+    selectedTopic          : PropTypes.object
+};
+
+TreeMapHtml.defaultProps = {
+    onContributionSelected : () => {},
+    selectedTopic          : null
+};
 export default TreeMapHtml;
+
+

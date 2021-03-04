@@ -19,7 +19,10 @@ class Group extends React.Component {
     onClickShowKeywords(){
         console.log('clicked v');
     }
-
+    isContributionSelected(contribution){
+        const found =  this.props.selectedContributions.find((c) => c._id === contribution._id);
+        return found !== undefined;
+    }
     render(){
         const color = this.props.group.color;
         return(
@@ -42,6 +45,9 @@ class Group extends React.Component {
                                               key={index}
                                               index={index}
                                               bgColor={color}
+                                              topic={this.props.selectedTopic}
+                                              isSelected={this.isContributionSelected(contribution)}
+                                              onContributionSelected={(c) => this.props.onContributionSelected(c)}
                                 />
                             )
 
@@ -53,13 +59,19 @@ class Group extends React.Component {
     }
 }
 Group.propTypes = {
-    group : PropTypes.array,
-    title : PropTypes.string,
+    group                  : PropTypes.array,
+    title                  : PropTypes.string,
+    onContributionSelected : PropTypes.func,
+    selectedContributions  : PropTypes.array,
+    selectedTopic          : PropTypes.object
 };
 
 Group.defaultProps = {
-    group : [],
-    title : 'Title'
+    group                  : [],
+    title                  : 'Title',
+    onContributionSelected : () => {},
+    selectedContributions  : [],
+    selectedTopic          : null
 
 };
 export default Group;

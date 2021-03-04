@@ -9,7 +9,7 @@ class TopicDetails extends React.Component{
     render(){
         const topic = this.props.topic
         return(
-            <div className={`topic-details ${topic.color} ${this.props.className}`}>
+            <div className={`topic-details ${this.props.className}`} style={{backgroundColor:topic.color}}>
                 <FontAwesomeIcon className={'tp-close-btn txt-right'} icon={'times'} onClick={() => this.props.onClickHide()}/>
                 <div className={'tp-title'}>
                     <b>{topic.title}</b>
