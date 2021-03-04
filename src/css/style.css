@@ -578,6 +578,17 @@ search-box-wrapper{
     display: flex;
     flex-direction: column;
     font-size: 0.9rem;
+    transition-duration: 0.5s;
+    cursor: pointer;
+}
+.contribution:hover{
+    width: 388px;
+    height:200px;
+
+
+}
+.contribution:nth-child(even):hover {
+    margin-left: -194px;
 }
 .c-title{
     height: 3rem;
@@ -595,4 +606,14 @@ search-box-wrapper{
 .c-icon{
     height: 20px;
     width: 20px;
+}
+.ui-selector{
+    border: 1px solid white;
+    color: white;
+    width: 25px;
+    height: 25px;
+    font-size: 15px;
+    font-weight: bold;
+    text-align: center;
+    cursor: pointer;
 }

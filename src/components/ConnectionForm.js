@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import NPInput from "./NPInput";
+import API from "../lib/api/API";
 
 
 class ConnectionForm extends React.Component{
@@ -27,7 +28,21 @@ class ConnectionForm extends React.Component{
     }
 
     onClickSave(){
-        console.log('saved');
+        const topic = {
+            contributions: this.props.selectedContributions,
+            topic: this.state.otherTopic,
+            perspective: this.state.otherPerspective,
+            connection_explanation: this.state.explanation,
+            links: this.state.links,
+            proposed_topics: this.state.proposeTopics,
+        }
+        API.postTopic(topic).then((r) =>{
+            if(r.success){
+
+            }else{
+
+            }
+        })
         this.props.onFormSaved();
     }
 
@@ -111,10 +126,12 @@ export default ConnectionForm;
 ConnectionForm.propTypes = {
     onFormSaved: PropTypes.func,
     onCancel: PropTypes.func,
+    selectedContributions: PropTypes.array
 
 };
 
 ConnectionForm.defaultProps = {
     onFormSaved: PropTypes.func,
     onCancel: () => {},
+    selectedContributions : []
 };

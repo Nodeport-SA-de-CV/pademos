@@ -7,6 +7,7 @@ import NPIf from "np-if";
 import NPElse from "np-if/src/NPElse";
 import ConnectionForm from "./ConnectionForm";
 import TopicDetails from "./TopicDetails";
+import API from "../lib/api/API";
 
 const topic = {id:'div',title:'Diversity',icon: 'arrow-up',color:'burgundy'};
 
@@ -21,12 +22,17 @@ class Sidebar extends React.Component{
                 title:'',
                 icon: '',
                 color:''
-            }
+            },
+            topics:[]
+
         }
         this.onClickHelp        = this.onClickHelp.bind(this);
         this.showTopicDetails   = this.showTopicDetails.bind(this);
         this.hideTopicDetails   = this.hideTopicDetails.bind(this);
 
+    }
+    componentDidMount() {
+        this.loadTopics();
     }
 
     onClickHelp(){
@@ -35,6 +41,7 @@ class Sidebar extends React.Component{
 
     showTopicDetails(topic){
         this.setState({showTopicDetails:true,topicSelected:topic});
+        this.props.onTopicSelected(topic);
     }
 
     hideTopicDetails(){
@@ -47,8 +54,15 @@ class Sidebar extends React.Component{
                 color:''
             }
         });
+        this.props.onTopicSelected(null);
     }
-
+    loadTopics(){
+        API.getTopics().then((topics) =>{
+            this.setState({
+                topics:topics.topics
+            })
+        })
+    }
     render(){
         return(
             <NPIf condition={!this.state.showConnectionForm}>
@@ -70,16 +84,26 @@ class Sidebar extends React.Component{
                     <NPIf condition={! this.state.showTopicDetails}>
                         {/*render sidebar content and form*/}
                         <div className={'sidebar-content'}>
-                            <Topic title={'Diversity ...'}
-                                   color={'burgundy'}
-                                   icon={'arrow-up'}
-                                   onClick={() => this.showTopicDetails(topic)}/>
-                            <Topic title={'Explainability of ...'} color={'military'} icon={'chalkboard'}/>
-                            <Topic title={'Privacy ...'} color={'dark-gray'} icon={'lock'}/>
-                            <Topic title={'Topic 4'} />
-                            <Topic title={'Topic 5'} />
-                            <Topic title={'Topic 6'} />
-                            <Topic title={'Topic 7'} />
+                            {
+                                this.state.topics.map((topic) =>{
+                                    return(
+                                        <Topic title={topic.connection_explanation}
+                                               color={topic.color} icon={'arrow-up'}
+                                               onClick={() => this.showTopicDetails(topic)}>
+                                        </Topic>
+                                    )
+                                })
+                            }
+                            {/*<Topic title={'Diversity ...'}*/}
+                            {/*       color={'burgundy'}*/}
+                            {/*       icon={'arrow-up'}*/}
+                            {/*       onClick={() => this.showTopicDetails(topic)}/>*/}
+                            {/*<Topic title={'Explainability of ...'} color={'military'} icon={'chalkboard'}/>*/}
+                            {/*<Topic title={'Privacy ...'} color={'dark-gray'} icon={'lock'}/>*/}
+                            {/*<Topic title={'Topic 4'} />*/}
+                            {/*<Topic title={'Topic 5'} />*/}
+                            {/*<Topic title={'Topic 6'} />*/}
+                            {/*<Topic title={'Topic 7'} />*/}
                         </div>
                         <Form>
                             <Form.Check id="sidebar-checkbox"
@@ -95,7 +119,9 @@ class Sidebar extends React.Component{
                 </div>
                 <NPElse>
                     <ConnectionForm  onFormSaved={() => this.setState({showConnectionForm:false})}
-                                     onCancel={() => this.setState({showConnectionForm:false})}/>
+                                     onCancel={() => this.setState({showConnectionForm:false})}
+                                     selectedContributions={this.props.selectedContributions}
+                    />
                 </NPElse>
             </NPIf>
 
@@ -106,9 +132,11 @@ class Sidebar extends React.Component{
 export default Sidebar;
 
 Sidebar.propTypes = {
-
+    selectedContributions : PropTypes.array,
+    onTopicSelected       : PropTypes.func
 };
 
 Sidebar.defaultProps = {
-
+    selectedContributions : [],
+    onTopicSelected       : () => {}
 };

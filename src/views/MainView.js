@@ -9,9 +9,20 @@ import PlotView from "./plots/PlotView";
 
 class MainView extends React.Component{
     static contextType = AuthContext;
-
+    constructor() {
+        super();
+        this.state = {
+            selectedContributions:[],
+            selectedTopic:null
+        }
+    }
     onSearchBoxChange(value){
         this.plotView.search(value);
+    }
+    onTopicSelected(topic){
+        this.setState({
+            selectedTopic:topic
+        })
     }
     render(){
         return(
@@ -21,9 +32,18 @@ class MainView extends React.Component{
                     <div className={'wrapper-content'}>
                         <div className={'content'}>
                             <Header onSearchBoxChange={(value) => this.onSearchBoxChange(value)}/>
-                            <PlotView ref={(ref) => this.plotView = ref}></PlotView>
+                            <PlotView ref={(ref) => this.plotView = ref}
+                                      selectedTopic={this.state.selectedTopic}
+                                      onContributionSelected={(contributions) =>{
+                                          this.setState({
+                                              selectedContributions:contributions
+                                          })
+                                      }}
+                            ></PlotView>
                         </div>
-                        <Sidebar />
+                        <Sidebar selectedContributions={this.state.selectedContributions} onTopicSelected={(topic) =>{
+                            this.onTopicSelected(topic)
+                        }}/>
                     </div>
                 </div>
             </NPIf>

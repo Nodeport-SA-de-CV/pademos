@@ -19,7 +19,7 @@ class Topic extends React.Component{
 
     render(){
         return(
-            <div className={`topic ${this.props.color} ${this.props.className}`}
+            <div className={`topic ${this.props.className}`} style={{backgroundColor:this.props.color}}
                  onClick={() => this.props.onClick()}>
                 {this.props.title}
                 <NPIf condition={this.props.icon !== ''}>

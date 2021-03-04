@@ -98,5 +98,36 @@ const API = {
                 return error;
             });
     },
+    getTopics() {
+        return fetch(`${API.API_URL}/topics`, {
+            method: "GET",
+            credentials: "include",
+        })
+            .then((response) => response.json())
+            .then((response) => {
+                return response;
+            })
+            .catch((error) => {
+                return error;
+            });
+    },
+    postTopic(topic) {
+        return fetch(API.API_URL + `/topics`, {
+            method: "POST",
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(topic),
+            credentials: "include",
+        })
+            .then((response) => response.json())
+            .then((responseJson) => {
+                return responseJson;
+            })
+            .catch((error) => {
+                return error;
+            });
+    },
 };
 export default API;
