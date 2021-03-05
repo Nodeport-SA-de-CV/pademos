@@ -5,42 +5,46 @@ import Contribution from "./Contribution";
 import Group from "./Group";
 import PropTypes from "prop-types";
 import Sidebar from "../Sidebar";
+import NPElse from "np-if/src/NPElse";
+import {Spinner} from "react-bootstrap";
+
 class TreeMapHtml extends React.Component {
 
     constructor(props) {
         super(props);
-        this.state     = {
+        this.state  = {
             d3: '',
             data: null,
-            selectedContributions: []
+            selectedContributions: [],
         }
-        this.svg       = null;
-        this.search    = this.search.bind(this);
+        this.svg    = null;
+        this.search = this.search.bind(this);
     }
 
     componentDidMount() {
         this.loadData();
     }
 
-    onContributionSelected(contribution){
+    onContributionSelected(contribution) {
         let newContributions = this.state.selectedContributions;
 
-        if(newContributions.find((c) => c._id === contribution._id)){
+        if (newContributions.find((c) => c._id === contribution._id)) {
             newContributions = newContributions.filter((c) => c._id !== contribution._id);
-        }else{
+        } else {
             newContributions.push(contribution)
         }
         this.setState({
-            selectedContributions:newContributions
+            selectedContributions: newContributions
         });
         this.props.onContributionSelected(newContributions);
     }
-    search(value){
-        var search = new RegExp(value , 'i');
+
+    search(value) {
+        var search = new RegExp(value, 'i');
         // console.log(this.state.data)
-        const data = this.state.topics.filter((t) =>{
+        const data = this.state.topics.filter((t) => {
             // search in all contributions
-            t = t.contributions.map((contribution) =>{
+            t = t.contributions.map((contribution) => {
                 contribution.isDisabled = !(
                     (value ? search.test(contribution.document_what) : true)
                     && (this.props.searchKeyWord ? contribution.topic_keywords.includes(this.props.searchKeyWord) : true)
@@ -52,31 +56,37 @@ class TreeMapHtml extends React.Component {
             return t;
         })
         this.setState({
-            data:data
+            data: data
         })
 
     }
-    loadData(){
-        API.getContributions().then((res) =>{
-            if(res.success){
+
+    loadData() {
+        this.setState({isLoading: true})
+        API.getContributions().then((res) => {
+            if (res.success) {
                 this.props.onTopicsLoaded(res.topics);
                 this.setState({
-                    data:res.topics,
-                    topics:res.topics
-                }, () =>{
+                    data: res.topics,
+                    topics: res.topics,
+                    isLoading: false
+                }, () => {
                 })
             }
         })
     }
-    render(){
-        if(this.state.data === null){
-            return null;
+
+    render() {
+        if (this.state.data === null || this.state.isLoading) {
+            return(
+                <Spinner animation={'grow'} style={{width:200,height:200,backgroundColor:"#5c1919e6"}}></Spinner>
+            )
         }
-        const data = this.state.data;
+        const data      = this.state.data;
         // translate(${this.props.x}px,${this.props.y}px`
         const translate = `translate3d(${this.props.translateX}px,${this.props.translateY}px,1px)`;
         // console.log(` translate(${this.props.X}px,${this.props.Y}px)`);
-        const rect  = this.treeMapHTMLRef ? this.treeMapHTMLRef.getBoundingClientRect() : null;
+        const rect      = this.treeMapHTMLRef ? this.treeMapHTMLRef.getBoundingClientRect() : null;
         // const offsetLeft = this.treeMapHTMLRef ? this.treeMapHTMLRef.offsetLeft : 0;
         // if(rect){
         //     console.log(rect.x,rect.y)
@@ -109,23 +119,26 @@ class TreeMapHtml extends React.Component {
 }
 
 TreeMapHtml.propTypes = {
-    onContributionSelected      : PropTypes.func,
-    selectedTopic               : PropTypes.object,
-    onClickContributionDetails  : PropTypes.func,
-    onTopicsLoaded              : PropTypes.func,
-    searchKeyword               : PropTypes.string,
-    searchDocumentType          : PropTypes.string,
-    zoom                        : PropTypes.number
+    onContributionSelected: PropTypes.func,
+    selectedTopic: PropTypes.object,
+    onClickContributionDetails: PropTypes.func,
+    onTopicsLoaded: PropTypes.func,
+    searchKeyword: PropTypes.string,
+    searchDocumentType: PropTypes.string,
+    zoom: PropTypes.number
 };
 
 TreeMapHtml.defaultProps = {
-    onContributionSelected      : () => {},
-    selectedTopic               : null,
-    onClickContributionDetails  : () => {},
-    onTopicsLoaded              : () => {},
-    searchKeyword               : 'idee',
-    searchDocumentType          : '',
-    zoom                        : 1
+    onContributionSelected: () => {
+    },
+    selectedTopic: null,
+    onClickContributionDetails: () => {
+    },
+    onTopicsLoaded: () => {
+    },
+    searchKeyword: 'idee',
+    searchDocumentType: '',
+    zoom: 1
 };
 export default TreeMapHtml;
 

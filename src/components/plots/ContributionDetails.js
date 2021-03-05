@@ -108,7 +108,6 @@ class ContributionDetails extends React.Component {
         let showConnections = false;
         // if(this.props.topic){
         //     const contributionIds = this.props.topic.contributions.map((c) => c._id);
-        //     console.log(contributionIds)
         //     if(contributionIds.includes(this.props.contribution._id)){
         //         showConnections = true;
         //     }
