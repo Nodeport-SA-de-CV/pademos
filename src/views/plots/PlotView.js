@@ -100,34 +100,35 @@ class PlotView extends React.Component {
                                  onTopicsLoaded={(contributions) => this.props.onTopicsLoaded(contributions)}
                                  searchKeyWord={this.props.searchKeyWord}
                                  searchDocumentType={this.props.searchDocumentType}
+                                 onClickContributionDetails={(contribution) => this.props.onClickContributionDetails(contribution)}
                                  zoom={this.state.zoom}
                                  translateX={this.state.translateX}
                                  translateY={this.state.translateY}
                                  isDragging={this.state.isDragging}
                     >
-
-
                     </TreeMapHtml>
             </div>
 
         )
     }
 };
+
 PlotView.propTypes = {
-    onContributionSelected: PropTypes.func,
-    selectedTopic: PropTypes.object,
-    onTopicsLoaded: PropTypes.func,
-    searchKeyWord: PropTypes.string
+    onContributionSelected : PropTypes.func,
+    selectedTopic          : PropTypes.object,
+    onClickedContribution  : PropTypes.func,
+    onTopicsLoaded         : PropTypes.func,
+    searchKeyWord          : PropTypes.string
 };
 
 PlotView.defaultProps = {
-    onContributionSelected: () => {
-    },
-    selectedTopic: null,
-    onTopicsLoaded: () => {
-    },
-    searchKeyWord: ''
+    onContributionSelected : () => {},
+    selectedTopic          : null,
+    onClickedContribution  : () => {}
+    onTopicsLoaded         : () => {},
+    searchKeyWord          : ''
 };
+
 export default PlotView;
 
 

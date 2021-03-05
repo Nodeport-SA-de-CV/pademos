@@ -13,6 +13,7 @@ class Contribution extends React.Component {
         this.state = {
             isMouseOver: false,
         }
+        this.onClicked = this.onClicked.bind(this);
     }
 
     componentDidMount() {
@@ -24,6 +25,14 @@ class Contribution extends React.Component {
             _this.setState({isMouseOver: false})
         }, false)
     }
+
+    onClicked(){
+        console.log(this.props.contribution);
+        const contribution = this.props.contribution;
+        contribution.color = this.props.bgColor;
+        this.props.onClickContributionDetails(contribution);
+    }
+
 
     render() {
         const bgColor = this.props.contribution.isDisabled ? 'gray' : this.props.bgColor;
@@ -43,13 +52,13 @@ class Contribution extends React.Component {
                  }} ref={(ref) => this.contribution = ref}>
                 <NPIf condition={this.state.isMouseOver || this.props.isSelected}>
                     <UISelector isSelected={this.props.isSelected}
-                                onClick={(isSelected) => this.props.onContributionSelected(this.props.contribution)}></UISelector>
+                                onClick={(isSelected) => this.props.onContributionSelected(this.props.contribution)} />
                 </NPIf>
                 <div className={'c-title mb-auto mt-auto'}>{this.props.contribution.document_what}</div>
+                <div onClick={(c) => this.onClicked()}>... alles anzeigen</div>
                 <div className={'c-wrapper-icons'}>
                     <img className={'c-icon'} src={Icon1}/>
                     <img className={'c-icon'} src={Icon2}/>
-
                 </div>
             </div>
         )
@@ -60,13 +69,15 @@ Contribution.propTypes = {
     contribution: PropTypes.object,
     bgColor: PropTypes.string,
     onContributionSelected: PropTypes.func,
-    isSelected: PropTypes.bool
+    isSelected: PropTypes.bool,
+    onClickContributionDetails: PropTypes.func
 };
 
 Contribution.defaultProps = {
     contribution: {},
     bgColor: '#1A87D7',
     onContributionSelected : () => {},
-    isSelected: false
+    isSelected: false,
+    onClickContributionDetails: () => {}
 };
 export default Contribution;

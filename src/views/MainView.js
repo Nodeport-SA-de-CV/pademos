@@ -6,13 +6,17 @@ import NavBar from "../components/NavBar";
 import Sidebar from "../components/Sidebar";
 import Header from "../components/Header";
 import PlotView from "./plots/PlotView";
-import {keywords} from "d3/dist/package";
+import PropTypes from "prop-types";
+import ContributionDetails from "../components/plots/ContributionDetails";
+
 
 class MainView extends React.Component{
     static contextType = AuthContext;
     constructor() {
         super();
         this.state = {
+            clickedContribution:{},
+            showContributionDetails:false
             selectedContributions: [],
             selectedTopic: null,
             topics: [],
@@ -52,6 +56,7 @@ class MainView extends React.Component{
             selectedTopic:topic
         })
     }
+
     onTopicsLoaded(topics){
         this.setState({
             topics : topics,
@@ -59,6 +64,7 @@ class MainView extends React.Component{
             keywords: [].concat.apply([],topics.map((t) => t.contributions[0].topic_keywords))
         });
     }
+
     render(){
         return(
             <NPIf condition={this.context.isLoggedIn}>
@@ -71,21 +77,36 @@ class MainView extends React.Component{
                                     onDocumentTypeChange={(documentType) => this.onDocumentTypeChange(documentType)}
                                     keywords={this.state.keywords}
                                     contributions={this.state.contributionsCount}/>
-                            <PlotView ref={(ref) => this.plotView = ref}
-                                      onTopicsLoaded={(topics) => this.onTopicsLoaded(topics)}
-                                      searchKeyWord={this.state.searchKeyWord}
-                                      searchDocumentType={this.state.searchDocumentType}
-                                      selectedTopic={this.state.selectedTopic}
-                                      onContributionSelected={(contributions) =>{
-                                          this.setState({
-                                              selectedContributions:contributions
-                                          })
-                                      }}
-                            ></PlotView>
+                            <NPIf condition={! this.state.showContributionDetails}>
+                                {/*TODO: REMOVE THIS WRAPPER INSTEAD US THE TREEMAPHTML COMPONENT*/}
+                                <PlotView ref={(ref) => this.plotView = ref}
+                                          selectedTopic={this.state.selectedTopic}
+                                          onTopicsLoaded={(topics) => this.onTopicsLoaded(topics)}
+                                          searchKeyWord={this.state.searchKeyWord}
+                                          searchDocumentType={this.state.searchDocumentType}
+                                          onContributionSelected={(contributions) =>{
+                                              this.setState({
+                                                  selectedContributions:contributions
+                                              })
+                                          }}
+                                          onClickContributionDetails={
+                                              (contribution) => this.setState({
+                                                  clickedContribution:contribution,
+                                                  showContributionDetails:true})
+                                          }>
+                                </PlotView>
+                                <NPElse>
+                                    <ContributionDetails contribution={this.state.clickedContribution}
+                                                         onClickClose={() => this.setState({
+                                                             showContributionDetails:false,
+                                                             clickedContribution: {}
+                                                         })}/>
+                                </NPElse>
+                            </NPIf>
                         </div>
-                        <Sidebar selectedContributions={this.state.selectedContributions} onTopicSelected={(topic) =>{
-                            this.onTopicSelected(topic)
-                        }}/>
+                        <Sidebar selectedContributions={this.state.selectedContributions}
+                                 onTopicSelected={(topic) =>{this.onTopicSelected(topic)}}
+                        />
                     </div>
                 </div>
             </NPIf>
