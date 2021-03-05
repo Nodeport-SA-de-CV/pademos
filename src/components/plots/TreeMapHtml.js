@@ -85,7 +85,8 @@ class TreeMapHtml extends React.Component {
                             return(
                                 <Group group={group}  key={index} selectedTopic={this.props.selectedTopic}
                                        selectedContributions={this.state.selectedContributions}
-                                       onContributionSelected={(contribution) => this.onContributionSelected(contribution)}>
+                                       onContributionSelected={(contribution) => this.onContributionSelected(contribution)}
+                                       onClickContributionDetails={(contribution) => this.props.onClickContributionDetails(contribution)}>
                                 </Group>
                             )
                     })
@@ -96,21 +97,24 @@ class TreeMapHtml extends React.Component {
 }
 
 TreeMapHtml.propTypes = {
-    onContributionSelected : PropTypes.func,
-    selectedTopic          : PropTypes.object,
-    onTopicsLoaded         : PropTypes.func,
-    searchKeyword          : PropTypes.string,
-    searchDocumentType     : PropTypes.string,
-    zoom                   : PropTypes.number
+    onContributionSelected      : PropTypes.func,
+    selectedTopic               : PropTypes.object,
+    onClickContributionDetails  : PropTypes.func
+    onTopicsLoaded              : PropTypes.func,
+    searchKeyword               : PropTypes.string,
+    searchDocumentType          : PropTypes.string,
+    zoom                        : PropTypes.number
 };
 
 TreeMapHtml.defaultProps = {
-    onContributionSelected : () => {},
-    selectedTopic          : null,
-    onTopicsLoaded         : () => {},
-    searchKeyword          : 'idee',
-    searchDocumentType     : '',
-    zoom                   : 1
+    onContributionSelected      : () => {},
+    selectedTopic               : null,
+    onClickContributionDetails  : () => {}
+    onTopicsLoaded              : () => {},
+    searchKeyword               : 'idee',
+    searchDocumentType          : '',
+    zoom                        : 1
+
 };
 export default TreeMapHtml;
 

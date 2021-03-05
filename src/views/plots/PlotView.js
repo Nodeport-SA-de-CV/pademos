@@ -35,7 +35,6 @@ class PlotView extends React.Component {
     render() {
         return (
             <div className={'h-100 d-flex'} onWheel={(v) => this.onWheel(v)}>
-
                 <ScrollContainer vertical={true} horizontal={true} className={'h-100 w-100 d-flex'}>
                     <TreeMapHtml ref={(ref) => this.treeMapHtml = ref}
                                  selectedTopic={this.props.selectedTopic}
@@ -44,9 +43,9 @@ class PlotView extends React.Component {
                                  searchKeyWord={this.props.searchKeyWord}
                                  searchDocumentType={this.props.searchDocumentType}
                                  zoom={this.state.zoom}
+                                 onClickContributionDetails={(contribution) => this.props.onClickContributionDetails(contribution)}
+
                     >
-
-
                     </TreeMapHtml>
                 </ScrollContainer>
             </div>
@@ -54,21 +53,23 @@ class PlotView extends React.Component {
         )
     }
 };
+
 PlotView.propTypes = {
-    onContributionSelected: PropTypes.func,
-    selectedTopic: PropTypes.object,
-    onTopicsLoaded: PropTypes.func,
-    searchKeyWord: PropTypes.string
+    onContributionSelected : PropTypes.func,
+    selectedTopic          : PropTypes.object,
+    onClickedContribution  : PropTypes.func,
+    onTopicsLoaded         : PropTypes.func,
+    searchKeyWord          : PropTypes.string
 };
 
 PlotView.defaultProps = {
-    onContributionSelected: () => {
-    },
-    selectedTopic: null,
-    onTopicsLoaded: () => {
-    },
-    searchKeyWord: ''
+    onContributionSelected : () => {},
+    selectedTopic          : null,
+    onClickedContribution  : () => {}
+    onTopicsLoaded         : () => {},
+    searchKeyWord          : ''
 };
+
 export default PlotView;
 
 
