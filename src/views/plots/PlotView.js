@@ -124,7 +124,7 @@ PlotView.propTypes = {
 PlotView.defaultProps = {
     onContributionSelected : () => {},
     selectedTopic          : null,
-    onClickedContribution  : () => {}
+    onClickedContribution  : () => {},
     onTopicsLoaded         : () => {},
     searchKeyWord          : ''
 };

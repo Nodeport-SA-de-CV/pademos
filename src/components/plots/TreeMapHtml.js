@@ -111,7 +111,7 @@ class TreeMapHtml extends React.Component {
 TreeMapHtml.propTypes = {
     onContributionSelected      : PropTypes.func,
     selectedTopic               : PropTypes.object,
-    onClickContributionDetails  : PropTypes.func
+    onClickContributionDetails  : PropTypes.func,
     onTopicsLoaded              : PropTypes.func,
     searchKeyword               : PropTypes.string,
     searchDocumentType          : PropTypes.string,
@@ -121,7 +121,7 @@ TreeMapHtml.propTypes = {
 TreeMapHtml.defaultProps = {
     onContributionSelected      : () => {},
     selectedTopic               : null,
-    onClickContributionDetails  : () => {}
+    onClickContributionDetails  : () => {},
     onTopicsLoaded              : () => {},
     searchKeyword               : 'idee',
     searchDocumentType          : '',

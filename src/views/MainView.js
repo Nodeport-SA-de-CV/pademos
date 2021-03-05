@@ -16,7 +16,7 @@ class MainView extends React.Component{
         super();
         this.state = {
             clickedContribution:{},
-            showContributionDetails:false
+            showContributionDetails:false,
             selectedContributions: [],
             selectedTopic: null,
             topics: [],
