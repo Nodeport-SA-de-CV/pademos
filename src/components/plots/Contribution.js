@@ -28,7 +28,9 @@ class Contribution extends React.Component {
 
     onClicked(){
         console.log(this.props.contribution);
-        this.props.onClickContributionDetails(this.props.contribution)
+        const contribution = this.props.contribution;
+        contribution.color = this.props.bgColor;
+        this.props.onClickContributionDetails(contribution);
     }
 
 

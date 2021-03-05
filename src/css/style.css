@@ -622,7 +622,39 @@ search-box-wrapper{
     display: flex;
     flex-direction: column;
     overflow: hidden;
-    padding: 1rem;
     color: white;
     font-size: 0.9rem;
+    flex:1;
+}
+.contribution-details-header{
+    display: flex;
+    flex-direction: row;
+}
+.cd-wrapper-title{
+    margin-top: 0.5rem;
+    margin-left: 1rem;
+}
+
+.cd-title{
+    font-size: 1.5rem;
+}
+.cd-close-btn{
+    font-size: 1.5rem;
+    cursor: pointer;
+    margin-right: 1rem;
+    margin-top: 0.5rem;
+}
+.cd-content{
+    padding: 1rem;
+}
+.cd-keywords{
+    display: flex;
+    flex-direction: row;
+    color: #0C0C0C;
+    font-weight: 500;
+    flex-wrap: wrap;
+    margin-bottom: 1rem;
+}
+.cd-keywords div:not(:last-child){
+    margin-right: 1rem;
 }

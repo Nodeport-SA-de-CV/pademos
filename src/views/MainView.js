@@ -7,6 +7,7 @@ import Sidebar from "../components/Sidebar";
 import Header from "../components/Header";
 import PlotView from "./plots/PlotView";
 import PropTypes from "prop-types";
+import ContributionDetails from "../components/plots/ContributionDetails";
 
 class MainView extends React.Component{
     static contextType = AuthContext;
@@ -15,7 +16,8 @@ class MainView extends React.Component{
         this.state = {
             selectedContributions:[],
             selectedTopic:null,
-            clickedContribution:{}
+            clickedContribution:{},
+            showContributionDetails:false
         }
     }
     onSearchBoxChange(value){
@@ -35,17 +37,29 @@ class MainView extends React.Component{
                     <div className={'wrapper-content'}>
                         <div className={'content'}>
                             <Header onSearchBoxChange={(value) => this.onSearchBoxChange(value)}/>
-                            <PlotView ref={(ref) => this.plotView = ref}
-                                      selectedTopic={this.state.selectedTopic}
-                                      onContributionSelected={(contributions) =>{
-                                          this.setState({
-                                              selectedContributions:contributions
-                                          })
-                                      }}
-                                      onClickContributionDetails={
-                                          (contribution) => this.setState({clickedContribution:contribution})
-                                      }
-                        />
+                            <NPIf condition={! this.state.showContributionDetails}>
+                                {/*TODO: REMOVE THIS WRAPPER INSTEAD US THE TREEMAPHTML COMPONENT*/}
+                                <PlotView ref={(ref) => this.plotView = ref}
+                                          selectedTopic={this.state.selectedTopic}
+                                          onContributionSelected={(contributions) =>{
+                                              this.setState({
+                                                  selectedContributions:contributions
+                                              })
+                                          }}
+                                          onClickContributionDetails={
+                                              (contribution) => this.setState({
+                                                  clickedContribution:contribution,
+                                                  showContributionDetails:true})
+                                          }>
+                                </PlotView>
+                                <NPElse>
+                                    <ContributionDetails contribution={this.state.clickedContribution}
+                                                         onClickClose={() => this.setState({
+                                                             showContributionDetails:false,
+                                                             clickedContribution: {}
+                                                         })}/>
+                                </NPElse>
+                            </NPIf>
                         </div>
                         <Sidebar selectedContributions={this.state.selectedContributions}
                                  onTopicSelected={(topic) =>{this.onTopicSelected(topic)}}
