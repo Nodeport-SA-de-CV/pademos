@@ -21,6 +21,7 @@ class TreeMapHtml extends React.Component {
     componentDidMount() {
         this.loadData();
     }
+
     onContributionSelected(contribution){
         let newContributions = this.state.selectedContributions;
 
@@ -40,11 +41,6 @@ class TreeMapHtml extends React.Component {
         const data = this.state.topics.filter((t) =>{
             // search in all contributions
             t = t.contributions.map((contribution) =>{
-                console.log(
-                    (value ? !search.test(contribution.document_what) : true),
-                    (this.props.searchKeyWord ? contribution.topic_keywords.includes(this.props.searchKeyWord) : true),
-                    (this.props.searchDocumentType ? contribution.document_type !== this.props.searchDocumentType : true)
-                )
                 contribution.isDisabled = !(
                     (value ? search.test(contribution.document_what) : true)
                     && (this.props.searchKeyWord ? contribution.topic_keywords.includes(this.props.searchKeyWord) : true)
@@ -77,13 +73,29 @@ class TreeMapHtml extends React.Component {
             return null;
         }
         const data = this.state.data;
-
+        // translate(${this.props.x}px,${this.props.y}px`
+        const translate = `translate3d(${this.props.translateX}px,${this.props.translateY}px,1px)`;
+        // console.log(` translate(${this.props.X}px,${this.props.Y}px)`);
+        const rect  = this.treeMapHTMLRef ? this.treeMapHTMLRef.getBoundingClientRect() : null;
+        // const offsetLeft = this.treeMapHTMLRef ? this.treeMapHTMLRef.offsetLeft : 0;
+        // if(rect){
+        //     console.log(rect.x,rect.y)
+        // }
         return(
-            <div className={'groups'}  style={{transform:`scale(${this.props.zoom})`}} >
+            <div className={'groups noselect'}  style={{transform:`scale(${this.props.zoom}) ${translate}`}}
+                 ref={(ref) => this.treeMapHTMLRef = ref}
+                 onMouseOver={(e) =>{
+                     e.stopPropagation();
+                 }}
+            >
                     {
                         data.map((group,index   ) =>{
                             return(
                                 <Group group={group}  key={index} selectedTopic={this.props.selectedTopic}
+                                       style={{
+                                           transition: !this.props.isDragging ? 'all .2s ease-out' : ''
+                                       }}
+                                       isDragging={this.props.isDragging}
                                        selectedContributions={this.state.selectedContributions}
                                        onContributionSelected={(contribution) => this.onContributionSelected(contribution)}
                                        onClickContributionDetails={(contribution) => this.props.onClickContributionDetails(contribution)}>
@@ -114,7 +126,6 @@ TreeMapHtml.defaultProps = {
     searchKeyword               : 'idee',
     searchDocumentType          : '',
     zoom                        : 1
-
 };
 export default TreeMapHtml;
 
