@@ -87,6 +87,7 @@ class Group extends React.Component {
                                               topic={this.props.selectedTopic}
                                               isSelected={this.isContributionSelected(contribution)}
                                               onContributionSelected={(c) => this.props.onContributionSelected(c)}
+                                              isDragging={this.props.isDragging}
                                 />
                             )
 
