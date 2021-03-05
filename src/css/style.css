@@ -598,9 +598,44 @@ search-box-wrapper{
 .contribution:nth-child(even):hover {
     margin-left: -194px;
 }
+.c-header-row{
+    display: flex;
+    flex-direction: row;
+}
+.c-header-column{
+    display: flex;
+    flex-direction: column;
+    flex:1;
+}
+.c-header-column .c-title{
+    margin-top: auto;
+    margin-bottom: auto;
+}
+.c-header-row .c-title{
+    margin-left: 5px;
+    color: white;
+    font-weight: 500;
+}
 .c-title{
+    overflow: hidden;
+}
+.c-content{
+    display: flex;
+    flex-direction: column;
+    flex:1;
+}
+.c-description{
+    margin-top: 0.5rem;
     height: 3rem;
     overflow: hidden;
+}
+.c-show-all-btn{
+    color:white;
+    cursor: pointer;
+    align-self: flex-end;
+}
+.c-keywords{
+    font-size: 0.85rem;
 }
 .c-wrapper-icons{
     align-self: flex-end;
@@ -638,6 +673,7 @@ search-box-wrapper{
     color: white;
     font-size: 0.9rem;
     flex:1;
+    overflow-y: auto
 }
 .contribution-details-header{
     display: flex;
