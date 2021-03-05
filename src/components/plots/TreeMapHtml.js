@@ -79,7 +79,7 @@ class TreeMapHtml extends React.Component {
         const data = this.state.data;
 
         return(
-            <div className={'groups'} >
+            <div className={'groups'}  style={{transform:`scale(${this.props.zoom})`}} >
                     {
                         data.map((group,index   ) =>{
                             return(
@@ -100,7 +100,8 @@ TreeMapHtml.propTypes = {
     selectedTopic          : PropTypes.object,
     onTopicsLoaded         : PropTypes.func,
     searchKeyword          : PropTypes.string,
-    searchDocumentType     : PropTypes.string
+    searchDocumentType     : PropTypes.string,
+    zoom                   : PropTypes.number
 };
 
 TreeMapHtml.defaultProps = {
@@ -108,7 +109,8 @@ TreeMapHtml.defaultProps = {
     selectedTopic          : null,
     onTopicsLoaded         : () => {},
     searchKeyword          : 'idee',
-    searchDocumentType     : ''
+    searchDocumentType     : '',
+    zoom                   : 1
 };
 export default TreeMapHtml;
 
