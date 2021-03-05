@@ -43,7 +43,6 @@ class PlotView extends React.Component {
         })
     }
     onMouseDown(e){
-        console.log(e)
         this.setState({
             isDragging:true,
             startDraggingX:e.nativeEvent.pageX,
@@ -58,17 +57,11 @@ class PlotView extends React.Component {
         })
     }
     onMouseMove(e){
-        // const translateX = this.state.translateX - e.nativeEvent.pageX - this.state.startDraggingX;
-        // const translateY = this.state.translateY - e.nativeEvent.pageY - this.state.startDraggingY;
-        // if(translateX <= 0)
-        console.log(this.state.isDragging)
         if(this.state.isDragging){
             const offSetX = this.state.startDraggingX - e.nativeEvent.pageX;
             const offSetY = this.state.startDraggingY - e.nativeEvent.pageY;
             const translateX = this.state.translateXAtStartDragging - offSetX
             const translateY = this.state.translateYAtStartDragging - offSetY
-            // console.log(e.nativeEvent.pageX,e.nativeEvent.pageY);
-            // console.log(this.state.translateX, e.nativeEvent.pageX, this.state.startDraggingX);
             this.setState({
                 X:e.nativeEvent.pageX,
                 Y:e.nativeEvent.pageY,
@@ -92,8 +85,12 @@ class PlotView extends React.Component {
                  onMouseUp={(e) => this.onMouseUp(e)}
                  onMouseMove={(e) => this.onMouseMove(e)}
                  onMouseLeave={(e) => this.onMouseLeave(e)}
-                 style={{overflow:'hidden'}}
+                 style={{overflow:'hidden',
+                     justifyContent: 'center',
+                     alignItems: 'center'
+                 }}
             >
+
                     <TreeMapHtml ref={(ref) => this.treeMapHtml = ref}
                                  selectedTopic={this.props.selectedTopic}
                                  onContributionSelected={(contributions) => this.props.onContributionSelected(contributions)}

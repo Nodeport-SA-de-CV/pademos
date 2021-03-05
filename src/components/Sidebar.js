@@ -70,7 +70,7 @@ class Sidebar extends React.Component{
                     <h4>Forschungsthemen</h4>
                     <div className={'btn btn-tiny txt-right'}>Anweisungen <FontAwesomeIcon icon={'caret-down'}/></div>
                     <div className={'sidebar-header'}>
-                        <h2>12</h2>
+                        <h2>{this.state.topics.length}</h2>
                         <div className={'sidebar-header-row'}>
                             <div>definierte Verbindungen</div>
                             <div className={'sidebar-icon-link'}
