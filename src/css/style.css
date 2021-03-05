@@ -646,6 +646,7 @@ search-box-wrapper{
 }
 .cd-content{
     padding: 1rem;
+    flex:1;
 }
 .cd-keywords{
     display: flex;
@@ -657,4 +658,30 @@ search-box-wrapper{
 }
 .cd-keywords div:not(:last-child){
     margin-right: 1rem;
+}
+.cd-footer{
+    display: flex;
+    flex-direction: row;
+    padding: 1rem 1rem 0.5rem 1rem;
+}
+.cd-footer img:not(:last-child){
+    margin-right: 10px;
+}
+/*--------------------------------------------------------------------------------------------------------------------*/
+/*--------------------------------------------------QUESTIONS---------------------------------------------------------*/
+/*--------------------------------------------------------------------------------------------------------------------*/
+.ui-question{
+    font-size: 0.9rem;
+}
+.question{
+    color:white;
+    font-weight: 500;
+}
+.answer{
+    border: 1px solid white;
+    color: black;
+    padding: 0.5rem;
+    overflow-y: hidden;
+    max-height: 100px;
+    min-height: 50px;
 }

@@ -5,6 +5,7 @@ import Icon1 from '../../img/icon1.png';
 import Icon2 from '../../img/icon2.png';
 import UISelector from "./ui/UISelector";
 import NPIf from "np-if";
+import UIQuestion from "./ui/UIQuestion";
 
 
 class ContributionDetails extends React.Component {
@@ -59,13 +60,20 @@ class ContributionDetails extends React.Component {
                             return <div key={index}>{keyword}</div>
                         })}
                     </div>
-                    <div>
-                        <div></div>
-                        <div></div>
-                    </div>
+                    <UIQuestion question={'Frage an Wissenschaftler: innen'}
+                                answer={'text of the answer'}
+                                className={'mb-4'}/>
+                    <UIQuestion question={'Wichtigkeit der Frage'}
+                                answer={'text of the answer'}
+                                className={'mb-4'}/>
+                    <UIQuestion question={'Gesellschaftsgruppen für die die Frage wichtig sein könnte'}
+                                answer={'text of the answer'}
+                                className={'mb-4'}/>
+                    <UIQuestion question={'Gesellschaftliche Folgen der Frage'}
+                                answer={'text of the answer'}/>
                 </div>
-                <div className={'c-wrapper-icons'}>
-                    Wissenschaftsthemen zu denen der Beitrag zugeordnet wurde:
+                <div className={'cd-footer'}>
+                    <span className={'mr-auto'}>Wissenschaftsthemen zu denen der Beitrag zugeordnet wurde:</span>
                     <img className={'c-icon'} src={Icon1}/>
                     <img className={'c-icon'} src={Icon2}/>
                 </div>
