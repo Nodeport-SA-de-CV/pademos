@@ -40,7 +40,16 @@ class TreeMapHtml extends React.Component {
         const data = this.state.topics.filter((t) =>{
             // search in all contributions
             t = t.contributions.map((contribution) =>{
-                contribution.isDisabled = ! search.test(contribution.document_what);
+                console.log(
+                    (value ? !search.test(contribution.document_what) : true),
+                    (this.props.searchKeyWord ? contribution.topic_keywords.includes(this.props.searchKeyWord) : true),
+                    (this.props.searchDocumentType ? contribution.document_type !== this.props.searchDocumentType : true)
+                )
+                contribution.isDisabled = !(
+                    (value ? search.test(contribution.document_what) : true)
+                    && (this.props.searchKeyWord ? contribution.topic_keywords.includes(this.props.searchKeyWord) : true)
+                    && (this.props.searchDocumentType ? contribution.document_type === this.props.searchDocumentType : true)
+                );
                 return contribution;
             })
 
@@ -54,6 +63,7 @@ class TreeMapHtml extends React.Component {
     loadData(){
         API.getContributions().then((res) =>{
             if(res.success){
+                this.props.onTopicsLoaded(res.topics);
                 this.setState({
                     data:res.topics,
                     topics:res.topics
@@ -86,13 +96,19 @@ class TreeMapHtml extends React.Component {
 }
 
 TreeMapHtml.propTypes = {
-    onContributionSelected: PropTypes.func,
-    selectedTopic          : PropTypes.object
+    onContributionSelected : PropTypes.func,
+    selectedTopic          : PropTypes.object,
+    onTopicsLoaded         : PropTypes.func,
+    searchKeyword          : PropTypes.string,
+    searchDocumentType     : PropTypes.string
 };
 
 TreeMapHtml.defaultProps = {
     onContributionSelected : () => {},
-    selectedTopic          : null
+    selectedTopic          : null,
+    onTopicsLoaded         : () => {},
+    searchKeyword          : 'idee',
+    searchDocumentType     : ''
 };
 export default TreeMapHtml;
 
