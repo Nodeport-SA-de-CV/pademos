@@ -584,8 +584,6 @@ search-box-wrapper{
 .contribution:hover{
     width: 388px;
     height:200px;
-
-
 }
 .contribution:nth-child(even):hover {
     margin-left: -194px;
@@ -616,4 +614,15 @@ search-box-wrapper{
     font-weight: bold;
     text-align: center;
     cursor: pointer;
+}
+/*--------------------------------------------------------------------------------------------------------------------*/
+/*-------------------------------------------CONTRIBUTION DETAILS-----------------------------------------------------*/
+/*--------------------------------------------------------------------------------------------------------------------*/
+.contribution-details{
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    padding: 1rem;
+    color: white;
+    font-size: 0.9rem;
 }

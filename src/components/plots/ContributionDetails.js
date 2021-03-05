@@ -6,14 +6,13 @@ import Icon2 from '../../img/icon2.png';
 import UISelector from "./ui/UISelector";
 import NPIf from "np-if";
 
-class Contribution extends React.Component {
+class ContributionDetails extends React.Component {
 
     constructor(props) {
         super(props);
         this.state = {
             isMouseOver: false,
         }
-        this.onClicked = this.onClicked.bind(this);
     }
 
     componentDidMount() {
@@ -26,12 +25,6 @@ class Contribution extends React.Component {
         }, false)
     }
 
-    onClicked(){
-        console.log(this.props.contribution);
-        this.props.onClickContributionDetails(this.props.contribution)
-    }
-
-
     render() {
         const bgColor = this.props.contribution.isDisabled ? 'gray' : this.props.bgColor;
         let showConnections = false;
@@ -43,39 +36,37 @@ class Contribution extends React.Component {
             }
         }
         return (
-            <div className={`contribution ${this.props.index}`}
+            <div className={`contribution-details ${this.props.index}`}
                  style={{
                      backgroundColor: bgColor,
                      border: showConnections ? `4px solid ${this.props.topic.color}` : ''
                  }} ref={(ref) => this.contribution = ref}>
                 <NPIf condition={this.state.isMouseOver || this.props.isSelected}>
                     <UISelector isSelected={this.props.isSelected}
-                                onClick={(isSelected) => this.props.onContributionSelected(this.props.contribution)} />
+                                onClick={(isSelected) => this.props.onContributionSelected(this.props.contribution)}/>
                 </NPIf>
                 <div className={'c-title mb-auto mt-auto'}>{this.props.contribution.document_what}</div>
-                <div onClick={(c) => this.onClicked()}>... alles anzeigen</div>
                 <div className={'c-wrapper-icons'}>
                     <img className={'c-icon'} src={Icon1}/>
                     <img className={'c-icon'} src={Icon2}/>
+
                 </div>
             </div>
         )
     }
 }
 
-Contribution.propTypes = {
+ContributionDetails.propTypes = {
     contribution: PropTypes.object,
     bgColor: PropTypes.string,
     onContributionSelected: PropTypes.func,
-    isSelected: PropTypes.bool,
-    onClickContributionDetails: PropTypes.func
+    isSelected: PropTypes.bool
 };
 
-Contribution.defaultProps = {
+ContributionDetails.defaultProps = {
     contribution: {},
     bgColor: '#1A87D7',
     onContributionSelected : () => {},
-    isSelected: false,
-    onClickContributionDetails: () => {}
+    isSelected: false
 };
-export default Contribution;
+export default ContributionDetails;

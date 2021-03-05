@@ -82,6 +82,7 @@ class Group extends React.Component {
                                               topic={this.props.selectedTopic}
                                               isSelected={this.isContributionSelected(contribution)}
                                               onContributionSelected={(c) => this.props.onContributionSelected(c)}
+                                              onClickContributionDetails={(c) => this.props.onClickContributionDetails(c)}
                                 />
                             )
 
@@ -98,7 +99,8 @@ Group.propTypes = {
     title                  : PropTypes.string,
     onContributionSelected : PropTypes.func,
     selectedContributions  : PropTypes.array,
-    selectedTopic          : PropTypes.object
+    selectedTopic          : PropTypes.object,
+    onClickContributionDetails : PropTypes.func
 };
 
 Group.defaultProps = {
@@ -106,7 +108,8 @@ Group.defaultProps = {
     title                  : 'Title',
     onContributionSelected : () => {},
     selectedContributions  : [],
-    selectedTopic          : null
+    selectedTopic          : null,
+    onClickContributionDetails : () => {}
 
 };
 export default Group;

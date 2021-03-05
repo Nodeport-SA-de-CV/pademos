@@ -6,6 +6,7 @@ import NavBar from "../components/NavBar";
 import Sidebar from "../components/Sidebar";
 import Header from "../components/Header";
 import PlotView from "./plots/PlotView";
+import PropTypes from "prop-types";
 
 class MainView extends React.Component{
     static contextType = AuthContext;
@@ -13,7 +14,8 @@ class MainView extends React.Component{
         super();
         this.state = {
             selectedContributions:[],
-            selectedTopic:null
+            selectedTopic:null,
+            clickedContribution:{}
         }
     }
     onSearchBoxChange(value){
@@ -24,6 +26,7 @@ class MainView extends React.Component{
             selectedTopic:topic
         })
     }
+
     render(){
         return(
             <NPIf condition={this.context.isLoggedIn}>
@@ -39,11 +42,14 @@ class MainView extends React.Component{
                                               selectedContributions:contributions
                                           })
                                       }}
-                            ></PlotView>
+                                      onClickContributionDetails={
+                                          (contribution) => this.setState({clickedContribution:contribution})
+                                      }
+                        />
                         </div>
-                        <Sidebar selectedContributions={this.state.selectedContributions} onTopicSelected={(topic) =>{
-                            this.onTopicSelected(topic)
-                        }}/>
+                        <Sidebar selectedContributions={this.state.selectedContributions}
+                                 onTopicSelected={(topic) =>{this.onTopicSelected(topic)}}
+                        />
                     </div>
                 </div>
             </NPIf>

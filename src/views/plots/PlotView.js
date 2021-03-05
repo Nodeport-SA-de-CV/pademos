@@ -18,20 +18,25 @@ class PlotView extends React.Component {
     render() {
         return (
             <div className={'h-100 d-flex'}>
-                <TreeMapHtml ref={(ref) => this.treeMapHtml = ref} selectedTopic={this.props.selectedTopic}
-                             onContributionSelected={(contributions) => this.props.onContributionSelected(contributions)}></TreeMapHtml>
+                <TreeMapHtml ref={(ref) => this.treeMapHtml = ref}
+                             selectedTopic={this.props.selectedTopic}
+                             onContributionSelected={(contributions) => this.props.onContributionSelected(contributions)}
+                             onClickContributionDetails={(contribution) => this.props.onClickContributionDetails(contribution)}
+                />
             </div>
         )
     }
 };
 PlotView.propTypes = {
     onContributionSelected : PropTypes.func,
-    selectedTopic          : PropTypes.object
+    selectedTopic          : PropTypes.object,
+    onClickedContribution  : PropTypes.func,
 };
 
 PlotView.defaultProps = {
     onContributionSelected : () => {},
-    selectedTopic          : null
+    selectedTopic          : null,
+    onClickedContribution  : () => {}
 };
 export default PlotView;
 

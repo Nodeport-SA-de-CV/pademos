@@ -75,7 +75,8 @@ class TreeMapHtml extends React.Component {
                             return(
                                 <Group group={group}  key={index} selectedTopic={this.props.selectedTopic}
                                        selectedContributions={this.state.selectedContributions}
-                                       onContributionSelected={(contribution) => this.onContributionSelected(contribution)}>
+                                       onContributionSelected={(contribution) => this.onContributionSelected(contribution)}
+                                       onClickContributionDetails={(contribution) => this.props.onClickContributionDetails(contribution)}>
                                 </Group>
                             )
                     })
@@ -86,13 +87,16 @@ class TreeMapHtml extends React.Component {
 }
 
 TreeMapHtml.propTypes = {
-    onContributionSelected: PropTypes.func,
-    selectedTopic          : PropTypes.object
+    onContributionSelected      : PropTypes.func,
+    selectedTopic               : PropTypes.object,
+    onClickContributionDetails  : PropTypes.func
 };
 
 TreeMapHtml.defaultProps = {
-    onContributionSelected : () => {},
-    selectedTopic          : null
+    onContributionSelected      : () => {},
+    selectedTopic               : null,
+    onClickContributionDetails  : () => {}
+
 };
 export default TreeMapHtml;
 
