@@ -40,7 +40,16 @@ class TreeMapHtml extends React.Component {
         const data = this.state.topics.filter((t) =>{
             // search in all contributions
             t = t.contributions.map((contribution) =>{
-                contribution.isDisabled = ! search.test(contribution.document_what);
+                console.log(
+                    (value ? !search.test(contribution.document_what) : true),
+                    (this.props.searchKeyWord ? contribution.topic_keywords.includes(this.props.searchKeyWord) : true),
+                    (this.props.searchDocumentType ? contribution.document_type !== this.props.searchDocumentType : true)
+                )
+                contribution.isDisabled = !(
+                    (value ? search.test(contribution.document_what) : true)
+                    && (this.props.searchKeyWord ? contribution.topic_keywords.includes(this.props.searchKeyWord) : true)
+                    && (this.props.searchDocumentType ? contribution.document_type === this.props.searchDocumentType : true)
+                );
                 return contribution;
             })
 
@@ -54,6 +63,7 @@ class TreeMapHtml extends React.Component {
     loadData(){
         API.getContributions().then((res) =>{
             if(res.success){
+                this.props.onTopicsLoaded(res.topics);
                 this.setState({
                     data:res.topics,
                     topics:res.topics
@@ -69,7 +79,7 @@ class TreeMapHtml extends React.Component {
         const data = this.state.data;
 
         return(
-            <div className={'groups'} >
+            <div className={'groups'}  style={{transform:`scale(${this.props.zoom})`}} >
                     {
                         data.map((group,index   ) =>{
                             return(
@@ -90,12 +100,20 @@ TreeMapHtml.propTypes = {
     onContributionSelected      : PropTypes.func,
     selectedTopic               : PropTypes.object,
     onClickContributionDetails  : PropTypes.func
+    onTopicsLoaded              : PropTypes.func,
+    searchKeyword               : PropTypes.string,
+    searchDocumentType          : PropTypes.string,
+    zoom                        : PropTypes.number
 };
 
 TreeMapHtml.defaultProps = {
     onContributionSelected      : () => {},
     selectedTopic               : null,
     onClickContributionDetails  : () => {}
+    onTopicsLoaded              : () => {},
+    searchKeyword               : 'idee',
+    searchDocumentType          : '',
+    zoom                        : 1
 
 };
 export default TreeMapHtml;

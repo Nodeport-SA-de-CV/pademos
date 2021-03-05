@@ -36,16 +36,26 @@ class Header extends React.Component{
                 <NPIf condition={this.props.showActions}>
                     <div className={'header-row justify-content-between align-items-start pt-3 pb-3'}>
                         <SearchBox onChange={(value) => this.props.onSearchBoxChange(value)}/>
-                        <select>
-                            <option>Stichwort</option>
+                        <select onChange={(e) => this.props.onKeyWordChange(e.target.value)}>
+                            <option value={''}>Stichwort</option>
+                            {
+                                this.props.keywords.map((k,i) =>{
+                                    return(
+                                        <option value={k} key={i}>{k}</option>
+                                    )
+                                })
+                            }
                         </select>
-                        <select>
-                            <option>Beitragsart</option>
+                        <select  onChange={(e) => this.props.onDocumentTypeChange(e.target.value)}>
+                            <option value={''}>Beitragsart</option>
+                            <option value={1}>Frage</option>
+                            <option value={2}>Problem</option>
+                            <option value={3}>Vision</option>
                         </select>
-                        <div className={'d-flex flex-column align-items-end'}>
-                            <div className={'btn btn-icon'}><FontAwesomeIcon icon={'plus'}/></div>
-                            einen Beitrag leisten
-                        </div>
+                        {/*<div className={'d-flex flex-column align-items-end'}>*/}
+                        {/*    <div className={'btn btn-icon'}><FontAwesomeIcon icon={'plus'}/></div>*/}
+                        {/*    einen Beitrag leisten*/}
+                        {/*</div>*/}
                     </div>
                 </NPIf>
             </div>
@@ -60,13 +70,19 @@ Header.propTypes = {
     contributions: PropTypes.string,
     subContributions: PropTypes.string,
     showActions: PropTypes.string,
-    onSearchBoxChange: PropTypes.func
+    onSearchBoxChange: PropTypes.func,
+    keywords          : PropTypes.array,
+    onKeyWordChange   : PropTypes.func,
+    onDocumentTypeChange : PropTypes.func
 };
 
 Header.defaultProps = {
     title: 'Bürgerthemen',
-    contributions: '36',
+    contributions: '-',
     subContributions: 'Eingereichte Beiträge',
     showActions: true,
-    onSearchBoxChange: (value) => {}
+    onSearchBoxChange: (value) => {},
+    keywords:[],
+    onKeyWordChange    : () => {},
+    onDocumentTypeChange : () => {}
 };

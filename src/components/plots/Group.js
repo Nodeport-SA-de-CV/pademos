@@ -26,7 +26,7 @@ class Group extends React.Component {
     }
     render(){
         const color = this.props.group.color;
-        const keywords = ['keyword 1', 'keyword 2', 'keyword 3', 'keyword 4', 'keyword 5', 'keyword 6', 'keyword 7', 'keyword 8', 'keyword 9', 'keyword 10'];
+        const keywords = this.props.group.contributions ? this.props.group.contributions[0].topic_keywords : [];
 
         return(
             <div onMouseLeave={() => this.showOverlay(false)}>
@@ -37,8 +37,13 @@ class Group extends React.Component {
                          onMouseEnter={() => this.showOverlay(true)}
                          >{this.props.group.name}</div>
                     <div className={'group-keywords'} >
-                         <div>#keyword 1</div>
-                         <div>#keyword 2</div>
+                        {
+                            keywords.slice(0,2).map((keyword,index) => {
+                                return(
+                                    <div key={index}>{keyword}</div>
+                                )
+                            })
+                        }
                     </div>
                     <FontAwesomeIcon className={'group-icon'}
                                      onClick={() => this.showOverlay(true)}
@@ -65,7 +70,7 @@ class Group extends React.Component {
                                 </div>
                                 <div className={'overlay-footer'}>
                                     <div>Anzahl der Beiträge</div>
-                                    <div className={'number'}>14</div>
+                                    <div className={'number'}>{this.props.group.contributions.length}</div>
                                 </div>
                             </div>
                         </div>
