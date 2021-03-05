@@ -13,7 +13,7 @@ class Contribution extends React.Component {
         this.state = {
             isMouseOver: false,
         }
-        this.onClicked = this.onClicked.bind(this);
+        this.onClickShowDetails = this.onClickShowDetails.bind(this);
     }
 
     componentDidMount() {
@@ -26,8 +26,7 @@ class Contribution extends React.Component {
         }, false)
     }
 
-    onClicked(){
-        console.log(this.props.contribution);
+    onClickShowDetails(){
         const contribution = this.props.contribution;
         contribution.color = this.props.bgColor;
         this.props.onClickContributionDetails(contribution);
@@ -36,6 +35,8 @@ class Contribution extends React.Component {
 
     render() {
         const bgColor = this.props.contribution.isDisabled ? 'gray' : this.props.bgColor;
+        const keywords = this.props.contribution.document_keywords ? this.props.contribution.document_keywords : [];
+
         let showConnections = false;
         if(this.props.topic){
             const contributionIds = this.props.topic.contributions.map((c) => c._id);
@@ -44,18 +45,43 @@ class Contribution extends React.Component {
                 showConnections = true;
             }
         }
+
         return (
             <div className={`contribution ${this.props.index}`}
                  style={{
                      backgroundColor: bgColor,
                      border: showConnections ? `4px solid ${this.props.topic.color}` : ''
-                 }} ref={(ref) => this.contribution = ref}>
-                <NPIf condition={this.state.isMouseOver || this.props.isSelected}>
-                    <UISelector isSelected={this.props.isSelected}
-                                onClick={(isSelected) => this.props.onContributionSelected(this.props.contribution)} />
+                 }}
+                 ref={(ref) => this.contribution = ref}>
+
+                <div className={this.state.isMouseOver ? 'c-header-row' : 'c-header-column'}>
+                    <NPIf condition={this.state.isMouseOver || this.props.isSelected}>
+                        <UISelector isSelected={this.props.isSelected}
+                                    onClick={(isSelected) => this.props.onContributionSelected(this.props.contribution)} />
+                    </NPIf>
+                    <div className={'c-title'}>{this.props.contribution.document_title}</div>
+                </div>
+
+                <NPIf condition={this.state.isMouseOver}>
+                    <div className={'c-content'}>
+                        <div className={'c-description'}>
+                            {this.props.contribution.document_what}
+                        </div>
+                        <div className={'c-show-all-btn'}
+                             onClick={(c) => this.onClickShowDetails()}>... alles anzeigen
+                        </div>
+                        <div className={'c-keywords'}>
+                            {
+                                keywords.slice(0,3).map((keyword,index) => {
+                                    return(
+                                        <div key={index}>{keyword}</div>
+                                    )
+                                })
+                            }
+                        </div>
+                    </div>
                 </NPIf>
-                <div className={'c-title mb-auto mt-auto'}>{this.props.contribution.document_what}</div>
-                <div onClick={(c) => this.onClicked()}>... alles anzeigen</div>
+
                 <div className={'c-wrapper-icons'}>
                     <img className={'c-icon'} src={Icon1}/>
                     <img className={'c-icon'} src={Icon2}/>

@@ -28,6 +28,15 @@ body {
     padding: 0px;
     margin: 0px;
 }
+
+.overflow-auto{
+    overflow: auto;
+}
+
+.w-100{
+    width: 100%;
+}
+
 /*--------------------------------------------------------------------------------------------------------------------*/
 /*---------------------------------------------------LAYOUT-------------------------------------------------------------*/
 /*--------------------------------------------------------------------------------------------------------------------*/
@@ -590,9 +599,44 @@ search-box-wrapper{
 .contribution:nth-child(even):hover {
     margin-left: -194px;
 }
+.c-header-row{
+    display: flex;
+    flex-direction: row;
+}
+.c-header-column{
+    display: flex;
+    flex-direction: column;
+    flex:1;
+}
+.c-header-column .c-title{
+    margin-top: auto;
+    margin-bottom: auto;
+}
+.c-header-row .c-title{
+    margin-left: 5px;
+    color: white;
+    font-weight: 500;
+}
 .c-title{
+    overflow: hidden;
+}
+.c-content{
+    display: flex;
+    flex-direction: column;
+    flex:1;
+}
+.c-description{
+    margin-top: 0.5rem;
     height: 3rem;
     overflow: hidden;
+}
+.c-show-all-btn{
+    color:white;
+    cursor: pointer;
+    align-self: flex-end;
+}
+.c-keywords{
+    font-size: 0.85rem;
 }
 .c-wrapper-icons{
     align-self: flex-end;
@@ -607,6 +651,9 @@ search-box-wrapper{
     height: 20px;
     width: 20px;
 }
+/*--------------------------------------------------------------------------------------------------------------------*/
+/*-------------------------------------------UI SELECTOR--------------------------------------------------------------*/
+/*--------------------------------------------------------------------------------------------------------------------*/
 .ui-selector{
     border: 1px solid white;
     color: white;
@@ -627,6 +674,7 @@ search-box-wrapper{
     color: white;
     font-size: 0.9rem;
     flex:1;
+    overflow-y: auto
 }
 .contribution-details-header{
     display: flex;
@@ -669,6 +717,15 @@ search-box-wrapper{
 .cd-footer img:not(:last-child){
     margin-right: 10px;
 }
+.cd-footer .c-icon{
+    height: 30px;
+    width: 30px;
+}
+.contribution-details-header .ui-selector{
+    width: 60px;
+    height: 60px;
+    font-size: 45px;
+}
 /*--------------------------------------------------------------------------------------------------------------------*/
 /*--------------------------------------------------QUESTIONS---------------------------------------------------------*/
 /*--------------------------------------------------------------------------------------------------------------------*/
@@ -680,20 +737,14 @@ search-box-wrapper{
     font-weight: 500;
 }
 .answer{
-    border: 1px solid white;
+    border: 2px solid white;
     color: black;
-    padding: 0.5rem;
+    padding: 0.25rem 0.5rem;
     overflow-y: hidden;
     max-height: 100px;
     min-height: 50px;
 }
-.overflow-auto{
-    overflow: auto;
-}
 
-.w-100{
-    width: 100%;
-}
 .noselect {
     -webkit-touch-callout: none; /* iOS Safari */
     -webkit-user-select: none; /* Safari */
@@ -703,3 +754,4 @@ search-box-wrapper{
     user-select: none; /* Non-prefixed version, currently
                                   supported by Chrome, Edge, Opera and Firefox */
 }
+

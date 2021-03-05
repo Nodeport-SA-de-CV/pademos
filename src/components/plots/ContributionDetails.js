@@ -17,18 +17,93 @@ class ContributionDetails extends React.Component {
                 break;
             case '2':
                 typeLabel = 'Problem';
+                break;
             case '3':
-                typeLabel = 'Vision';
+                typeLabel = 'Zukunftsvision';
+                break;
             default:
                 typeLabel = '';
         }
-
         return typeLabel;
+    }
+
+    renderQuestion1(type){
+        let question = '';
+        switch (type){
+            case '1':
+                question = 'Frage an Wissenschaftler: innen';
+                break;
+            case '2':
+                question = 'Ein Problem das in der Nutzung KI auftreten könnte';
+                break;
+            case '3':
+                question = 'Bewertung der zukünftigen Folgen der Nutzung von KI';
+                break;
+            default:
+                question = '';
+        }
+        return question;
+    }
+
+    renderQuestion2(type){
+        let question = '';
+        switch (type){
+            case '1':
+                question = 'Wichtigkeit der Frage';
+                break;
+            case '2':
+                question = 'Wichtigkeit des Problems';
+                break;
+            case '3':
+                question = 'Zukunftsnutzung von KI beschreiben';
+                break;
+            default:
+                question = '';
+        }
+        return question;
+    }
+
+    renderQuestion3(type){
+        let question = '';
+        switch (type){
+            case '1':
+                question = 'Gesellschaftsgruppen für die die Frage wichtig sein könnte';
+                break;
+            case '2':
+                question = 'Gesellschaftsgruppen für die das Problem existiert';
+                break;
+            case '3':
+                question = 'Gesellschaftsgruppen für die Zukunftsnutzung positiv/negativ sein kann';
+                break;
+            default:
+                question = '';
+        }
+        return question;
+    }
+
+    renderQuestion4(type){
+        let question = '';
+        switch (type){
+            case '1':
+                question = 'Gesellschaftliche Folgen der Frage';
+                break;
+            case '2':
+                question = 'Gesellschaftliche Folgen des Problems (falls ungelöst)';
+                break;
+            case '3':
+                question = 'Gesellschaftliche Folgen der Zukunftsnutzung';
+                break;
+            default:
+                question = '';
+        }
+        return question;
     }
 
     render() {
         const bgColor = this.props.contribution.color ? this.props.contribution.color : '#1A87D7';
         const keywords = this.props.contribution.document_keywords ? this.props.contribution.document_keywords : [];
+        const type = this.props.contribution.document_type ? this.props.contribution.document_type : '1';
+
 
         let showConnections = false;
         // if(this.props.topic){
@@ -48,7 +123,7 @@ class ContributionDetails extends React.Component {
                     </NPIf>
                     <div className={'cd-wrapper-title mr-auto'}>
                         <div className={'cd-title'}><b>{this.props.contribution.document_title}</b></div>
-                        <div>Beitragsart: {this.renderDocumentType(this.props.contribution.document_type)}</div>
+                        <div>Beitragsart: {this.renderDocumentType(type)}</div>
                     </div>
                     <FontAwesomeIcon className={'cd-close-btn'}
                                      icon={'times'}
@@ -60,16 +135,16 @@ class ContributionDetails extends React.Component {
                             return <div key={index}>{keyword}</div>
                         })}
                     </div>
-                    <UIQuestion question={'Frage an Wissenschaftler: innen'}
+                    <UIQuestion question={this.renderQuestion1(type)}
                                 answer={'text of the answer'}
                                 className={'mb-4'}/>
-                    <UIQuestion question={'Wichtigkeit der Frage'}
+                    <UIQuestion question={this.renderQuestion2(type)}
                                 answer={'text of the answer'}
                                 className={'mb-4'}/>
-                    <UIQuestion question={'Gesellschaftsgruppen für die die Frage wichtig sein könnte'}
+                    <UIQuestion question={this.renderQuestion3(type)}
                                 answer={'text of the answer'}
                                 className={'mb-4'}/>
-                    <UIQuestion question={'Gesellschaftliche Folgen der Frage'}
+                    <UIQuestion question={this.renderQuestion4(type)}
                                 answer={'text of the answer'}/>
                 </div>
                 <div className={'cd-footer'}>
