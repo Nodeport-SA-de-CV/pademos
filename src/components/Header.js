@@ -27,8 +27,8 @@ class Header extends React.Component{
                 {/*title row*/}
                 <div className={'header-row justify-content-between'}>
                     <div className={'txt-right'}>
-                        <h2>{this.props.title}</h2>
-                        <div className={'btn btn-tiny'}>Anweisungen <FontAwesomeIcon icon={'caret-down'}/></div>
+                        <h2>{this.props.title} <span>{this.props.subtitle}</span></h2>
+                        <div className={'btn btn-tiny'}>Was können Sie hier tun? <FontAwesomeIcon icon={'caret-down'}/></div>
                     </div>
                     <div className={'txt-right'}><h2>{this.props.contributions}</h2><div>{this.props.subContributions}</div></div>
                 </div>
@@ -67,6 +67,7 @@ export default Header;
 
 Header.propTypes = {
     title: PropTypes.string,
+    subtitle: PropTypes.string,
     contributions: PropTypes.string,
     subContributions: PropTypes.string,
     showActions: PropTypes.string,
@@ -77,7 +78,8 @@ Header.propTypes = {
 };
 
 Header.defaultProps = {
-    title: 'Bürgerthemen',
+    title: 'Bürgerbeiträge',
+    subtitle:'gruppiert nach Ähnlichkeit',
     contributions: '-',
     subContributions: 'Eingereichte Beiträge',
     showActions: true,
