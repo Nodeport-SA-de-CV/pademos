@@ -448,9 +448,9 @@ select{
     border: none;
     color:#4D4C4C;
     padding: 0.5rem;
-    appearance: none;
-    -moz-appearance: none;
-    -webkit-appearance: none;
+    /*appearance: none;*/
+    /*-moz-appearance: none;*/
+    /*-webkit-appearance: none;*/
 }
 
 .sidebar-form select{
