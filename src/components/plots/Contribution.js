@@ -50,7 +50,9 @@ class Contribution extends React.Component {
             <div className={`contribution ${this.props.index}`}
                  style={{
                      backgroundColor: bgColor,
-                     border: showConnections ? `4px solid ${this.props.topic.color}` : ''
+                     border: showConnections ? `4px solid ${this.props.topic.color}` : '',
+                     boxShadow: showConnections ? `0px 0px 3px ${this.props.topic.color}` : '',
+                     zIndex: showConnections ? 5 : ''
                  }}
                  ref={(ref) => this.contribution = ref}>
 

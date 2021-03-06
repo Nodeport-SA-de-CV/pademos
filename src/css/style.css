@@ -437,6 +437,9 @@ topic .dark-gray:hover{
     margin-bottom: 0;
     color:black;
 }
+.header h2 span{
+    font-size: 1.25rem;
+}
 /*---------------------------------------------------------------------------------------------------------------------*/
 /*---------------------------------------------------SELECT-------------------------------------------------------------*/
 /*---------------------------------------------------------------------------------------------------------------------*/
@@ -445,9 +448,13 @@ select{
     border: none;
     color:#4D4C4C;
     padding: 0.5rem;
-    appearance: none;
-    -moz-appearance: none;
-    -webkit-appearance: none;
+    /*appearance: none;*/
+    /*-moz-appearance: none;*/
+    /*-webkit-appearance: none;*/
+}
+
+select:disabled {
+    color: #DBDBDB;
 }
 
 .sidebar-form select{
@@ -483,6 +490,10 @@ search-box-wrapper{
     border: none;
     color:#4D4C4C;
 }
+.search-box input:disabled {
+    color: #DBDBDB;
+}
+
 .search-box-results{
     position: absolute;
     background-color: #F1F1F1;

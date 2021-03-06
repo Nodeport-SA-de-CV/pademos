@@ -30,21 +30,17 @@ class NavBar extends React.Component{
         return(
             <Navbar bg="dark" variant="dark" expand="lg">
 
-                <Link to="/"><Navbar.Brand>Visualizierung der Bürger- und Forschungsthemen</Navbar.Brand></Link>
+                <Link to="/"><Navbar.Brand>Visualisierung der Beiträge für:</Navbar.Brand></Link>
                 <Navbar.Toggle aria-controls="basic-navbar-nav" />
                 <Navbar.Collapse id="basic-navbar-nav" className="justify-content-end">
-                    <Form inline>
-                        <Form.Label className={'mr-2'} htmlFor={'custom-switch'}>Bürger </Form.Label>
-                        <Form.Check
-                            type="switch"
-                            id="custom-switch"
-                            label="Wissenschaftler"
-                            checked={this.state.enabledWissenschaftler}
-                            onChange={() => this.setState({enabledWissenschaftler: !this.state.enabledWissenschaftler})}
-                        />
+                    <Form inline className={'mr-auto ml-auto'}>
+                        <Form.Control as="select" custom id="custom-select">
+                            <option value={'bürger'}>Bürger:innen</option>
+                            <option value={'Wissenschaftler'}>Wissenschaftler:innen</option>
+                            <option value={'journalist'}>Journalist:innen</option>
+                        </Form.Control>
                     </Form>
                     <Nav>
-                        <Nav.Link href={"/"}>Journalists stories</Nav.Link>
                         <Nav.Link onClick={() => this.onClickHelp()}><FontAwesomeIcon icon="question" /></Nav.Link>
                         <NavDropdown id="basic-nav-dropdown" title={<FontAwesomeIcon icon={'user'}/>}>
                             <NavDropdown.Item >{this.context.user.name}</NavDropdown.Item>

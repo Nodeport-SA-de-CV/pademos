@@ -76,7 +76,9 @@ class MainView extends React.Component{
                                     onKeyWordChange={(keyword) => this.onKeyWordChange(keyword)}
                                     onDocumentTypeChange={(documentType) => this.onDocumentTypeChange(documentType)}
                                     keywords={this.state.keywords}
-                                    contributions={this.state.contributionsCount}/>
+                                    contributions={this.state.contributionsCount}
+                                    isActionsDisabled={this.state.showContributionDetails}
+                            />
                             <NPIf condition={! this.state.showContributionDetails}>
                                 {/*TODO: REMOVE THIS WRAPPER INSTEAD US THE TREEMAPHTML COMPONENT*/}
                                 <PlotView ref={(ref) => this.plotView = ref}
