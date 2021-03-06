@@ -453,6 +453,10 @@ select{
     /*-webkit-appearance: none;*/
 }
 
+select:disabled {
+    color: #DBDBDB;
+}
+
 .sidebar-form select{
     border: 1px solid #5c1919;
     background-color: #f7f7f7;
@@ -486,6 +490,10 @@ search-box-wrapper{
     border: none;
     color:#4D4C4C;
 }
+.search-box input:disabled {
+    color: #DBDBDB;
+}
+
 .search-box-results{
     position: absolute;
     background-color: #F1F1F1;

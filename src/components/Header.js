@@ -35,8 +35,10 @@ class Header extends React.Component{
                 {/*action row*/}
                 <NPIf condition={this.props.showActions}>
                     <div className={'header-row justify-content-between align-items-start pt-3 pb-3'}>
-                        <SearchBox onChange={(value) => this.props.onSearchBoxChange(value)}/>
-                        <select onChange={(e) => this.props.onKeyWordChange(e.target.value)}>
+                        <SearchBox disabled={this.props.isActionsDisabled}
+                                   onChange={(value) => this.props.onSearchBoxChange(value)}/>
+                        <select disabled={this.props.isActionsDisabled}
+                                onChange={(e) => this.props.onKeyWordChange(e.target.value)}>
                             <option value={''}>Stichwort</option>
                             {
                                 this.props.keywords.map((k,i) =>{
@@ -46,16 +48,13 @@ class Header extends React.Component{
                                 })
                             }
                         </select>
-                        <select  onChange={(e) => this.props.onDocumentTypeChange(e.target.value)}>
+                        <select disabled={this.props.isActionsDisabled}
+                                onChange={(e) => this.props.onDocumentTypeChange(e.target.value)}>
                             <option value={''}>Beitragsart</option>
                             <option value={1}>Frage</option>
                             <option value={2}>Problem</option>
                             <option value={3}>Vision</option>
                         </select>
-                        {/*<div className={'d-flex flex-column align-items-end'}>*/}
-                        {/*    <div className={'btn btn-icon'}><FontAwesomeIcon icon={'plus'}/></div>*/}
-                        {/*    einen Beitrag leisten*/}
-                        {/*</div>*/}
                     </div>
                 </NPIf>
             </div>
@@ -74,7 +73,8 @@ Header.propTypes = {
     onSearchBoxChange: PropTypes.func,
     keywords          : PropTypes.array,
     onKeyWordChange   : PropTypes.func,
-    onDocumentTypeChange : PropTypes.func
+    onDocumentTypeChange : PropTypes.func,
+    isActionsDisabled: PropTypes.bool,
 };
 
 Header.defaultProps = {
@@ -86,5 +86,6 @@ Header.defaultProps = {
     onSearchBoxChange: (value) => {},
     keywords:[],
     onKeyWordChange    : () => {},
-    onDocumentTypeChange : () => {}
+    onDocumentTypeChange : () => {},
+    isActionsDisabled    : false
 };

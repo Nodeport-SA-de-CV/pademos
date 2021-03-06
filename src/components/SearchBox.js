@@ -6,16 +6,6 @@ import NPIf from "np-if";
 
 
 class SearchBox extends React.Component{
-    constructor(props) {
-        super(props);
-        this.state = {
-        }
-        this.onClickHelp = this.onClickHelp.bind(this);
-    }
-
-    onClickHelp(){
-        console.log('help clicked');
-    }
 
     render(){
         const results = this.props.results;
@@ -24,7 +14,8 @@ class SearchBox extends React.Component{
                 <div className={`search-box ${this.props.searchBoxClass}`}>
                     <input className={this.props.inputClass}
                            onChange={(e) => this.props.onChange(e.target.value)}
-                           placeholder={this.props.placeholder}/>
+                           placeholder={this.props.placeholder}
+                           disabled={this.props.disabled}/>
                     <FontAwesomeIcon icon={'search'}/>
                 </div>
                 <NPIf condition={results.length > 0}>
@@ -50,7 +41,7 @@ SearchBox.propTypes = {
     onChange: PropTypes.func,
     value: PropTypes.string,
     disabled: PropTypes.bool,
-    results: PropTypes.array
+    results: PropTypes.array,
 };
 
 SearchBox.defaultProps = {
