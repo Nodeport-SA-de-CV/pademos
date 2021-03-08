@@ -72,13 +72,13 @@ class Sidebar extends React.Component{
                     <div className={'sidebar-header'}>
                         <h2>{this.state.topics.length}</h2>
                         <div className={'sidebar-header-row'}>
-                            <div>definierte Verbindungen</div>
+                            <div>angelegte Verbindungen</div>
                             <div className={'sidebar-icon-link'}
                                  onClick={() => this.setState({showConnectionForm:true})}>
                                 <FontAwesomeIcon icon={'link'}/>
                             </div>
                         </div>
-                        <div className={'txt-right'}>neue Verbindung zum Forschungsthema definieren</div>
+                        <div className={'txt-right'}>Neue Verbindung zu einem Forschungsthema anlegen</div>
                     </div>
 
                     <NPIf condition={! this.state.showTopicDetails}>
@@ -108,7 +108,7 @@ class Sidebar extends React.Component{
                         <Form>
                             <Form.Check id="sidebar-checkbox"
                                         type="checkbox"
-                                        label="alle definierten Verbindungen von Beiträgen zu Forschungsthemen anzeigen" />
+                                        label="Alle angelegten Verbindungen von Bürgerbeiträgen zu Forschungsthemen anzeigen" />
                         </Form>
 
                         {/*/render topic details*/}
