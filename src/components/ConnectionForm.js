@@ -56,33 +56,32 @@ class ConnectionForm extends React.Component{
             <div className={'sidebar'}>
                 <div className={'sidebar-form-header'}>
                     <div>
-                        <div><b>Neue Verbindung definieren</b></div>
-                        <div className={'btn btn-tiny txt-right'} onClick={() => this.onClickHelp()}>Anweisungen <FontAwesomeIcon icon={'caret-down'}/></div>
+                        <div><b>Neue Verbindung anlegen</b></div>
                     </div>
                     <FontAwesomeIcon className={'icon-link'} icon={'link'}/>
                 </div>
                 <div className={'sidebar-form mt-3'}>
-                    <label>1. Select the citizen’s contributions on the left side. </label>
+                    <label>1. Wählen Sie einen oder mehrere aus den Bürgerbeiträgen auf der linken Seite.</label>
 
                     {/*select */}
-                    <label className={'mt-2'}>2. To which research topic can the contribution(s) be linked to? (*)  </label>
+                    <label className={'mt-2'}>2. Zu welchem Forschungsthema haben die Bürgerbeiträge einen Bezug? (*)</label>
                     <select>
-                        <option value={''}>Select a topic </option>
+                        <option value={''}>Wählen Sie ein Thema </option>
                     </select>
 
-                    <NPInput label={'If not on the list, add a new topic:  '}
+                    <NPInput label={'Wenn nicht in der Liste, legen Sie ein neues Forschungsthema an: '}
                              id={'otherTopic'}
                              onChange={(e) => this.onChange(e)}
                              value={this.state.otherTopic}
                     />
 
                     {/*select */}
-                    <label className={'mt-2'}>3. From which perspective are you making this connection? (from a discipline or your position) (*)   </label>
+                    <label className={'mt-2'}>3. Aus welcher Perspektive (einer Fachrichtung oder Ihrer Position) legen Sie diese Verbindung an? (*)   </label>
                     <select>
-                        <option value={''}>Select a perspective </option>
+                        <option value={''}>Wählen Sie eine Verbindung </option>
                     </select>
 
-                    <NPInput label={'If not on the list, add a new perspective: '}
+                    <NPInput label={'Wenn nicht in der Liste, legen Sie eine neue Perspektive an: '}
                              id={'otherPerspective'}
                              onChange={(e) => this.onChange(e)}
                              value={this.state.otherPerspective}
@@ -90,22 +89,22 @@ class ConnectionForm extends React.Component{
 
                     <NPInput wrapperClass={'mt-2'}
                              type={'text-area'}
-                             label={'4. Please explain the connection of the contributions to the topic'}
-                             placeholder={'This contribution is related ... '}
+                             label={'4. Erklären Sie die Verbindung der gewählten Bürgerbeiträge zum Forschungsthema oder beantworten Sie die Bürgerfrage(n) (*) '}
+                             placeholder={'Der Beitrag ergänzt das Thema X, weil ... '}
                              id={'explanation'}
                              onChange={(e) => this.onChange(e)}
                              value={this.state.explanation}/>
                     <NPInput wrapperClass={'mt-2'}
                              type={'text-area'}
-                             label={'5. Can you add some links to research resources? (optional)'}
-                             placeholder={'Research about AI (www.researchgate.net/789890) '}
+                             label={'5. Fügen Sie Links zu wissenschaftlichen Quellen hinzu:'}
+                             placeholder={'Forschung zu KI (www.researchgate.net/789890) '}
                              id={'links'}
                              onChange={(e) => this.onChange(e)}
                              value={this.state.links}/>
                     <NPInput wrapperClass={'mt-2'}
                              type={'text-area'}
-                             label={'6. Can you propose topics for new ministry funding calls? (optional)'}
-                             placeholder={'A topic to the ministry comprises ... '}
+                             label={'6. Möchten Sie dem Bundesministerium für Bildung und Forschung einen neuen Förderschwerpunkt vorschlagen?'}
+                             placeholder={'Der Förderschwerpunkt könnte sein... '}
                              id={'proposeTopics'}
                              onChange={(e) => this.onChange(e)}
                              value={this.state.proposeTopics}/>
@@ -113,8 +112,8 @@ class ConnectionForm extends React.Component{
 
                 </div>
                 <div className={'sidebar-form-buttons'}>
-                    <div className={'btn btn-burgundy'} onClick={() => this.onClickSave()}>SAVE</div>
-                    <div className={'btn btn-outline-burgundy'} onClick={() => this.props.onCancel()}>CANCEL</div>
+                    <div className={'btn btn-burgundy'} onClick={() => this.onClickSave()}>SPEICHERN</div>
+                    <div className={'btn btn-outline-burgundy'} onClick={() => this.props.onCancel()}>ABBRECHEN</div>
                 </div>
             </div>
         )
