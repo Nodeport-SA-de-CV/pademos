@@ -55,9 +55,7 @@ class ConnectionForm extends React.Component{
         return(
             <div className={'sidebar'}>
                 <div className={'sidebar-form-header'}>
-                    <div>
-                        <div><b>Neue Verbindung anlegen</b></div>
-                    </div>
+                    <div><b>Neue Verbindung anlegen</b></div>
                     <FontAwesomeIcon className={'icon-link'} icon={'link'}/>
                 </div>
                 <div className={'sidebar-form mt-3'}>
