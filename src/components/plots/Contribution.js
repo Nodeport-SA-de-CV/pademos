@@ -5,6 +5,7 @@ import Icon1 from '../../img/icon1.png';
 import Icon2 from '../../img/icon2.png';
 import UISelector from "./ui/UISelector";
 import NPIf from "np-if";
+import API from "../../lib/api/API";
 
 class Contribution extends React.Component {
 
@@ -40,7 +41,6 @@ class Contribution extends React.Component {
         let showConnections = false;
         if(this.props.topic){
             const contributionIds = this.props.topic.contributions.map((c) => c._id);
-            console.log(contributionIds)
             if(contributionIds.includes(this.props.contribution._id)){
                 showConnections = true;
             }
@@ -85,8 +85,15 @@ class Contribution extends React.Component {
                 </NPIf>
 
                 <div className={'c-wrapper-icons'}>
-                    <img className={'c-icon'} src={Icon1}/>
-                    <img className={'c-icon'} src={Icon2}/>
+                    {/*<img className={'c-icon'} src={Icon1}/>*/}
+                    {/*<img className={'c-icon'} src={Icon2}/>*/}
+                    {
+                        this.props.contribution.icons.map((i,index) =>{
+                            return(
+                                <img key={index} className={'c-icon'} src={`${API.API_URL}/icons/${i}`}></img>
+                            )
+                        })
+                    }
                 </div>
             </div>
         )

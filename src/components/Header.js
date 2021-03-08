@@ -53,7 +53,7 @@ class Header extends React.Component{
                             <option value={''}>Beitragsart</option>
                             <option value={1}>Frage</option>
                             <option value={2}>Problem</option>
-                            <option value={3}>Vision</option>
+                            <option value={3}>Zukunftsvision</option>
                         </select>
                     </div>
                 </NPIf>

@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import NPIf from "np-if";
+import API from "../lib/api/API";
 
 
 
@@ -22,9 +23,8 @@ class Topic extends React.Component{
             <div className={`topic ${this.props.className}`} style={{backgroundColor:this.props.color}}
                  onClick={() => this.props.onClick()}>
                 {this.props.title}
-                <NPIf condition={this.props.icon !== ''}>
-                    <FontAwesomeIcon className={`icon-${this.props.color}`} icon={this.props.icon}/>
-                </NPIf>
+                {/*{JSON.stringify(this.props.topic)}*/}
+                <img src={`${API.API_URL}/icons/${this.props.icon}`} height={20}></img>
             </div>
         )
     }
@@ -33,6 +33,7 @@ class Topic extends React.Component{
 export default Topic;
 
 Topic.propTypes = {
+    topic: PropTypes.object,
     title: PropTypes.string,
     icon: PropTypes.string,
     color: PropTypes.string,
@@ -41,6 +42,7 @@ Topic.propTypes = {
 };
 
 Topic.defaultProps = {
+    topic: {},
     title: '',
     icon: '',
     color:'burgundy',
