@@ -16,9 +16,32 @@ class TreeMapHtml extends React.Component {
             d3: '',
             data: null,
             selectedContributions: [],
+            spinnerColor:'#1A87D7'
         }
         this.svg    = null;
         this.search = this.search.bind(this);
+        this.spinnerColors        = [
+            '#1A87D7',
+            '#339F34',
+            '#FD7F28',
+            '#A44CE9',
+            '#E17AC1',
+            '#C0BA2D',
+            '#976E32',
+            '#2BBFCF',
+            '#08FF14',
+            '#0D08F9',
+            '#0ED173',
+            '#E8FC01',
+            '#FD8080',
+            '#A5F5A0',
+            '#7989E7',
+            '#F6CDB0',
+            '#F0D0F5',
+            '#F6F3AE',
+            '#F4B616'
+        ]
+        this.currentColorIndex = 0;
     }
 
     componentDidMount() {
@@ -60,9 +83,18 @@ class TreeMapHtml extends React.Component {
         })
 
     }
-
+    changeColors(){
+        this.colorsInterval = setInterval(() => {
+            this.currentColorIndex = this.currentColorIndex + 1;
+            this.currentColorIndex = this.currentColorIndex >= this.spinnerColors.length ? 0 : this.currentColorIndex;
+            this.setState({
+                spinnerColor: this.spinnerColors[this.currentColorIndex]
+            })
+        },500)
+    }
     loadData() {
         this.setState({isLoading: true})
+        this.changeColors();
         API.getContributions().then((res) => {
             if (res.success) {
                 this.props.onTopicsLoaded(res.topics);
@@ -71,7 +103,8 @@ class TreeMapHtml extends React.Component {
                     topics: res.topics,
                     isLoading: false
                 }, () => {
-                })
+                });
+                clearInterval(this.colorsInterval);
             }
         })
     }
@@ -79,7 +112,7 @@ class TreeMapHtml extends React.Component {
     render() {
         if (this.state.data === null || this.state.isLoading) {
             return(
-                <Spinner animation={'grow'} style={{width:200,height:200,backgroundColor:"#5c1919e6"}}></Spinner>
+                <Spinner animation={'grow'} style={{width:200,height:200,backgroundColor:this.state.spinnerColor}}></Spinner>
             )
         }
         const data      = this.state.data;

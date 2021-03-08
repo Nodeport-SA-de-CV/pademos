@@ -63,6 +63,11 @@ class Sidebar extends React.Component{
             })
         })
     }
+    onFormSaved(){
+        this.setState({showConnectionForm:false});
+        this.loadTopics();
+        this.props.onFormSaved();
+    }
     render(){
         return(
             <NPIf condition={!this.state.showConnectionForm}>
@@ -119,7 +124,7 @@ class Sidebar extends React.Component{
                     </NPIf>
                 </div>
                 <NPElse>
-                    <ConnectionForm  onFormSaved={() => this.setState({showConnectionForm:false})}
+                    <ConnectionForm  onFormSaved={() => this.onFormSaved()}
                                      onCancel={() => this.setState({showConnectionForm:false})}
                                      selectedContributions={this.props.selectedContributions}
                     />
@@ -134,10 +139,12 @@ export default Sidebar;
 
 Sidebar.propTypes = {
     selectedContributions : PropTypes.array,
-    onTopicSelected       : PropTypes.func
+    onTopicSelected       : PropTypes.func,
+    onFormSaved           : PropTypes.func
 };
 
 Sidebar.defaultProps = {
     selectedContributions : [],
-    onTopicSelected       : () => {}
+    onTopicSelected       : () => {},
+    onFormSaved           : () => {}
 };

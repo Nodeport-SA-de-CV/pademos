@@ -76,7 +76,9 @@ class PlotView extends React.Component {
             isDragging:false
         })
     }
-
+    loadData(){
+        this.treeMapHtml.loadData();
+    }
     render() {
         return (
             <div className={'h-100 d-flex'}
@@ -102,6 +104,7 @@ class PlotView extends React.Component {
                                  translateX={this.state.translateX}
                                  translateY={this.state.translateY}
                                  isDragging={this.state.isDragging}
+                                 load
                     >
                     </TreeMapHtml>
             </div>

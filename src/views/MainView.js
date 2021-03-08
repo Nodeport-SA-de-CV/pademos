@@ -108,6 +108,7 @@ class MainView extends React.Component{
                         </div>
                         <Sidebar selectedContributions={this.state.selectedContributions}
                                  onTopicSelected={(topic) =>{this.onTopicSelected(topic)}}
+                                 onFormSaved={() => this.plotView.loadData()}
                         />
                     </div>
                 </div>
