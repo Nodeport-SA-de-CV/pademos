@@ -99,6 +99,7 @@ class MainView extends React.Component{
                                 </PlotView>
                                 <NPElse>
                                     <ContributionDetails contribution={this.state.clickedContribution}
+                                                         isSelected={this.state.clickedContribution.isSelected}
                                                          onClickClose={() => this.setState({
                                                              showContributionDetails:false,
                                                              clickedContribution: {}
