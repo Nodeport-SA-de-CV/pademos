@@ -6,6 +6,7 @@ import Icon2 from '../../img/icon2.png';
 import UISelector from "./ui/UISelector";
 import NPIf from "np-if";
 import UIQuestion from "./ui/UIQuestion";
+import API from "../../lib/api/API";
 
 
 class ContributionDetails extends React.Component {
@@ -148,8 +149,13 @@ class ContributionDetails extends React.Component {
                 </div>
                 <div className={'cd-footer'}>
                     <span className={'mr-auto'}>Wissenschaftsthemen zu denen der Beitrag zugeordnet wurde:</span>
-                    <img className={'c-icon'} src={Icon1}/>
-                    <img className={'c-icon'} src={Icon2}/>
+                    {
+                        this.props.contribution.icons.map((i,index) =>{
+                            return(
+                                <img key={index} className={'c-icon'} src={`${API.API_URL}/icons/${i}`}></img>
+                            )
+                        })
+                    }
                 </div>
             </div>
         )
