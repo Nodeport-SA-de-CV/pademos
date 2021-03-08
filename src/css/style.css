@@ -312,33 +312,9 @@ body {
     margin-bottom: 0.5rem;
     cursor:pointer;
 }
-.burgundy{
-    background-color: #5C1919;
+.topic:hover{
+    opacity: 0.75 !important;
 }
-topic .burgundy:hover{
-    background-color: #5c1919e6;
-}
-.military{
-    background-color: #595727;
-}
-topic .military:hover{
-    background-color: #595727e6;
-}
-.dark-gray{
-    background-color: #362f2f;
-}
-topic .dark-gray:hover{
-    background-color: #362f2fe6;
-}
-/*.icon-burgundy{*/
-/*    color: #5C1919*/
-/*}*/
-/*.icon-military{*/
-/*    color: #595727;*/
-/*}*/
-/*.icon-dark-gray{*/
-/*    color: #362f2f;*/
-/*}*/
 /*--------------------------------------------------------------------------------------------------------------------*/
 /*------------------------------------------Topic details-------------------------------------------------------------*/
 /*--------------------------------------------------------------------------------------------------------------------*/
