@@ -38,12 +38,11 @@ class ConnectionForm extends React.Component{
         }
         API.postTopic(topic).then((r) =>{
             if(r.success){
-
+                this.props.onFormSaved();
             }else{
 
             }
         })
-        this.props.onFormSaved();
     }
 
     onChange(e){
