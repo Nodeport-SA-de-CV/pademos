@@ -17,13 +17,13 @@ class TopicDetails extends React.Component{
                         <FontAwesomeIcon className={`icon-${topic.color}`} icon={topic.icon}/>
                     </NPIf>
                 </div>
-                <div className={'mt-2 mb-2'}>Example connections defined by the scientists </div>
+                <div className={'mt-2 mb-2'}>Beispielverbindungen, die Wissenschaftler:innen angelegt haben</div>
                 <div className={'perspective'}>
                     <div>Perspective 1 --> Connection 1</div>
                     <div className={'mt-1 mb-1'}>This relates to the research on AI in HCI .. </div>
-                    <div className={'btn btn-tiny'}>show all</div>
+                    <div className={'btn btn-tiny'} onClick={() => this.props.onClickShowAll()}>alles anzeigen</div>
                 </div>
-                <div className={'mt-auto'}>You can view more connections in the scientist’s view OR you can add your connection here.</div>
+                <div className={'mt-auto'}>Sie können weitere Verbindungen in der Ansicht für Wissenschaftler*innen sehen oder hier eine neue Verbindung anlegen..</div>
             </div>
         )
     }
@@ -34,7 +34,9 @@ export default TopicDetails;
 TopicDetails.propTypes = {
     className: PropTypes.string,
     onClickHide: PropTypes.func,
-    topic:PropTypes.object
+    topic:PropTypes.object,
+    onClickShowAll: PropTypes.func,
+
 };
 
 TopicDetails.defaultProps = {
@@ -44,5 +46,7 @@ TopicDetails.defaultProps = {
         title: '',
         icon: '',
         color:'burgundy',
-    }
+    },
+    onClickShowAll: () => {},
+
 };

@@ -49,7 +49,7 @@ class Contribution extends React.Component {
         return (
             <div className={`contribution ${this.props.index}`}
                  style={{
-                     backgroundColor: bgColor,
+                     backgroundColor: showConnections ? `${bgColor}8a` : bgColor,
                      border: showConnections ? `4px solid ${this.props.topic.color}` : '',
                      boxShadow: showConnections ? `0px 0px 3px ${this.props.topic.color}` : '',
                      zIndex: showConnections ? 5 : ''
