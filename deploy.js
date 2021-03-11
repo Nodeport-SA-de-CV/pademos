@@ -26,9 +26,15 @@ app.get('*', function(req, res) {
 
 // Starting both http & https servers
 const httpsServer = https.createServer(credentials, app);
-const httpsPort   = 8080;
+const httpsPort   = 9091;
+
+const httpServer = http.createServer(credentials, app);
+const httpPort   = 9090;
 
 
 httpsServer.listen(httpsPort, () => {
- console.log(`HTTPS Server running on port ${httpsPort}`);
+	console.log(`HTTPS Server running on port ${httpsPort}`);
 });
+httpServer.listen(httpPort, () =>{
+	console.log(`HTTP Server running on port ${httpPort}`);
+})

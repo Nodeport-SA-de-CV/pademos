@@ -10,6 +10,7 @@ RUN ls -la .
 RUN npm install
 RUN npm run build:production
 
-EXPOSE 8080
+EXPOSE 9090
+EXPOSE 9091
 
 CMD ["node","deploy.js"]
