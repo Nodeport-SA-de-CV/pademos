@@ -83,15 +83,6 @@ class PlotView extends React.Component {
     render() {
         return (
             <div className={'h-100 d-flex'}
-                 onWheel={(v) => this.onWheel(v)}
-                 onMouseDown={(e) => this.onMouseDown(e)}
-                 onMouseUp={(e) => this.onMouseUp(e)}
-                 onMouseMove={(e) => this.onMouseMove(e)}
-                 onMouseLeave={(e) => this.onMouseLeave(e)}
-                 style={{overflow:'hidden',
-                     justifyContent: 'center',
-                     alignItems: 'center'
-                 }}
             >
                 <TreeMap>
 
