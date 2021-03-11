@@ -8,8 +8,14 @@ import Sidebar from "../Sidebar";
 import NPElse from "np-if/src/NPElse";
 import {Spinner} from "react-bootstrap";
 
-class TreeMapHtml extends React.Component {
 
+// const worst = (row,w) => {
+//     // return Math.max(row.map((c) => {
+//     //     return c ? c.weight : 0;
+//     // }));
+// }
+class TreeMapHtml extends React.Component {
+    usedWidth = 0;
     constructor(props) {
         super(props);
         this.state  = {
@@ -20,6 +26,7 @@ class TreeMapHtml extends React.Component {
         }
         this.svg    = null;
         this.search = this.search.bind(this);
+        this.buildTree = this.buildTree.bind(this);
         this.spinnerColors        = [
             '#1A87D7',
             '#339F34',
@@ -100,22 +107,87 @@ class TreeMapHtml extends React.Component {
                 this.props.onTopicsLoaded(res.topics);
                 this.setState({
                     data: res.topics,
+                    dataTree:this.buildTree(res.topics),
                     topics: res.topics,
                     isLoading: false
                 }, () => {
+                    const tree = this.buildTree(res.topics);
+                    this.squarify(tree.children,[],this.width())
                 });
                 clearInterval(this.colorsInterval);
             }
         })
     }
+    buildTree(groups){
+        const area = this.treeMapHTMLRef.clientWidth * this.treeMapHTMLRef.clientHeight;
 
-    render() {
-        if (this.state.data === null || this.state.isLoading) {
-            return(
-                <Spinner animation={'grow'} style={{width:200,height:200,backgroundColor:this.state.spinnerColor}}></Spinner>
-            )
+        // let areas = row.map((square) =>{
+        //     let areaPx = (square.weight * area) / 100;
+            // return areaPx;
+        // })
+        // console.log(areas)
+
+        const tree = {
+            children:groups.sort((g,g1) => g1.contributions.length - g.contributions.length).map((g) =>{
+                const groupWeight = (g.contributions.length * area) / 100;
+                return{
+                    data:g,
+                    weight: groupWeight,
+                    children:g.contributions.map((c) =>{
+                        return{
+                            data:c,
+                            weight:groupWeight / g.contributions.length,
+                            children:[]
+                        }
+                    })
+                }
+            })
         }
-        const data      = this.state.data;
+        return tree;
+    }
+    layoutRow(row){
+        console.log(row)
+        // this.usedWidth = 300;
+        // TODO: draw row, decrease remaining space
+        return true;
+    }
+    worst(row,w){
+        let sumArea = row.map((e) => e.weight).reduce((a,v) => a+v,0);
+        let maxArea = Math.max(row.map((e) => e.weight));
+        let minArea = Math.min(row.map((e) => e.weight));
+
+        let a = w * w * maxArea / sumArea * sumArea;
+        let b = sumArea * sumArea / w * w * minArea;
+        console.log('a',a,'b',b)
+        return Math.max(a,b);
+    }
+    width(){
+        return this.treeMapHTMLRef.clientWidth - this.usedWidth;
+    }
+    squarify(children,row,w){
+        console.log('w',w)
+        // width : Length of the shortest side of the remaining area
+        // layoutrow: Returns a list of children to be drawn (passed to row)
+        if(!children){
+            return true; // stop condition
+        }
+        const child = children[0];
+        const tail  = children[children.length - 1];
+
+        if(this.worst(row,w) <= this.worst(row.concat([child]),w)){
+            this.squarify(tail.children,row.concat([child]),w);
+        }else{
+            this.layoutRow(row);
+            this.squarify(children.children,[],this.width());
+        }
+    }
+    render() {
+        // if (this.state.data === null || this.state.isLoading) {
+        //     return(
+        //         <Spinner animation={'grow'} style={{width:200,height:200,backgroundColor:this.state.spinnerColor}}></Spinner>
+        //     )
+        // }
+        const data      = this.state.data || [];
         // translate(${this.props.x}px,${this.props.y}px`
         const translate = `translate3d(${this.props.translateX}px,${this.props.translateY}px,1px)`;
         // console.log(` translate(${this.props.X}px,${this.props.Y}px)`);
@@ -124,28 +196,41 @@ class TreeMapHtml extends React.Component {
         // if(rect){
         //     console.log(rect.x,rect.y)
         // }
+        const totalContributions = data.map((groups) => groups.contributions.length).reduce((a,v) => a+v,0);
         return(
-            <div className={'groups noselect'}  style={{transform:`scale(${this.props.zoom}) ${translate}`}}
+            <div className={'groups noselect'}  style={{
+                transform:`scale(${this.props.zoom}) ${translate}`,
+            }}
                  ref={(ref) => this.treeMapHTMLRef = ref}
                  onMouseOver={(e) =>{
                      e.stopPropagation();
                  }}
             >
-                    {
-                        data.map((group,index   ) =>{
-                            return(
-                                <Group group={group}  key={index} selectedTopic={this.props.selectedTopic}
-                                       style={{
-                                           transition: !this.props.isDragging ? 'all .2s ease-out' : ''
-                                       }}
-                                       isDragging={this.props.isDragging}
-                                       selectedContributions={this.state.selectedContributions}
-                                       onContributionSelected={(contribution) => this.onContributionSelected(contribution)}
-                                       onClickContributionDetails={(contribution) => this.props.onClickContributionDetails(contribution)}>
-                                </Group>
-                            )
+                {
+                    data.map((group, index) => {
+                        return(
+                            <div style={{
+                                backgroundColor:group.color,
+                                width:`${(group.contributions.length / totalContributions) * 100}%`
+                            }}> {group.contributions.length} { (group.contributions.length / totalContributions) * 100}</div>
+                        )
                     })
                 }
+                {/*    {*/}
+                {/*        data.map((group,index   ) =>{*/}
+                {/*            return(*/}
+                {/*                <Group group={group}  key={index} selectedTopic={this.props.selectedTopic}*/}
+                {/*                       style={{*/}
+                {/*                           transition: !this.props.isDragging ? 'all .2s ease-out' : ''*/}
+                {/*                       }}*/}
+                {/*                       isDragging={this.props.isDragging}*/}
+                {/*                       selectedContributions={this.state.selectedContributions}*/}
+                {/*                       onContributionSelected={(contribution) => this.onContributionSelected(contribution)}*/}
+                {/*                       onClickContributionDetails={(contribution) => this.props.onClickContributionDetails(contribution)}>*/}
+                {/*                </Group>*/}
+                {/*            )*/}
+                {/*    })*/}
+                {/*}*/}
             </div>
         )
     }
