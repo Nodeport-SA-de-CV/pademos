@@ -3,6 +3,7 @@ import {Col, Container, Row} from "react-bootstrap";
 import TreeMapHtml from "../../components/plots/TreeMapHtml";
 import PropTypes from "prop-types";
 import ScrollContainer from 'react-indiana-drag-scroll'
+import TreeMap from "../../components/plots/TreeMap";
 
 class PlotView extends React.Component {
 
@@ -92,21 +93,23 @@ class PlotView extends React.Component {
                      alignItems: 'center'
                  }}
             >
+                <TreeMap>
 
-                    <TreeMapHtml ref={(ref) => this.treeMapHtml = ref}
-                                 selectedTopic={this.props.selectedTopic}
-                                 onContributionSelected={(contributions) => this.props.onContributionSelected(contributions)}
-                                 onTopicsLoaded={(contributions) => this.props.onTopicsLoaded(contributions)}
-                                 searchKeyWord={this.props.searchKeyWord}
-                                 searchDocumentType={this.props.searchDocumentType}
-                                 onClickContributionDetails={(contribution) => this.props.onClickContributionDetails(contribution)}
-                                 zoom={this.state.zoom}
-                                 translateX={this.state.translateX}
-                                 translateY={this.state.translateY}
-                                 isDragging={this.state.isDragging}
-                                 load
-                    >
-                    </TreeMapHtml>
+                </TreeMap>
+                    {/*<TreeMapHtml ref={(ref) => this.treeMapHtml = ref}*/}
+                    {/*             selectedTopic={this.props.selectedTopic}*/}
+                    {/*             onContributionSelected={(contributions) => this.props.onContributionSelected(contributions)}*/}
+                    {/*             onTopicsLoaded={(contributions) => this.props.onTopicsLoaded(contributions)}*/}
+                    {/*             searchKeyWord={this.props.searchKeyWord}*/}
+                    {/*             searchDocumentType={this.props.searchDocumentType}*/}
+                    {/*             onClickContributionDetails={(contribution) => this.props.onClickContributionDetails(contribution)}*/}
+                    {/*             zoom={this.state.zoom}*/}
+                    {/*             translateX={this.state.translateX}*/}
+                    {/*             translateY={this.state.translateY}*/}
+                    {/*             isDragging={this.state.isDragging}*/}
+                    {/*             load*/}
+                    {/*>*/}
+                    {/*</TreeMapHtml>*/}
             </div>
 
         )
