@@ -99,14 +99,13 @@ class TreeMap extends React.Component {
                     data:g,
                     name:'',
                     group:'',
-                    value: g.contributions.length,
                     colName:'',
                     children:g.contributions.map((c) =>{
                         return{
                             data:c,
-                            name:c.document_what,
+                            name:'',
                             group:'',
-                            value: g.contributions.length,
+                            value: 1,
                             colName:'',
                             children:[]
                         }
@@ -134,8 +133,61 @@ class TreeMap extends React.Component {
     onResize(w, h) {
         this.drawChart(w, h);
     }
+    updateTreeMap(root,mouseOverId = null){
 
+        const _this = this;
+        // Give the data to this cluster layout:
+        root.sum(function(d){
+            if(d.hasOwnProperty('data')){
+                if(d.data.hasOwnProperty('_id')){
+                    if(d.data._id === mouseOverId){
+                        console.log(mouseOverId);
+                        return 10;
+                    }
+                }
+            }
+            return d.value;
+        }) // Here the size of each leave is given in the 'value' field in input data
+        // var root =  d3.hierarchy(data)
+        // .sum(function(d) { return  d.value})
+        this.treemap(root);
+        var leaves = this.svg.selectAll('.leaf')
+            .data(root.leaves(),function(d) {
+                return d.data.data._id
+            });
+
+        // use this information to add rectangles:
+        // this.svg
+        //     .selectAll("rect")
+        //     .data(root.leaves())
+        //     .enter()
+        leaves.enter()
+            .append("rect")
+            .classed('leaf',true)
+            .attr('x', function (d) { return d.x0; })
+            .attr('y', function (d) { return d.y0; })
+            .attr('width', function (d) { return d.x1 - d.x0; })
+            .attr('height', function (d) { return d.y1 - d.y0; })
+            .style("stroke", "white")
+            .style("fill", function(d){ return d.parent.data.data.color} )
+            .on('mouseenter',function(d) {
+                const self = d3.select(this);
+
+                _this.updateTreeMap(root,self.data()[0].data.data._id);
+                // _this.drawChart(self.data()[0].data.data._id,treemap)
+            })
+
+        leaves
+            .transition()
+            .duration(1000)
+            .attr('x', function(d) { return d.x0})
+            .attr('y', function(d) { return d.y0})
+            .attr('width', function(d) { return d.x1 - d.x0})
+            .attr('height', function(d) { return d.y1 - d.y0})
+
+    }
     drawChart(w, h) {
+        const _this = this;
         // w = 500;
         // h = 500;
         this.setState({
@@ -146,8 +198,8 @@ class TreeMap extends React.Component {
         if(!data){
             return null;
         }
-        // clear all
         d3.select("#treemap").selectAll("*").remove()
+
         // append the svg object to the body of the page
 
         // set the dimensions and margins of the graph
@@ -163,118 +215,31 @@ class TreeMap extends React.Component {
             .append("g")
             .attr("transform",
                 "translate(" + margin.left + "," + margin.top + ")");
-
-// read json data
-
-        // Give the data to this cluster layout:
-        var root = d3.hierarchy(data).sum(function (d) {
+        var root = d3.hierarchy(data).sum(function(d){
             return d.value
         }) // Here the size of each leave is given in the 'value' field in input data
-
         // Then d3.treemap computes the position of each element of the hierarchy
-        d3.treemap()
+        this.treemap = d3.treemap()
             .size([width, height])
-            .paddingTop(5)
-            .paddingRight(5)
-            .paddingInner(3)      // Padding between each rectangle
+            .paddingTop(1)
+            .paddingRight(1)
+            .paddingInner(1)      // Padding between each rectangle
             //.paddingOuter(6)
             //.padding(20)
-            (root)
+            .round(true)
+            .tile(d3.treemapResquarify);
+        this.treemap(root)
 
-        // prepare a color scale
-        var color = d3.scaleOrdinal()
-            .domain(["topic 1", "topic 2", "topic 3"])
-            .range(["#1981CD", "#F69018", "#179914"])
+        this.updateTreeMap(root);
+        // this.svg
+        //     .selectAll("rect")
+        //     .transition()
+        //     .duration(1000)
+        //     .attr('x', function(d) { return d.x0})
+        //     .attr('y', function(d) { return d.y0})
+        //     .attr('width', function(d) { return d.x1 - d.x0})
+        //     .attr('height', function(d) { return d.y1 - d.y0})
 
-        // And a opacity scale
-        var opacity = d3.scaleLinear()
-            .domain([10, 30])
-            .range([.5, 1])
-
-        // use this information to add rectangles:
-        this.svg
-            .selectAll("rect")
-            .data(root.leaves())
-            .enter()
-            .append("rect")
-            .attr('class','treemap_tile')
-            .attr('id',function(d,i){
-                return `treemap_tile_${i}`
-            })
-            .attr('x', function (d) {
-                return d.x0;
-            })
-            .attr('y', function (d) {
-                return d.y0;
-            })
-            .attr('width', function (d) {
-                return d.x1 - d.x0;
-            })
-            .attr('height', function (d) {
-                return d.y1 - d.y0;
-            })
-            .style("stroke", "black")
-            .style("fill", function (d) {
-                return d.parent.data.data.color
-            })
-        // .style("opacity", function (d) {
-        //     return opacity(d.data.value)
-        // })
-
-        // and to add the text labels
-        this.svg
-            .selectAll("text")
-            .data(root.leaves())
-            .enter()
-            .append("text")
-            .attr("class","treemap_title")
-            .attr("x", function (d) {
-                return d.x0 + 5
-            })    // +10 to adjust position (more right)
-            .attr("y", function (d) {
-                return d.y0 + 20
-            })    // +20 to adjust position (lower)
-            .text(function (d) {
-                return d.data.name;
-            })
-            .attr("font-size", "19")
-            .attr("fill", "black")
-
-
-
-        // Add title for the 3 groups
-        this.svg
-            .selectAll("titles")
-            .data(root.descendants().filter(function (d) {
-                return d.depth == 1
-            }))
-            .enter()
-            .append("text")
-            .attr("x", function (d) {
-                const x = (d.x1 - d.x0) / 2;
-                return x + d.x0;
-            })
-            .attr("y", function (d) {
-                const y = (d.y1 - d.y0) / 2;
-                return y + d.y0;
-            })
-            .text(function (d) {
-                return d.data.name
-            })
-            .attr("font-size", "32px")
-            .attr("fill", 'white')
-            .attr("text-anchor", "middle")
-
-
-        // Add title for the 3 groups
-        // svg
-        //     .append("text")
-        //     .attr("x", 0)
-        //     .attr("y", 14)    // +20 to adjust position (lower)
-        //     .text("Three group leaders and 14 employees")
-        //     .attr("font-size", "19px")
-        //     .attr("fill",  "grey" )
-        this.wrapText();
     }
     wrapText(){
         this.svg.selectAll(".treemap_title").each(function(d,i){
