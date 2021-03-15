@@ -33,8 +33,8 @@ const httpPort   = 9090;
 
 
 httpsServer.listen(httpsPort, () => {
- console.log(`HTTPS Server running on port ${httpsPort}`);
+	console.log(`HTTPS Server running on port ${httpsPort}`);
 });
 httpServer.listen(httpPort, () =>{
- console.log(`HTTP Server running on port ${httpPort}`);
+	console.log(`HTTP Server running on port ${httpPort}`);
 })
