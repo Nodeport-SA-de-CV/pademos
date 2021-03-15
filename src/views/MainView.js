@@ -8,6 +8,7 @@ import Header from "../components/Header";
 import PlotView from "./plots/PlotView";
 import PropTypes from "prop-types";
 import ContributionDetails from "../components/plots/ContributionDetails";
+import GroupList from "../components/plots/GroupList";
 
 
 class MainView extends React.Component{
@@ -79,6 +80,8 @@ class MainView extends React.Component{
                                     contributions={this.state.contributionsCount}
                                     isActionsDisabled={this.state.showContributionDetails}
                             />
+                            {/*Get the legends of the treemap*/}
+                            <GroupList />
                             <NPIf condition={! this.state.showContributionDetails}>
                                 {/*TODO: REMOVE THIS WRAPPER INSTEAD US THE TREEMAPHTML COMPONENT*/}
                                 <PlotView ref={(ref) => this.plotView = ref}
