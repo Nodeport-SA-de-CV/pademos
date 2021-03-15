@@ -30,6 +30,7 @@ class Contribution extends React.Component {
     onClickShowDetails(){
         const contribution = this.props.contribution;
         contribution.color = this.props.bgColor;
+        contribution.isSelected = this.props.isSelected;
         this.props.onClickContributionDetails(contribution);
     }
 
@@ -85,8 +86,6 @@ class Contribution extends React.Component {
                 </NPIf>
 
                 <div className={'c-wrapper-icons'}>
-                    {/*<img className={'c-icon'} src={Icon1}/>*/}
-                    {/*<img className={'c-icon'} src={Icon2}/>*/}
                     {
                         this.props.contribution.icons.map((i,index) =>{
                             return(

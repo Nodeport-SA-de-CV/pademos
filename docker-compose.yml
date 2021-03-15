@@ -3,7 +3,8 @@ services:
   react_template:
     build: .
     ports:
-     - "9090:9090"
+      - "9090:9090"
+      - "9091:9091"
     stdin_open: true
     volumes:
       - ./react-template:/usr/src/app/react-template
