@@ -1,7 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import * as d3 from "d3";
-import {Col, Row, Container} from "react-bootstrap";
+import {Col, Row, Container, Spinner} from "react-bootstrap";
 import ReactResizeDetector from 'react-resize-detector';
 import {text} from "@fortawesome/fontawesome-svg-core";
 import API from "../../lib/api/API";
@@ -9,6 +9,8 @@ import GroupTitle from "./GroupTitle";
 import MyLabel from "./ui/MyLabel";
 import RecreatedTreemap from "../RecreatedTreemap";
 import NPIf from "np-if";
+import PropTypes from "prop-types";
+import TreeMapHtml from "./TreeMapHtml";
 
 class TreeMap extends React.Component {
 
@@ -16,8 +18,6 @@ class TreeMap extends React.Component {
         super(props);
         this.state = {
             d3: '',
-            w:200,
-            h:200,
             overlayX:100,
             overlayY:100,
             overlayWidth:100,
@@ -26,6 +26,31 @@ class TreeMap extends React.Component {
         }
         this.svg = null;
         this.drawChart = this.drawChart.bind(this);
+        this.search = this.search.bind(this);
+        this.spinnerColors        = [
+            '#1A87D7',
+            '#339F34',
+            '#FD7F28',
+            '#A44CE9',
+            '#E17AC1',
+            '#C0BA2D',
+            '#976E32',
+            '#2BBFCF',
+            '#08FF14',
+            '#0D08F9',
+            '#0ED173',
+            '#E8FC01',
+            '#FD8080',
+            '#A5F5A0',
+            '#7989E7',
+            '#F6CDB0',
+            '#F0D0F5',
+            '#F6F3AE',
+            '#F4B616'
+        ]
+        this.currentColorIndex = 0;
+        this.updateTreeMap = this.updateTreeMap.bind(this);
+        this.search        = this.search.bind(this);
     }
 
     componentDidMount() {
@@ -58,14 +83,16 @@ class TreeMap extends React.Component {
     }
     loadData() {
         this.setState({isLoading: true})
+        this.changeColors();
         API.getContributions().then((res) => {
             if (res.success) {
-                // this.props.onTopicsLoaded(res.topics);
+                this.props.onTopicsLoaded(res.topics);
                 this.setState({
                     data: this.buildTree(res.topics),
+                    topics: res.topics,
                     isLoading: false
                 }, () => {
-                    this.drawChart(this.state.w,this.state.h);
+                    this.drawChart(this.props.w,this.props.h);
                 });
                 clearInterval(this.colorsInterval);
             }
@@ -82,7 +109,6 @@ class TreeMap extends React.Component {
             if(d.hasOwnProperty('data')){
                 if(d.data.hasOwnProperty('_id')){
                     if(d.data._id === mouseOverId){
-                        console.log(mouseOverId);
                         return 10;
                     }
                 }
@@ -193,11 +219,53 @@ class TreeMap extends React.Component {
         this.treemap(root)
 
         this.updateTreeMap(root);
+    }
+    search(value) {
+        var search = new RegExp(value, 'i');
+        // console.log(this.state.data)
+        const data = this.state.topics.filter((t) => {
+            // search in all contributions
+            t = t.contributions.map((contribution) => {
+                contribution.isDisabled = !(
+                    (value ? search.test(contribution.document_what) : true)
+                    && (this.props.searchKeyWord ? contribution.topic_keywords.includes(this.props.searchKeyWord) : true)
+                    && (this.props.searchDocumentType ? contribution.document_type === this.props.searchDocumentType : true)
+                );
+                return contribution;
+            })
 
+            return t;
+        })
+        const treeData = this.buildTree(data);
+        this.setState({
+            data: treeData
+        },() =>{
+            var root = d3.hierarchy(treeData).sum(function(d){
+                return d.value
+            })
+            // this.treemap(root)
+            // console.log(treeData)
+            // this.updateTreeMap(root);
+            this.drawChart(this.props.w,this.props.h);
+
+        })
+
+    }
+    changeColors(){
+        this.colorsInterval = setInterval(() => {
+            this.currentColorIndex = this.currentColorIndex + 1;
+            this.currentColorIndex = this.currentColorIndex >= this.spinnerColors.length ? 0 : this.currentColorIndex;
+            this.setState({
+                spinnerColor: this.spinnerColors[this.currentColorIndex]
+            })
+        },500)
     }
     render() {
         return (
             <div style={{flex:1,display:'flex',position:'relative'}}>
+                <NPIf condition={this.state.data === null || this.state.isLoading}>
+                    <Spinner animation={'grow'} style={{width:200,height:200,backgroundColor:this.state.spinnerColor}}></Spinner>
+                </NPIf>
                     <div id={"treemap"} ref={(ref) => this.treeMapDiv = ref}>
 
                     </div>
@@ -208,5 +276,26 @@ class TreeMap extends React.Component {
     }
 };
 
+TreeMap.propTypes = {
+    onContributionSelected: PropTypes.func,
+    selectedTopic: PropTypes.object,
+    onClickContributionDetails: PropTypes.func,
+    onTopicsLoaded: PropTypes.func,
+    searchKeyword: PropTypes.string,
+    searchDocumentType: PropTypes.string,
+    zoom: PropTypes.number
+};
 
+TreeMap.defaultProps = {
+    onContributionSelected: () => {
+    },
+    selectedTopic: null,
+    onClickContributionDetails: () => {
+    },
+    onTopicsLoaded: () => {
+    },
+    searchKeyword: 'idee',
+    searchDocumentType: '',
+    zoom: 1
+};
 export default TreeMap;
