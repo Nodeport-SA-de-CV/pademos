@@ -772,3 +772,14 @@ search-box-wrapper{
     height: 100%;
     overflow: hidden;
 }
+.recreated-tile{
+    transition: 0.5s all;
+}
+.recreated-tile:hover{
+    transform: scale(2.5);
+    z-index: 999;
+    box-shadow: 0px 0px 1px 1px #5b5b5b4f;
+
+}
+.recreated-tile:not(:hover){
+}
