@@ -30,7 +30,7 @@ class PlotView extends React.Component {
     }
 
     search(value) {
-        this.treeMapHtml.search(value);
+        this.treeMap.search(value);
     }
 
     onWheel(v) {
@@ -79,15 +79,26 @@ class PlotView extends React.Component {
         })
     }
     loadData(){
-        this.treeMapHtml.loadData();
+        this.treeMap.loadData();
+    }
+    onResize(w,h){
+        this.setState({
+            w:w,
+            h:h
+        })
+        this.treeMap.drawChart(w,h);
     }
     render() {
         return (
             <div className={'h-100 d-flex'}
             >
-                <ReactResizeDetector handleWidth handleHeight onResize={(w, h) => this.treeMap.drawChart(w, h)}>
+                <ReactResizeDetector handleWidth handleHeight onResize={(w, h) => this.onResize(w, h)}>
                 </ReactResizeDetector>
-                <TreeMap ref={(ref) => this.treeMap = ref}>
+                <TreeMap ref={(ref) => this.treeMap = ref} w={this.state.w} h={this.state.h}
+                        searchDocumentType={this.props.searchDocumentType}
+                         onTopicsLoaded={(topics) => this.props.onTopicsLoaded(topics)}
+                         searchKeyWord={this.props.searchKeyWord}
+                >
 
                 </TreeMap>
             </div>
@@ -101,7 +112,8 @@ PlotView.propTypes = {
     selectedTopic          : PropTypes.object,
     onClickedContribution  : PropTypes.func,
     onTopicsLoaded         : PropTypes.func,
-    searchKeyWord          : PropTypes.string
+    searchKeyWord          : PropTypes.string,
+    searchDocumentType     : PropTypes.string
 };
 
 PlotView.defaultProps = {
@@ -109,7 +121,8 @@ PlotView.defaultProps = {
     selectedTopic          : null,
     onClickedContribution  : () => {},
     onTopicsLoaded         : () => {},
-    searchKeyWord          : ''
+    searchKeyWord          : '',
+    searchDocumentType     : ''
 };
 
 export default PlotView;

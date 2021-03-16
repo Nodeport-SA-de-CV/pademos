@@ -10,7 +10,7 @@ class RecreatedTile extends React.Component {
                 height:this.props.height,
                 left: this.props.left,
                 top:this.props.top,
-                backgroundColor:this.props.color
+                backgroundColor: this.props.contribution.isDisabled ? 'gray' : this.props.color
             }} className={'recreated-tile'}>
                
             </div>
