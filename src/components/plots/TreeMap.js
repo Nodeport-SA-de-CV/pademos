@@ -1,9 +1,12 @@
 import React from "react";
+import ReactDOM from "react-dom";
 import * as d3 from "d3";
 import {Col, Row, Container} from "react-bootstrap";
 import ReactResizeDetector from 'react-resize-detector';
 import {text} from "@fortawesome/fontawesome-svg-core";
 import API from "../../lib/api/API";
+import GroupTitle from "./GroupTitle";
+import MyLabel from "./ui/MyLabel";
 //
 // const data =
 //           {
@@ -61,7 +64,15 @@ class TreeMap extends React.Component {
 
     constructor(props) {
         super(props);
-        this.state = {d3: '',w:200,h:200}
+        this.state = {
+            d3: '',
+            w:200,
+            h:200,
+            overlayX:100,
+            overlayY:100,
+            overlayWidth:100,
+            overlayHeight:100
+        }
         this.svg = null;
         this.drawChart = this.drawChart.bind(this);
     }
@@ -161,8 +172,15 @@ class TreeMap extends React.Component {
         //     .selectAll("rect")
         //     .data(root.leaves())
         //     .enter()
-        leaves.enter()
-            .append("rect")
+        const group =         leaves.enter()
+            .append("g")
+            .attr('x', function (d) { return d.x0; })
+            .attr('y', function (d) { return d.y0; })
+            .attr('width', function (d) { return d.x1 - d.x0; })
+            .attr('height', function (d) { return d.y1 - d.y0; })
+
+
+        group.append("rect")
             .classed('leaf',true)
             .attr('x', function (d) { return d.x0; })
             .attr('y', function (d) { return d.y0; })
@@ -176,7 +194,24 @@ class TreeMap extends React.Component {
                 _this.updateTreeMap(root,self.data()[0].data.data._id);
                 // _this.drawChart(self.data()[0].data.data._id,treemap)
             })
+            group.append("foreignObject")
+                .classed('leaf',true)
+                .attr('x', function (d) { return d.x0; })
+                .attr('y', function (d) { return d.y0; })
+                .attr('width', function (d) { return d.x1 - d.x0; })
+                .attr('height', function (d) { return d.y1 - d.y0; })
+                .append("xhtml:body")
+                .attr("class","layover")
+                .attr("xmlns","http://www.w3.org/1999/xhtml")
+                .append("xhtml:div")
+                .classed("divin",true)
+                .text(function(d,i){return i})
+                .on('mouseenter',function(d) {
+                    const self = d3.select(this);
 
+                    _this.updateTreeMap(root,self.data()[0].data.data._id);
+                    // _this.drawChart(self.data()[0].data.data._id,treemap)
+                })
         leaves
             .transition()
             .duration(1000)
@@ -210,6 +245,7 @@ class TreeMap extends React.Component {
 // append the svg object to the body of the page
         this.svg = d3.select("#treemap")
             .append("svg")
+            .attr("xmlns","http://www.w3.org/2000/svg")
             .attr("width", width + margin.left + margin.right)
             .attr("height", height + margin.top + margin.bottom)
             .append("g")
@@ -271,11 +307,16 @@ class TreeMap extends React.Component {
 
     render() {
         return (
-            <div id={"treemap"} ref={(ref) => this.treeMapDiv = ref}>
-                <ReactResizeDetector handleWidth handleHeight onResize={(w, h) => this.drawChart(w, h)}>
-                </ReactResizeDetector>
+            <div style={{flex:1,display:'flex'}}>
+                <div id={"treemap"} ref={(ref) => this.treeMapDiv = ref}>
+                    <ReactResizeDetector handleWidth handleHeight onResize={(w, h) => this.drawChart(w, h)}>
+                    </ReactResizeDetector>
+                </div>
             </div>
+
         )
     }
 };
+
+
 export default TreeMap;
