@@ -2,15 +2,10 @@ import React from "react";
 import ReactDOM from "react-dom";
 import * as d3 from "d3";
 import {Col, Row, Container, Spinner} from "react-bootstrap";
-import ReactResizeDetector from 'react-resize-detector';
-import {text} from "@fortawesome/fontawesome-svg-core";
 import API from "../../lib/api/API";
-import GroupTitle from "./GroupTitle";
-import MyLabel from "./ui/MyLabel";
 import RecreatedTreemap from "../RecreatedTreemap";
 import NPIf from "np-if";
 import PropTypes from "prop-types";
-import TreeMapHtml from "./TreeMapHtml";
 
 class TreeMap extends React.Component {
 
@@ -264,7 +259,9 @@ class TreeMap extends React.Component {
         return (
             <div style={{flex:1,display:'flex',position:'relative'}}>
                 <NPIf condition={this.state.data === null || this.state.isLoading}>
-                    <Spinner animation={'grow'} style={{width:200,height:200,backgroundColor:this.state.spinnerColor}}></Spinner>
+                    <Spinner className={'spinner'} animation={'grow'} style={{backgroundColor:this.state.spinnerColor}}>
+                        Wird geladen...
+                    </Spinner>
                 </NPIf>
                     <div id={"treemap"} ref={(ref) => this.treeMapDiv = ref}>
 
