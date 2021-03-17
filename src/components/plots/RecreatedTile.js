@@ -36,7 +36,7 @@ class RecreatedTile extends React.Component {
                         {this.props.contribution.document_what}
                     </div>
                     <div className={'rt-show-all-btn'}
-                         onClick={(c) => this.onClickShowDetails()}>... alles anzeigen
+                         onClick={(c) => {}}>... alles anzeigen
                     </div>
                 </div>
 
@@ -69,7 +69,7 @@ RecreatedTile.defaultProps = {
     left: 0,
     top: 0,
     contribution:{},
-    isSelected: true,
+    isSelected: false,
     onClickContributionDetails: () => {}
 };
 export default RecreatedTile;

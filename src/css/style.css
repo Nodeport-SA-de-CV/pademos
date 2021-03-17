@@ -795,6 +795,9 @@ search-box-wrapper{
 }
 .recreated-tile:hover .ui-selector{
     font-size: 5px;
+    width: 7px;
+    height: 7px;
+    background-color: #00000042;
 }
 .recreated-tile:hover .rt-icon{
     height: 6px;
@@ -821,6 +824,7 @@ search-box-wrapper{
 .rt-header{
     display: flex;
     flex-direction: row;
+    align-items: center;
 }
 .rt-header .ui-selector {
     border: none;
@@ -830,7 +834,7 @@ search-box-wrapper{
 }
 .rt-title{
     color: white;
-    margin-left: 5px;
+    margin-left: 3px;
     font-weight: 500;
     white-space: nowrap;
     overflow: hidden;
@@ -851,6 +855,7 @@ search-box-wrapper{
 .rt-description{
     display: none;
     overflow: hidden;
+    padding: 4px 0px;
 }
 .rt-show-all-btn{
     color:white;
