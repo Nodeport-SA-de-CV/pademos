@@ -772,14 +772,105 @@ search-box-wrapper{
     height: 100%;
     overflow: hidden;
 }
+/*--------------------------------------------------------------------------------------------------------------------*/
+/*--------------------------------------------------RECREATED TILE----------------------------------------------------*/
+/*--------------------------------------------------------------------------------------------------------------------*/
 .recreated-tile{
+    position: absolute;
     transition: 0.5s all;
+    font-size: 0.75rem;
+    overflow: hidden;
+    color: #01080D;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    padding: 0px 1px;
 }
+/*---------hover start-----------------------------*/
 .recreated-tile:hover{
     transform: scale(2.5);
     z-index: 999;
     box-shadow: 0px 0px 1px 1px #5b5b5b4f;
-
+    font-size: 5px;
 }
-.recreated-tile:not(:hover){
+.recreated-tile:hover .ui-selector{
+    font-size: 5px;
+    width: 7px;
+    height: 7px;
+    background-color: #00000042;
+}
+.recreated-tile:hover .rt-icon{
+    height: 6px;
+    width: 6px;
+}
+.recreated-tile:hover .rt-icon{
+    height: 6px;
+    width: 6px;
+}
+.recreated-tile:hover .rt-keywords{
+    display: none;
+}
+.recreated-tile:hover .rt-description{
+    display: flex;
+}
+.recreated-tile:hover .rt-show-all-btn{
+    display: flex;
+}
+.recreated-tile:hover .rt-title{
+    display: flex;
+}
+/*---------hover end-----------------------------*/
+
+.rt-header{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+.rt-header .ui-selector {
+    border: none;
+    width: auto;
+    height: auto;
+    text-align: left;
+}
+.rt-title{
+    color: white;
+    margin-left: 3px;
+    font-weight: 500;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: none;
+}
+.rt-content{
+    display: flex;
+    flex-direction: column;
+    flex:1;
+    overflow: hidden;
+}
+.rt-keywords div{
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.rt-description{
+    display: none;
+    overflow: hidden;
+    padding: 4px 0px;
+}
+.rt-show-all-btn{
+    color:white;
+    cursor: pointer;
+    display: none;
+}
+.rt-footer{
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+}
+.rt-footer img:not(:last-child){
+    margin-right: 3px;
+}
+.rt-icon{
+    height: 8px;
+    width: 8px;
 }
