@@ -855,12 +855,14 @@ search-box-wrapper{
 .rt-description{
     display: none;
     overflow: hidden;
-    padding: 4px 0px;
 }
 .rt-show-all-btn{
     color:white;
     cursor: pointer;
+    font-size: 4px;
+    margin: 2px 0;
     display: none;
+    text-align: right;
 }
 .rt-footer{
     display: flex;
@@ -871,6 +873,6 @@ search-box-wrapper{
     margin-right: 3px;
 }
 .rt-icon{
-    height: 8px;
-    width: 8px;
+    height: 12px;
+    width: 12px;
 }
