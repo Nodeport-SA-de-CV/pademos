@@ -266,9 +266,10 @@ class TreeMap extends React.Component {
                     <div id={"treemap"} ref={(ref) => this.treeMapDiv = ref}>
 
                     </div>
-                <RecreatedTreemap data={this.state.leafsArray} selectedTopic={this.props.selectedTopic}
+                <RecreatedTreemap data={this.state.leafsArray}
+                                  selectedTopic={this.props.selectedTopic}
                                   onContributionSelected={(selectedContributions) => this.props.onContributionSelected(selectedContributions)}
-                ></RecreatedTreemap>
+                />
             </div>
 
         )

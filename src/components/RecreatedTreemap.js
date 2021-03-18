@@ -30,13 +30,17 @@ class RecreatedTreemap extends React.Component {
     render(){
         return this.props.data.map((tile) =>{
             return(
-                <RecreatedTile height={tile.height} width={tile.width} left={tile.x} top={tile.y}
+                <RecreatedTile height={tile.height}
+                               width={tile.width}
+                               left={tile.x}
+                               top={tile.y}
                                selectedContributions={this.state.selectedContributions}
                                onContributionSelected={(contribution) => this.onContributionSelected(contribution)}
-                               color={tile.color} contribution={tile.contribution}
+                               color={tile.color}
+                               contribution={tile.contribution}
                                selectedTopic={this.props.selectedTopic}
                                isSelected={this.isContributionSelected(tile.contribution)}
-                ></RecreatedTile>
+                />
             )
         })
     }

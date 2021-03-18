@@ -66,10 +66,13 @@ RecreatedTile.propTypes = {
     width: PropTypes.number,
     height: PropTypes.number,
     left: PropTypes.number,
-    right: PropTypes.number,
+    top: PropTypes.number,
     contribution: PropTypes.object,
     isSelected: PropTypes.bool,
-    onClickContributionDetails: PropTypes.func
+    onClickContributionDetails: PropTypes.func,
+    selectedContributions: PropTypes.array,
+    onContributionSelected: PropTypes.func,
+    selectedTopic: PropTypes.object
 };
 
 RecreatedTile.defaultProps = {
@@ -79,7 +82,12 @@ RecreatedTile.defaultProps = {
     top: 0,
     contribution:{},
     isSelected: false,
-    onClickContributionDetails: () => {}
+    onClickContributionDetails: () => {},
+    selectedContributions: [],
+    onContributionSelected: () => {},
+    selectedTopic: {},
+
+
 };
 export default RecreatedTile;
 
