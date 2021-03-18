@@ -5,6 +5,7 @@ import PropTypes from "prop-types";
 import ScrollContainer from 'react-indiana-drag-scroll'
 import TreeMap from "../../components/plots/TreeMap";
 import ReactResizeDetector from "react-resize-detector";
+import RecreatedTreemap from "../../components/RecreatedTreemap";
 
 class PlotView extends React.Component {
 
@@ -99,6 +100,7 @@ class PlotView extends React.Component {
                          onTopicsLoaded={(topics) => this.props.onTopicsLoaded(topics)}
                          searchKeyWord={this.props.searchKeyWord}
                          selectedTopic={this.props.selectedTopic}
+                         onContributionSelected={(contributions) => this.props.onContributionSelected(contributions)}
                 >
 
                 </TreeMap>

@@ -26,7 +26,8 @@ class RecreatedTile extends React.Component {
         return (
             <div className={'recreated-tile'} style={styleTile}>
                 <div className={'rt-header'}>
-                    <UISelector isSelected={this.props.isSelected}/>
+                    <UISelector isSelected={this.props.isSelected}
+                                onClick={(isSelected) => this.props.onContributionSelected(this.props.contribution)} />
                     <div className={'rt-title'}>{this.props.contribution.document_title}</div>
                 </div>
 
