@@ -6,19 +6,28 @@ import UISelector from "./ui/UISelector";
 
 class RecreatedTile extends React.Component {
     render(){
+        let showConnections = false;
+        if(this.props.selectedTopic){
+            const contributionIds = this.props.selectedTopic.contributions.map((c) => c._id);
+            if(contributionIds.includes(this.props.contribution._id)){
+                showConnections = true;
+            }
+        }
         const styleTile = {
             width:this.props.width,
             height:this.props.height,
             left: this.props.left,
             top:this.props.top,
-            backgroundColor: this.props.contribution.isDisabled ? 'gray' : this.props.color
+            backgroundColor: this.props.contribution.isDisabled ? 'gray' : this.props.color,
+            border: showConnections ? `4px solid ${this.props.selectedTopic.color}` : ''
         }
         const keywords = this.props.contribution.document_keywords ? this.props.contribution.document_keywords : [];
 
         return (
             <div className={'recreated-tile'} style={styleTile}>
                 <div className={'rt-header'}>
-                    <UISelector isSelected={this.props.isSelected}/>
+                    <UISelector isSelected={this.props.isSelected}
+                                onClick={(isSelected) => this.props.onContributionSelected(this.props.contribution)} />
                     <div className={'rt-title'}>{this.props.contribution.document_title}</div>
                 </div>
 
