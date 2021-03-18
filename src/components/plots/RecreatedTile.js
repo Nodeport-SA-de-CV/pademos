@@ -35,6 +35,7 @@ class RecreatedTile extends React.Component {
             border: showConnections ? `4px solid ${this.props.selectedTopic.color}` : ''
         }
         const keywords = this.props.contribution.document_keywords ? this.props.contribution.document_keywords : [];
+        const icons = this.props.contribution.icons ? this.props.contribution.icons : [];
 
         return (
             <div className={'recreated-tile'} style={styleTile}>
@@ -64,7 +65,7 @@ class RecreatedTile extends React.Component {
 
                 <div className={'rt-footer'}>
                     {
-                        this.props.contribution.icons.map((i,index) =>{
+                        icons.map((i,index) =>{
                             return(
                                 <img key={index} className={'rt-icon'} src={`${API.API_URL}/icons/${i}`} />
                             )
@@ -83,7 +84,6 @@ RecreatedTile.propTypes = {
     contribution: PropTypes.object,
     isSelected: PropTypes.bool,
     onClickContributionDetails: PropTypes.func,
-    selectedContributions: PropTypes.array,
     onContributionSelected: PropTypes.func,
     selectedTopic: PropTypes.object
 };
@@ -96,7 +96,6 @@ RecreatedTile.defaultProps = {
     contribution:{},
     isSelected: false,
     onClickContributionDetails: () => {},
-    selectedContributions: [],
     onContributionSelected: () => {},
     selectedTopic: {},
 

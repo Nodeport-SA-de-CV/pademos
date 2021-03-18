@@ -107,10 +107,13 @@ class MainView extends React.Component{
                                                              showContributionDetails:false,
                                                              clickedContribution: {}
                                                          })}
-                                                         onContributionSelected={(contributions) =>{
+                                                         onContributionSelected={(contribution,contributions) =>{
                                                              this.setState({
-                                                                 selectedContributions:contributions
-                                                             })
+                                                                 selectedContributions:contributions,
+                                                                 clickedContribution: contribution
+                                                             });
+
+                                                             console.log(contributions);
                                                          }}/>
                                 </NPElse>
                             </NPIf>

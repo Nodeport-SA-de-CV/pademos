@@ -35,7 +35,6 @@ class RecreatedTreemap extends React.Component {
                                width={tile.width}
                                left={tile.x}
                                top={tile.y}
-                               selectedContributions={this.state.selectedContributions}
                                onContributionSelected={(contribution) => this.onContributionSelected(contribution)}
                                color={tile.color}
                                contribution={tile.contribution}
