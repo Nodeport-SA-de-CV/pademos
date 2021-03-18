@@ -8,6 +8,7 @@ class RecreatedTreemap extends React.Component {
             return(
                 <RecreatedTile height={tile.height} width={tile.width} left={tile.x} top={tile.y}
                                color={tile.color} contribution={tile.contribution}
+                               selectedTopic={this.props.selectedTopic}
                 ></RecreatedTile>
             )
         })

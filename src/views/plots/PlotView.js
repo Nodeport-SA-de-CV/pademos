@@ -95,9 +95,10 @@ class PlotView extends React.Component {
                 <ReactResizeDetector handleWidth handleHeight onResize={(w, h) => this.onResize(w, h)}>
                 </ReactResizeDetector>
                 <TreeMap ref={(ref) => this.treeMap = ref} w={this.state.w} h={this.state.h}
-                        searchDocumentType={this.props.searchDocumentType}
+                         searchDocumentType={this.props.searchDocumentType}
                          onTopicsLoaded={(topics) => this.props.onTopicsLoaded(topics)}
                          searchKeyWord={this.props.searchKeyWord}
+                         selectedTopic={this.props.selectedTopic}
                 >
 
                 </TreeMap>
