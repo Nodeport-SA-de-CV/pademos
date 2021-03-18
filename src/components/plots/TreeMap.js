@@ -6,6 +6,7 @@ import API from "../../lib/api/API";
 import RecreatedTreemap from "../RecreatedTreemap";
 import NPIf from "np-if";
 import PropTypes from "prop-types";
+import RecreatedTile from "./RecreatedTile";
 
 class TreeMap extends React.Component {
 
@@ -268,7 +269,10 @@ class TreeMap extends React.Component {
                     </div>
                 <RecreatedTreemap data={this.state.leafsArray}
                                   selectedTopic={this.props.selectedTopic}
-                                  onContributionSelected={(selectedContributions) => this.props.onContributionSelected(selectedContributions)}
+                                  onContributionSelected={(selectedContributions) =>
+                                      this.props.onContributionSelected(selectedContributions)}
+                                  onClickContributionDetails={(c) => this.props.onClickContributionDetails(c)}
+
                 />
             </div>
 

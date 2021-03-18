@@ -2,6 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import RecreatedTile from "./plots/RecreatedTile";
 import Group from "./plots/Group";
+import Contribution from "./plots/Contribution";
 
 class RecreatedTreemap extends React.Component {
     constructor() {
@@ -40,6 +41,8 @@ class RecreatedTreemap extends React.Component {
                                contribution={tile.contribution}
                                selectedTopic={this.props.selectedTopic}
                                isSelected={this.isContributionSelected(tile.contribution)}
+                               onClickContributionDetails={(c) => this.props.onClickContributionDetails(c)}
+
                 />
             )
         })

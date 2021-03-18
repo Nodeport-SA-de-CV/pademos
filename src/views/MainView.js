@@ -106,7 +106,12 @@ class MainView extends React.Component{
                                                          onClickClose={() => this.setState({
                                                              showContributionDetails:false,
                                                              clickedContribution: {}
-                                                         })}/>
+                                                         })}
+                                                         onContributionSelected={(contributions) =>{
+                                                             this.setState({
+                                                                 selectedContributions:contributions
+                                                             })
+                                                         }}/>
                                 </NPElse>
                             </NPIf>
                         </div>

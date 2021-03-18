@@ -5,6 +5,19 @@ import API from "../../lib/api/API";
 import UISelector from "./ui/UISelector";
 
 class RecreatedTile extends React.Component {
+    constructor(props) {
+        super(props);
+
+        this.onClickShowDetails = this.onClickShowDetails.bind(this);
+    }
+
+    onClickShowDetails(){
+        const contribution = this.props.contribution;
+        contribution.color = this.props.color;
+        contribution.isSelected = this.props.isSelected;
+        this.props.onClickContributionDetails(contribution);
+    }
+
     render(){
         let showConnections = false;
         if(this.props.selectedTopic){
@@ -45,7 +58,7 @@ class RecreatedTile extends React.Component {
                         {this.props.contribution.document_what}
                     </div>
                     <div className={'rt-show-all-btn'}
-                         onClick={(c) => {}}>... alles anzeigen
+                         onClick={(c) => this.onClickShowDetails()}>... alles anzeigen
                     </div>
                 </div>
 
