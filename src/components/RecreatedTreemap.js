@@ -11,21 +11,9 @@ class RecreatedTreemap extends React.Component {
             selectedContributions: [],
         }
     }
-    onContributionSelected(contribution) {
-        let newContributions = this.state.selectedContributions;
 
-        if (newContributions.find((c) => c._id === contribution._id)) {
-            newContributions = newContributions.filter((c) => c._id !== contribution._id);
-        } else {
-            newContributions.push(contribution)
-        }
-        this.setState({
-            selectedContributions: newContributions
-        });
-        this.props.onContributionSelected(newContributions);
-    }
     isContributionSelected(contribution){
-        const found =  this.state.selectedContributions.find((c) => c._id === contribution._id);
+        const found =  this.props.selectedContributions.find((c) => c._id === contribution._id);
         return found !== undefined;
     }
     render(){
@@ -35,7 +23,7 @@ class RecreatedTreemap extends React.Component {
                                width={tile.width}
                                left={tile.x}
                                top={tile.y}
-                               onContributionSelected={(contribution) => this.onContributionSelected(contribution)}
+                               onContributionSelected={(contribution) => this.props.onContributionSelected(contribution)}
                                color={tile.color}
                                contribution={tile.contribution}
                                selectedTopic={this.props.selectedTopic}

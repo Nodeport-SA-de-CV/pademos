@@ -108,17 +108,8 @@ class ContributionDetails extends React.Component {
 
     onContributionSelected(contribution) {
         contribution.isSelected = ! contribution.isSelected;
-        let newContributions = this.state.selectedContributions;
 
-        if (newContributions.find((c) => c._id === contribution._id)) {
-            newContributions = newContributions.filter((c) => c._id !== contribution._id);
-        } else {
-            newContributions.push(contribution)
-        }
-        this.setState({
-            selectedContributions: newContributions
-        });
-        this.props.onContributionSelected(contribution,newContributions);
+        this.props.onContributionSelected(contribution);
     }
 
     render() {

@@ -103,6 +103,8 @@ class PlotView extends React.Component {
                          selectedTopic={this.props.selectedTopic}
                          onContributionSelected={(contributions) => this.props.onContributionSelected(contributions)}
                          onClickContributionDetails={(c) => this.props.onClickContributionDetails(c)}
+                         selectedContributions={this.props.selectedContributions}
+
                 >
 
                 </TreeMap>
