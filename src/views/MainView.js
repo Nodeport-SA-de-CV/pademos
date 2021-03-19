@@ -66,6 +66,19 @@ class MainView extends React.Component{
         });
     }
 
+    onContributionSelected(contribution) {
+        let newContributions = this.state.selectedContributions;
+
+        if (newContributions.find((c) => c._id === contribution._id)) {
+            newContributions = newContributions.filter((c) => c._id !== contribution._id);
+        } else {
+            newContributions.push(contribution)
+        }
+        this.setState({
+            selectedContributions: newContributions
+        });
+    }
+
     render(){
         return(
             <NPIf condition={this.context.isLoggedIn}>
@@ -89,10 +102,9 @@ class MainView extends React.Component{
                                           onTopicsLoaded={(topics) => this.onTopicsLoaded(topics)}
                                           searchKeyWord={this.state.searchKeyWord}
                                           searchDocumentType={this.state.searchDocumentType}
-                                          onContributionSelected={(contributions) =>{
-                                              this.setState({
-                                                  selectedContributions:contributions
-                                              })
+                                          selectedContributions={this.state.selectedContributions}
+                                          onContributionSelected={(contribution) =>{
+                                              this.onContributionSelected(contribution)
                                           }}
                                           onClickContributionDetails={
                                               (contribution) => this.setState({
@@ -106,7 +118,15 @@ class MainView extends React.Component{
                                                          onClickClose={() => this.setState({
                                                              showContributionDetails:false,
                                                              clickedContribution: {}
-                                                         })}/>
+                                                         })}
+                                                         onContributionSelected={(contribution) =>{
+                                                             this.setState({
+                                                                 clickedContribution: contribution
+                                                             });
+                                                             this.onContributionSelected(contribution)
+
+                                                             console.log(contribution);
+                                                         }}/>
                                 </NPElse>
                             </NPIf>
                         </div>

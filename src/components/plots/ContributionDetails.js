@@ -1,8 +1,6 @@
 import React from "react";
 import PropTypes from 'prop-types';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
-import Icon1 from '../../img/icon1.png';
-import Icon2 from '../../img/icon2.png';
 import UISelector from "./ui/UISelector";
 import NPIf from "np-if";
 import UIQuestion from "./ui/UIQuestion";
@@ -10,6 +8,14 @@ import API from "../../lib/api/API";
 
 
 class ContributionDetails extends React.Component {
+    constructor() {
+        super();
+        this.state = {
+            selectedContributions: [],
+        }
+        this.onContributionSelected = this.onContributionSelected.bind(this)
+    }
+
     renderDocumentType(type){
         let typeLabel = '';
         switch (type){
@@ -100,27 +106,25 @@ class ContributionDetails extends React.Component {
         return question;
     }
 
+    onContributionSelected(contribution) {
+        contribution.isSelected = ! contribution.isSelected;
+
+        this.props.onContributionSelected(contribution);
+    }
+
     render() {
         const bgColor = this.props.contribution.color ? this.props.contribution.color : '#1A87D7';
         const keywords = this.props.contribution.document_keywords ? this.props.contribution.document_keywords : [];
         const type = this.props.contribution.document_type ? this.props.contribution.document_type : '1';
+        const icons = this.props.contribution.icons ? this.props.contribution.icons : [];
 
 
-        let showConnections = false;
-        // if(this.props.topic){
-        //     const contributionIds = this.props.topic.contributions.map((c) => c._id);
-        //     if(contributionIds.includes(this.props.contribution._id)){
-        //         showConnections = true;
-        //     }
-        // }
         return (
             <div className={'contribution-details'}
                  style={{backgroundColor: bgColor}}>
                 <div className={'contribution-details-header'}>
-                    <NPIf condition={true}>
-                        <UISelector isSelected={this.props.isSelected}
-                                    onClick={(isSelected) => this.props.onContributionSelected(this.props.contribution)}/>
-                    </NPIf>
+                    <UISelector isSelected={this.props.isSelected}
+                                onClick={(isSelected) => this.onContributionSelected(this.props.contribution)}/>
                     <div className={'cd-wrapper-title mr-auto'}>
                         <div className={'cd-title'}><b>{this.props.contribution.document_title}</b></div>
                         <div>Beitragsart: {this.renderDocumentType(type)}</div>
@@ -150,7 +154,7 @@ class ContributionDetails extends React.Component {
                 <div className={'cd-footer'}>
                     <span className={'mr-auto'}>Wissenschaftsthemen zu denen der Beitrag zugeordnet wurde:</span>
                     {
-                        this.props.contribution.icons.map((i,index) =>{
+                        icons.map((i,index) =>{
                             return(
                                 <img key={index} className={'c-icon'} src={`${API.API_URL}/icons/${i}`}></img>
                             )

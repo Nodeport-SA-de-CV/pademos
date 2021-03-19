@@ -5,6 +5,19 @@ import API from "../../lib/api/API";
 import UISelector from "./ui/UISelector";
 
 class RecreatedTile extends React.Component {
+    constructor(props) {
+        super(props);
+
+        this.onClickShowDetails = this.onClickShowDetails.bind(this);
+    }
+
+    onClickShowDetails(){
+        const contribution = this.props.contribution;
+        contribution.color = this.props.color;
+        contribution.isSelected = this.props.isSelected;
+        this.props.onClickContributionDetails(contribution);
+    }
+
     render(){
         let showConnections = false;
         if(this.props.selectedTopic){
@@ -22,6 +35,7 @@ class RecreatedTile extends React.Component {
             border: showConnections ? `4px solid ${this.props.selectedTopic.color}` : ''
         }
         const keywords = this.props.contribution.document_keywords ? this.props.contribution.document_keywords : [];
+        const icons = this.props.contribution.icons ? this.props.contribution.icons : [];
 
         return (
             <div className={'recreated-tile'} style={styleTile}>
@@ -45,13 +59,13 @@ class RecreatedTile extends React.Component {
                         {this.props.contribution.document_what}
                     </div>
                     <div className={'rt-show-all-btn'}
-                         onClick={(c) => {}}>... alles anzeigen
+                         onClick={(c) => this.onClickShowDetails()}>... alles anzeigen
                     </div>
                 </div>
 
                 <div className={'rt-footer'}>
                     {
-                        this.props.contribution.icons.map((i,index) =>{
+                        icons.map((i,index) =>{
                             return(
                                 <img key={index} className={'rt-icon'} src={`${API.API_URL}/icons/${i}`} />
                             )
@@ -66,10 +80,12 @@ RecreatedTile.propTypes = {
     width: PropTypes.number,
     height: PropTypes.number,
     left: PropTypes.number,
-    right: PropTypes.number,
+    top: PropTypes.number,
     contribution: PropTypes.object,
     isSelected: PropTypes.bool,
-    onClickContributionDetails: PropTypes.func
+    onClickContributionDetails: PropTypes.func,
+    onContributionSelected: PropTypes.func,
+    selectedTopic: PropTypes.object
 };
 
 RecreatedTile.defaultProps = {
@@ -79,7 +95,11 @@ RecreatedTile.defaultProps = {
     top: 0,
     contribution:{},
     isSelected: false,
-    onClickContributionDetails: () => {}
+    onClickContributionDetails: () => {},
+    onContributionSelected: () => {},
+    selectedTopic: {},
+
+
 };
 export default RecreatedTile;
 
