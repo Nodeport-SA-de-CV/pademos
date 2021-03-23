@@ -95,8 +95,7 @@ class MainView extends React.Component{
                             />
                             {/*Get the legends of the treemap*/}
                             <GroupList />
-                            <NPIf condition={! this.state.showContributionDetails}>
-                                {/*TODO: REMOVE THIS WRAPPER INSTEAD US THE TREEMAPHTML COMPONENT*/}
+                            {/*<div className={'h-100 w-100'}>*/}
                                 <PlotView ref={(ref) => this.plotView = ref}
                                           selectedTopic={this.state.selectedTopic}
                                           onTopicsLoaded={(topics) => this.onTopicsLoaded(topics)}
@@ -112,23 +111,60 @@ class MainView extends React.Component{
                                                   showContributionDetails:true})
                                           }>
                                 </PlotView>
-                                <NPElse>
-                                    <ContributionDetails contribution={this.state.clickedContribution}
-                                                         isSelected={this.state.clickedContribution.isSelected}
-                                                         onClickClose={() => this.setState({
-                                                             showContributionDetails:false,
-                                                             clickedContribution: {}
-                                                         })}
-                                                         onContributionSelected={(contribution) =>{
-                                                             this.setState({
-                                                                 clickedContribution: contribution
-                                                             });
-                                                             this.onContributionSelected(contribution)
+                                <NPIf condition={this.state.showContributionDetails}>
 
-                                                             console.log(contribution);
-                                                         }}/>
-                                </NPElse>
-                            </NPIf>
+                                    {/*<NPElse>*/}
+                                    {/*<ContributionDetails contribution={this.state.clickedContribution}*/}
+                                    {/*                     isSelected={this.state.clickedContribution.isSelected}*/}
+                                    {/*                     onClickClose={() => this.setState({*/}
+                                    {/*                         showContributionDetails:false,*/}
+                                    {/*                         clickedContribution: {}*/}
+                                    {/*                     })}*/}
+                                    {/*                     onContributionSelected={(contribution) =>{*/}
+                                    {/*                         this.setState({*/}
+                                    {/*                             clickedContribution: contribution*/}
+                                    {/*                         });*/}
+                                    {/*                         this.onContributionSelected(contribution)*/}
+                                    {/*                     }}/>*/}
+                                    {/*</NPElse>*/}
+                                </NPIf>
+                            {/*</div>*/}
+                            {/*<NPIf condition={! this.state.showContributionDetails}>*/}
+                                {/*TODO: REMOVE THIS WRAPPER INSTEAD US THE TREEMAPHTML COMPONENT*/}
+                                {/*<PlotView ref={(ref) => this.plotView = ref}*/}
+                                {/*          selectedTopic={this.state.selectedTopic}*/}
+                                {/*          onTopicsLoaded={(topics) => this.onTopicsLoaded(topics)}*/}
+                                {/*          searchKeyWord={this.state.searchKeyWord}*/}
+                                {/*          searchDocumentType={this.state.searchDocumentType}*/}
+                                {/*          selectedContributions={this.state.selectedContributions}*/}
+                                {/*          onContributionSelected={(contribution) =>{*/}
+                                {/*              this.onContributionSelected(contribution)*/}
+                                {/*          }}*/}
+                                {/*          onClickContributionDetails={*/}
+                                {/*              (contribution) => this.setState({*/}
+                                {/*                  clickedContribution:contribution,*/}
+                                {/*                  showContributionDetails:true})*/}
+                                {/*          }>*/}
+                                {/*</PlotView>*/}
+                                {/*<NPIf condition={this.state.showContributionDetails}>*/}
+
+                                {/*/!*<NPElse>*!/*/}
+                                {/*    <ContributionDetails contribution={this.state.clickedContribution}*/}
+                                {/*                         isSelected={this.state.clickedContribution.isSelected}*/}
+                                {/*                         onClickClose={() => this.setState({*/}
+                                {/*                             showContributionDetails:false,*/}
+                                {/*                             clickedContribution: {}*/}
+                                {/*                         })}*/}
+                                {/*                         onContributionSelected={(contribution) =>{*/}
+                                {/*                             this.setState({*/}
+                                {/*                                 clickedContribution: contribution*/}
+                                {/*                             });*/}
+                                {/*                             this.onContributionSelected(contribution)*/}
+
+                                {/*                             console.log(contribution);*/}
+                                {/*                         }}/>*/}
+                                {/*/!*</NPElse>*!/*/}
+                                {/*</NPIf>*/}
                         </div>
                         <Sidebar selectedContributions={this.state.selectedContributions}
                                  onTopicSelected={(topic) =>{this.onTopicSelected(topic)}}

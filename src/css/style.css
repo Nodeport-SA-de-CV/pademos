@@ -684,7 +684,8 @@ search-box-wrapper{
     color: white;
     font-size: 0.9rem;
     flex:1;
-    overflow-y: auto
+    overflow-y: auto;
+    position: absolute;
 }
 .contribution-details-header{
     display: flex;
@@ -889,4 +890,16 @@ search-box-wrapper{
     color:white;
     position: absolute;
     left: calc( 50% - 100px);
+}
+/*--------------------------------------------------------------------------------------------------------------------*/
+/*--------------------------------------------------TREEMAP COMPONENT-------------------------------------------------*/
+/*--------------------------------------------------------------------------------------------------------------------*/
+.treemap-wrapper{
+    flex:1;
+    display:flex;
+    position:relative
+}
+.treemap-wrapper.disabled{
+    pointer-events: none;
+    cursor: not-allowed !important;
 }
