@@ -1,12 +1,9 @@
 import React from "react";
-import {Col, Container, Row} from "react-bootstrap";
-import TreeMapHtml from "../../components/plots/TreeMapHtml";
 import PropTypes from "prop-types";
-import ScrollContainer from 'react-indiana-drag-scroll'
 import TreeMap from "../../components/plots/TreeMap";
 import ReactResizeDetector from "react-resize-detector";
-import RecreatedTreemap from "../../components/RecreatedTreemap";
-import RecreatedTile from "../../components/plots/RecreatedTile";
+import ContributionDetails from "../../components/plots/ContributionDetails";
+import NPIf from "np-if";
 
 class PlotView extends React.Component {
 
@@ -24,7 +21,9 @@ class PlotView extends React.Component {
             translateXAtStartDragging:0,
             translateYAtStartDragging:0,
             rectX:0,
-            rectY:0
+            rectY:0,
+            showContributionsDetails: false,
+            clickedContribution:{}
         }
     }
 
@@ -92,8 +91,7 @@ class PlotView extends React.Component {
     }
     render() {
         return (
-            <div className={'h-100 d-flex'}
-            >
+            <div className={'h-100 d-flex'}>
                 <ReactResizeDetector handleWidth handleHeight onResize={(w, h) => this.onResize(w, h)}>
                 </ReactResizeDetector>
                 <TreeMap ref={(ref) => this.treeMap = ref} w={this.state.w} h={this.state.h}
@@ -102,12 +100,30 @@ class PlotView extends React.Component {
                          searchKeyWord={this.props.searchKeyWord}
                          selectedTopic={this.props.selectedTopic}
                          onContributionSelected={(contributions) => this.props.onContributionSelected(contributions)}
-                         onClickContributionDetails={(c) => this.props.onClickContributionDetails(c)}
+                         onClickContributionDetails={(contribution) => {
+                             this.setState({clickedContribution:contribution, showContributionDetails:true});
+                             this.props.onShowContributionsDetails(true)
+                         }}
                          selectedContributions={this.props.selectedContributions}
+                         disabledCursorEvents={this.state.showContributionDetails}
 
-                >
+                />
+                <NPIf condition={this.state.showContributionDetails}>
+                    <ContributionDetails contribution={this.state.clickedContribution}
+                                         isSelected={this.state.clickedContribution.isSelected}
+                                         onClickClose={() => {
+                                             this.setState({showContributionDetails:false, clickedContribution: {}});
+                                             this.props.onShowContributionsDetails(false)
+                                         }}
+                                         onContributionSelected={(contribution) =>{
+                                             this.setState({
+                                                 clickedContribution: contribution
+                                             });
+                                             this.props.onContributionSelected(contribution)
+                                         }}
+                    />
+                </NPIf>
 
-                </TreeMap>
             </div>
 
         )
@@ -117,19 +133,19 @@ class PlotView extends React.Component {
 PlotView.propTypes = {
     onContributionSelected : PropTypes.func,
     selectedTopic          : PropTypes.object,
-    onClickedContribution  : PropTypes.func,
     onTopicsLoaded         : PropTypes.func,
     searchKeyWord          : PropTypes.string,
-    searchDocumentType     : PropTypes.string
+    searchDocumentType     : PropTypes.string,
+    onShowContributionsDetails: PropTypes.func,
 };
 
 PlotView.defaultProps = {
     onContributionSelected : () => {},
     selectedTopic          : null,
-    onClickedContribution  : () => {},
     onTopicsLoaded         : () => {},
     searchKeyWord          : '',
-    searchDocumentType     : ''
+    searchDocumentType     : '',
+    onShowContributionsDetails : () => {}
 };
 
 export default PlotView;

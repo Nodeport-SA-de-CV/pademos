@@ -257,8 +257,9 @@ class TreeMap extends React.Component {
         },500)
     }
     render() {
+        const disabledClass = this.props.disabledCursorEvents ? 'disabled' : '';
         return (
-            <div style={{flex:1,display:'flex',position:'relative'}}>
+            <div className={`treemap-wrapper ${disabledClass}` }>
                 <NPIf condition={this.state.data === null || this.state.isLoading}>
                     <Spinner className={'spinner'} animation={'grow'} style={{backgroundColor:this.state.spinnerColor}}>
                         Wird geladen...
@@ -289,19 +290,18 @@ TreeMap.propTypes = {
     onTopicsLoaded: PropTypes.func,
     searchKeyword: PropTypes.string,
     searchDocumentType: PropTypes.string,
-    zoom: PropTypes.number
+    zoom: PropTypes.number,
+    disabledCursorEvents: PropTypes.bool
 };
 
 TreeMap.defaultProps = {
-    onContributionSelected: () => {
-    },
+    onContributionSelected: () => {},
     selectedTopic: null,
-    onClickContributionDetails: () => {
-    },
-    onTopicsLoaded: () => {
-    },
+    onClickContributionDetails: () => {},
+    onTopicsLoaded: () => {},
     searchKeyword: 'idee',
     searchDocumentType: '',
-    zoom: 1
+    zoom: 1,
+    disabledCursorEvents: false
 };
 export default TreeMap;
