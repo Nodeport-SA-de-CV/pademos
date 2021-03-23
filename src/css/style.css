@@ -736,6 +736,8 @@ search-box-wrapper{
     width: 60px;
     height: 60px;
     font-size: 45px;
+    background-color: #00000042;
+    border: none;
 }
 /*--------------------------------------------------------------------------------------------------------------------*/
 /*--------------------------------------------------QUESTIONS---------------------------------------------------------*/
@@ -799,6 +801,7 @@ search-box-wrapper{
     width: 7px;
     height: 7px;
     background-color: #00000042;
+    text-align: center;
 }
 .recreated-tile:hover .rt-icon{
     height: 6px;

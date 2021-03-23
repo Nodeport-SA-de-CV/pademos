@@ -1,13 +1,10 @@
 import React from 'react';
 import {AuthContext} from "../lib/AuthContext";
 import NPIf from "np-if";
-import NPElse from "np-if/src/NPElse";
 import NavBar from "../components/NavBar";
 import Sidebar from "../components/Sidebar";
 import Header from "../components/Header";
 import PlotView from "./plots/PlotView";
-import PropTypes from "prop-types";
-import ContributionDetails from "../components/plots/ContributionDetails";
 import GroupList from "../components/plots/GroupList";
 
 
@@ -16,8 +13,7 @@ class MainView extends React.Component{
     constructor() {
         super();
         this.state = {
-            clickedContribution:{},
-            showContributionDetails:false,
+            isActionsDisabled:false,
             selectedContributions: [],
             selectedTopic: null,
             topics: [],
@@ -91,80 +87,21 @@ class MainView extends React.Component{
                                     onDocumentTypeChange={(documentType) => this.onDocumentTypeChange(documentType)}
                                     keywords={this.state.keywords}
                                     contributions={this.state.contributionsCount}
-                                    isActionsDisabled={this.state.showContributionDetails}
+                                    isActionsDisabled={this.state.isActionsDisabled}
                             />
                             {/*Get the legends of the treemap*/}
                             <GroupList />
-                            {/*<div className={'h-100 w-100'}>*/}
-                                <PlotView ref={(ref) => this.plotView = ref}
-                                          selectedTopic={this.state.selectedTopic}
-                                          onTopicsLoaded={(topics) => this.onTopicsLoaded(topics)}
-                                          searchKeyWord={this.state.searchKeyWord}
-                                          searchDocumentType={this.state.searchDocumentType}
-                                          selectedContributions={this.state.selectedContributions}
-                                          onContributionSelected={(contribution) =>{
-                                              this.onContributionSelected(contribution)
-                                          }}
-                                          onClickContributionDetails={
-                                              (contribution) => this.setState({
-                                                  clickedContribution:contribution,
-                                                  showContributionDetails:true})
-                                          }>
-                                </PlotView>
-                                <NPIf condition={this.state.showContributionDetails}>
-
-                                    {/*<NPElse>*/}
-                                    {/*<ContributionDetails contribution={this.state.clickedContribution}*/}
-                                    {/*                     isSelected={this.state.clickedContribution.isSelected}*/}
-                                    {/*                     onClickClose={() => this.setState({*/}
-                                    {/*                         showContributionDetails:false,*/}
-                                    {/*                         clickedContribution: {}*/}
-                                    {/*                     })}*/}
-                                    {/*                     onContributionSelected={(contribution) =>{*/}
-                                    {/*                         this.setState({*/}
-                                    {/*                             clickedContribution: contribution*/}
-                                    {/*                         });*/}
-                                    {/*                         this.onContributionSelected(contribution)*/}
-                                    {/*                     }}/>*/}
-                                    {/*</NPElse>*/}
-                                </NPIf>
-                            {/*</div>*/}
-                            {/*<NPIf condition={! this.state.showContributionDetails}>*/}
-                                {/*TODO: REMOVE THIS WRAPPER INSTEAD US THE TREEMAPHTML COMPONENT*/}
-                                {/*<PlotView ref={(ref) => this.plotView = ref}*/}
-                                {/*          selectedTopic={this.state.selectedTopic}*/}
-                                {/*          onTopicsLoaded={(topics) => this.onTopicsLoaded(topics)}*/}
-                                {/*          searchKeyWord={this.state.searchKeyWord}*/}
-                                {/*          searchDocumentType={this.state.searchDocumentType}*/}
-                                {/*          selectedContributions={this.state.selectedContributions}*/}
-                                {/*          onContributionSelected={(contribution) =>{*/}
-                                {/*              this.onContributionSelected(contribution)*/}
-                                {/*          }}*/}
-                                {/*          onClickContributionDetails={*/}
-                                {/*              (contribution) => this.setState({*/}
-                                {/*                  clickedContribution:contribution,*/}
-                                {/*                  showContributionDetails:true})*/}
-                                {/*          }>*/}
-                                {/*</PlotView>*/}
-                                {/*<NPIf condition={this.state.showContributionDetails}>*/}
-
-                                {/*/!*<NPElse>*!/*/}
-                                {/*    <ContributionDetails contribution={this.state.clickedContribution}*/}
-                                {/*                         isSelected={this.state.clickedContribution.isSelected}*/}
-                                {/*                         onClickClose={() => this.setState({*/}
-                                {/*                             showContributionDetails:false,*/}
-                                {/*                             clickedContribution: {}*/}
-                                {/*                         })}*/}
-                                {/*                         onContributionSelected={(contribution) =>{*/}
-                                {/*                             this.setState({*/}
-                                {/*                                 clickedContribution: contribution*/}
-                                {/*                             });*/}
-                                {/*                             this.onContributionSelected(contribution)*/}
-
-                                {/*                             console.log(contribution);*/}
-                                {/*                         }}/>*/}
-                                {/*/!*</NPElse>*!/*/}
-                                {/*</NPIf>*/}
+                            <PlotView ref={(ref) => this.plotView = ref}
+                                      selectedTopic={this.state.selectedTopic}
+                                      onTopicsLoaded={(topics) => this.onTopicsLoaded(topics)}
+                                      searchKeyWord={this.state.searchKeyWord}
+                                      searchDocumentType={this.state.searchDocumentType}
+                                      selectedContributions={this.state.selectedContributions}
+                                      onContributionSelected={(contribution) =>{
+                                          this.onContributionSelected(contribution)
+                                      }}
+                                      onShowContributionsDetails={(show) => this.setState({isActionsDisabled:show})}
+                            />
                         </div>
                         <Sidebar selectedContributions={this.state.selectedContributions}
                                  onTopicSelected={(topic) =>{this.onTopicSelected(topic)}}
