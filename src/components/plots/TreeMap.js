@@ -33,7 +33,7 @@ class TreeMap extends React.Component {
             '#976E32',
             '#2BBFCF',
             '#08FF14',
-            '#0D08F9',
+            '#58FFFF',
             '#0ED173',
             '#E8FC01',
             '#FD8080',
