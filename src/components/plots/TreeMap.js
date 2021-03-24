@@ -265,9 +265,9 @@ class TreeMap extends React.Component {
                         Wird geladen...
                     </Spinner>
                 </NPIf>
-                    <div id={"treemap"} ref={(ref) => this.treeMapDiv = ref}>
+                <div id={"treemap"} ref={(ref) => this.treeMapDiv = ref}>
 
-                    </div>
+                </div>
                 <RecreatedTreemap data={this.state.leafsArray}
                                   selectedTopic={this.props.selectedTopic}
                                   onContributionSelected={(selectedContributions) =>

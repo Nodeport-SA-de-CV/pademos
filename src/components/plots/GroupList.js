@@ -19,9 +19,8 @@ class GroupList extends React.Component {
     loadData(){
         API.getContributions().then((res) => {
             if (res.success) {
-                this.setState({
-                    data: res.topics,
-                });
+                const data = res.topics.sort((g,g1) => g1.contributions.length - g.contributions.length);
+                this.setState({data});
             }
         })
     }
