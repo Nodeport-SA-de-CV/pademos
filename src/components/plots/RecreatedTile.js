@@ -34,7 +34,7 @@ class RecreatedTile extends React.Component {
             backgroundColor: this.props.contribution.isDisabled ? 'gray' : this.props.color,
             border: showConnections ? `4px solid ${this.props.selectedTopic.color}` : ''
         }
-        const keywords = this.props.contribution.document_keywords ? this.props.contribution.document_keywords : [];
+        const keywords = this.props.contribution.document_keywords ? Object.keys(this.props.contribution.document_keywords[0]) : [];
         const icons = this.props.contribution.icons ? this.props.contribution.icons : [];
 
         return (
@@ -42,7 +42,7 @@ class RecreatedTile extends React.Component {
                 <div className={'rt-header'}>
                     <UISelector isSelected={this.props.isSelected}
                                 onClick={(isSelected) => this.props.onContributionSelected(this.props.contribution)} />
-                    <div className={'rt-title'}>{this.props.contribution.document_title}</div>
+                    <div className={'rt-title'}>{this.props.contribution.document_title_response}</div>
                 </div>
 
                 <div className={'rt-content'}>
@@ -56,7 +56,7 @@ class RecreatedTile extends React.Component {
                         }
                     </div>
                     <div className={'rt-description'}>
-                        {this.props.contribution.document_what}
+                        {this.props.contribution.document_what_response}
                     </div>
                     <div className={'rt-show-all-btn'}
                          onClick={(c) => this.onClickShowDetails()}>... alles anzeigen

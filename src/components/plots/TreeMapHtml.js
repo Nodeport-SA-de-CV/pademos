@@ -69,7 +69,7 @@ class TreeMapHtml extends React.Component {
             // search in all contributions
             t = t.contributions.map((contribution) => {
                 contribution.isDisabled = !(
-                    (value ? search.test(contribution.document_what) : true)
+                    (value ? search.test(contribution.document_what_response) : true)
                     && (this.props.searchKeyWord ? contribution.topic_keywords.includes(this.props.searchKeyWord) : true)
                     && (this.props.searchDocumentType ? contribution.document_type === this.props.searchDocumentType : true)
                 );

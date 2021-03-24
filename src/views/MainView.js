@@ -6,7 +6,8 @@ import Sidebar from "../components/Sidebar";
 import Header from "../components/Header";
 import PlotView from "./plots/PlotView";
 import GroupList from "../components/plots/GroupList";
-
+import {parse} from "@fortawesome/fontawesome-svg-core";
+const _ = require('underscore');
 
 class MainView extends React.Component{
     static contextType = AuthContext;
@@ -55,11 +56,32 @@ class MainView extends React.Component{
     }
 
     onTopicsLoaded(topics){
+        let keywords = {};
+        let ktopics = topics.map((t) => t.contributions.map((c) => c.document_keywords[0]));
+        ktopics =  [].concat.apply([],ktopics);
+        ktopics.forEach((t) =>{
+            Object.keys(t).forEach((k) =>{
+                keywords[k] = keywords.hasOwnProperty(k) ? keywords[k] + parseInt(t[k]) : parseInt(t[k])
+            })
+        })
+        let keywordsArray = Object.keys(keywords).map((k) => {return {[k]:keywords[k]}})
+        keywordsArray = keywordsArray.sort((a,b) => {
+            const _a  = a[Object.keys(a)[0]];
+            const _b  = b[Object.keys(b)[0]];
+            if(_a < _b){
+                return 1;
+            }else if(_a > _b){
+                return -1;
+            }else{
+                return 0;
+            }
+        });
+        keywordsArray = keywordsArray.map((k) => Object.keys(k)[0])
         this.setState({
             topics : topics,
             contributionsCount : topics.map((t) => t.contributions.length).reduce((a,v) => a+v,0),
-            keywords: [].concat.apply([],topics.map((t) => t.contributions[0].topic_keywords))
-        });
+            keywords: keywordsArray
+        })
     }
 
     onContributionSelected(contribution) {

@@ -68,7 +68,7 @@ class Contribution extends React.Component {
                 <NPIf condition={this.state.isMouseOver}>
                     <div className={'c-content'}>
                         <div className={'c-description'}>
-                            {this.props.contribution.document_what}
+                            {this.props.contribution.document_what_response}
                         </div>
                         <div className={'c-show-all-btn'}
                              onClick={(c) => this.onClickShowDetails()}>... alles anzeigen

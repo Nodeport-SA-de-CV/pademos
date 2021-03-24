@@ -114,7 +114,7 @@ class ContributionDetails extends React.Component {
 
     render() {
         const bgColor = this.props.contribution.color ? this.props.contribution.color : '#1A87D7';
-        const keywords = this.props.contribution.document_keywords ? this.props.contribution.document_keywords : [];
+        const keywords = this.props.contribution.document_keywords ? Object.keys(this.props.contribution.document_keywords[0]) : [];
         const type = this.props.contribution.document_type ? this.props.contribution.document_type : '1';
         const icons = this.props.contribution.icons ? this.props.contribution.icons : [];
 

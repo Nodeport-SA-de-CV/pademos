@@ -7,7 +7,7 @@ import RecreatedTreemap from "../RecreatedTreemap";
 import NPIf from "np-if";
 import PropTypes from "prop-types";
 import RecreatedTile from "./RecreatedTile";
-
+const _ = require('underscore');
 class TreeMap extends React.Component {
 
     constructor(props) {
@@ -52,6 +52,11 @@ class TreeMap extends React.Component {
     componentDidMount() {
         this.loadData();
     }
+    calculateContributionWeight(c){
+        const a = Object.keys(c.topic_keywords).map((k) => k.trim());
+        const b = Object.keys(c.document_keywords[0]).map((k) => k.trim());
+        return 1 + _.intersection(a,b).length;
+    }
     buildTree(groups){
         const area = this.treeMapDiv.clientWidth * this.treeMapDiv.clientHeight;
         const tree = {
@@ -67,11 +72,11 @@ class TreeMap extends React.Component {
                             data:c,
                             name:'',
                             group:'',
-                            value: 1,
+                            value: this.calculateContributionWeight(c),
                             colName:'',
                             children:[]
                         }
-                    })
+                    }).sort((a,b) => b.value - a.value)
                 }
             })
         }
@@ -223,8 +228,8 @@ class TreeMap extends React.Component {
             // search in all contributions
             t = t.contributions.map((contribution) => {
                 contribution.isDisabled = !(
-                    (value ? search.test(contribution.document_what) : true)
-                    && (this.props.searchKeyWord ? contribution.topic_keywords.includes(this.props.searchKeyWord) : true)
+                    (value ? search.test(contribution.document_what_response) : true)
+                    && (this.props.searchKeyWord ? Object.keys(contribution.document_keywords[0]).includes(this.props.searchKeyWord) : true)
                     && (this.props.searchDocumentType ? contribution.document_type === this.props.searchDocumentType : true)
                 );
                 return contribution;
