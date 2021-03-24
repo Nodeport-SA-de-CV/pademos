@@ -859,6 +859,7 @@ search-box-wrapper{
 .rt-description{
     display: none;
     overflow: hidden;
+    word-break: break-word;
 }
 .rt-show-all-btn{
     color:white;
