@@ -126,7 +126,7 @@ class ContributionDetails extends React.Component {
                     <UISelector isSelected={this.props.isSelected}
                                 onClick={(isSelected) => this.onContributionSelected(this.props.contribution)}/>
                     <div className={'cd-wrapper-title mr-auto'}>
-                        <div className={'cd-title'}><b>{this.props.contribution.document_title}</b></div>
+                        <div className={'cd-title'}><b>{this.props.contribution.document_title_response}</b></div>
                         <div>Beitragsart: {this.renderDocumentType(type)}</div>
                     </div>
                     <FontAwesomeIcon className={'cd-close-btn'}
