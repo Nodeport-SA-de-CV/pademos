@@ -33,7 +33,7 @@ class TreeMap extends React.Component {
             '#976E32',
             '#2BBFCF',
             '#08FF14',
-            '#0D08F9',
+            '#58FFFF',
             '#0ED173',
             '#E8FC01',
             '#FD8080',
@@ -205,9 +205,9 @@ class TreeMap extends React.Component {
         // Then d3.treemap computes the position of each element of the hierarchy
         this.treemap = d3.treemap()
             .size([width, height])
-            .paddingTop(1)
-            .paddingRight(1)
-            .paddingInner(1)      // Padding between each rectangle
+            .paddingTop(2)
+            .paddingRight(2)
+            .paddingInner(2)      // Padding between each rectangle
             //.paddingOuter(6)
             //.padding(20)
             .round(true)
@@ -265,9 +265,9 @@ class TreeMap extends React.Component {
                         Wird geladen...
                     </Spinner>
                 </NPIf>
-                    <div id={"treemap"} ref={(ref) => this.treeMapDiv = ref}>
+                <div id={"treemap"} ref={(ref) => this.treeMapDiv = ref}>
 
-                    </div>
+                </div>
                 <RecreatedTreemap data={this.state.leafsArray}
                                   selectedTopic={this.props.selectedTopic}
                                   onContributionSelected={(selectedContributions) =>

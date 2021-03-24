@@ -34,10 +34,12 @@ class Header extends React.Component{
                 </div>
                 {/*action row*/}
                 <NPIf condition={this.props.showActions}>
-                    <div className={'header-row justify-content-between align-items-start pt-3 pb-3'}>
+                    <div className={'header-row align-items-start pt-3 pb-3'}>
                         <SearchBox disabled={this.props.isActionsDisabled}
                                    onChange={(value) => this.props.onSearchBoxChange(value)}/>
-                        <select disabled={this.props.isActionsDisabled}
+                        <select className={'mr-4'}
+                                style={{height:'37.2px'}}
+                                disabled={this.props.isActionsDisabled}
                                 onChange={(e) => this.props.onKeyWordChange(e.target.value)}>
                             <option value={''}>Stichwort</option>
                             {
@@ -48,7 +50,8 @@ class Header extends React.Component{
                                 })
                             }
                         </select>
-                        <select disabled={this.props.isActionsDisabled}
+                        <select style={{height:'37.2px'}}
+                                disabled={this.props.isActionsDisabled}
                                 onChange={(e) => this.props.onDocumentTypeChange(e.target.value)}>
                             <option value={''}>Beitragsart</option>
                             <option value={1}>Frage</option>
