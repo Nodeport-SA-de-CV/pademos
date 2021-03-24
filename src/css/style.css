@@ -850,6 +850,12 @@ search-box-wrapper{
     flex:1;
     overflow: hidden;
 }
+.rt-keywords{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    flex: 1;
+}
 .rt-keywords div{
     white-space: nowrap;
     overflow: hidden;

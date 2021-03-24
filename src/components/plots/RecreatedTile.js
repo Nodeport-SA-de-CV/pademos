@@ -7,16 +7,35 @@ import UISelector from "./ui/UISelector";
 class RecreatedTile extends React.Component {
     constructor(props) {
         super(props);
+        this.state = {
+            spaceKeywords: 0,
 
+        }
         this.onClickShowDetails = this.onClickShowDetails.bind(this);
     }
 
+    componentDidMount() {
+        const spaceKeywords = Math.floor(this.rtContent.clientHeight / 18);
+        this.setState({spaceKeywords});
+    }
+    
     onClickShowDetails(){
         const contribution = this.props.contribution;
         contribution.color = this.props.color;
         contribution.isSelected = this.props.isSelected;
         this.props.onClickContributionDetails(contribution);
     }
+
+    renderKeywords(){
+        const keywords = this.props.contribution.document_title_keywords ? this.props.contribution.document_title_keywords : [];
+        const spaceKeywords = this.state.spaceKeywords;
+        if(spaceKeywords <= 0 ){
+            return [];
+        }
+
+        return spaceKeywords < keywords.length ? keywords.slice(spaceKeywords) : keywords;
+    }
+
 
     render(){
         let showConnections = false;
@@ -34,8 +53,8 @@ class RecreatedTile extends React.Component {
             backgroundColor: this.props.contribution.isDisabled ? 'gray' : this.props.color,
             border: showConnections ? `4px solid ${this.props.selectedTopic.color}` : ''
         }
-        const keywords = this.props.contribution.document_keywords ? Object.keys(this.props.contribution.document_keywords[0]) : [];
         const icons = this.props.contribution.icons ? this.props.contribution.icons : [];
+        const renderKeywords = this.renderKeywords();
 
         return (
             <div className={'recreated-tile'} style={styleTile}>
@@ -45,10 +64,10 @@ class RecreatedTile extends React.Component {
                     <div className={'rt-title'}>{this.props.contribution.document_title_response}</div>
                 </div>
 
-                <div className={'rt-content'}>
+                <div className={'rt-content'} ref={ (rtContent) => { this.rtContent = rtContent } }>
                     <div className={'rt-keywords'}>
                         {
-                            keywords.map((keyword,index) => {
+                            renderKeywords.map((keyword,index) => {
                                 return(
                                     <div key={index}>{keyword}</div>
                                 )
