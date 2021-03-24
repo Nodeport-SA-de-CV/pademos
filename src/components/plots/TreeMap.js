@@ -205,9 +205,9 @@ class TreeMap extends React.Component {
         // Then d3.treemap computes the position of each element of the hierarchy
         this.treemap = d3.treemap()
             .size([width, height])
-            .paddingTop(1)
-            .paddingRight(1)
-            .paddingInner(1)      // Padding between each rectangle
+            .paddingTop(2)
+            .paddingRight(2)
+            .paddingInner(2)      // Padding between each rectangle
             //.paddingOuter(6)
             //.padding(20)
             .round(true)
