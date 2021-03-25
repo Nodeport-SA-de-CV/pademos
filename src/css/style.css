@@ -807,10 +807,6 @@ search-box-wrapper{
     height: 6px;
     width: 6px;
 }
-.recreated-tile:hover .rt-icon{
-    height: 6px;
-    width: 6px;
-}
 .recreated-tile:hover .rt-keywords{
     display: none;
 }
@@ -822,6 +818,9 @@ search-box-wrapper{
 }
 .recreated-tile:hover .rt-title{
     display: flex;
+}
+.rt-content:hover{
+    justify-content: space-around;
 }
 /*---------hover end-----------------------------*/
 
@@ -850,6 +849,12 @@ search-box-wrapper{
     flex-direction: column;
     flex:1;
     overflow: hidden;
+}
+.rt-keywords{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    flex: 1;
 }
 .rt-keywords div{
     white-space: nowrap;

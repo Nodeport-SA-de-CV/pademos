@@ -109,7 +109,8 @@ class PlotView extends React.Component {
 
                 />
                 <NPIf condition={this.state.showContributionDetails}>
-                    <ContributionDetails contribution={this.state.clickedContribution}
+                    <ContributionDetails w={this.state.w} h={this.state.h}
+                                         contribution={this.state.clickedContribution}
                                          isSelected={this.state.clickedContribution.isSelected}
                                          onClickClose={() => {
                                              this.setState({showContributionDetails:false, clickedContribution: {}});
