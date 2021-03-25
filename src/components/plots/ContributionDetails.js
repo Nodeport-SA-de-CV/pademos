@@ -34,6 +34,7 @@ class ContributionDetails extends React.Component {
         return typeLabel;
     }
 
+    //Todo: remove all the renderQuestions
     renderQuestion1(type){
         let question = '';
         switch (type){
@@ -117,11 +118,13 @@ class ContributionDetails extends React.Component {
         const keywords = this.props.contribution.document_keywords ? Object.keys(this.props.contribution.document_keywords[0]) : [];
         const type = this.props.contribution.document_type ? this.props.contribution.document_type : '1';
         const icons = this.props.contribution.icons ? this.props.contribution.icons : [];
+        const maxWidth = this.props.w - 50;
+        const maxHeight = this.props.h - 50;
 
 
         return (
             <div className={'contribution-details'}
-                 style={{backgroundColor: bgColor}}>
+                 style={{backgroundColor: bgColor,maxWidth:maxWidth,maxHeight:maxHeight}}>
                 <div className={'contribution-details-header'}>
                     <UISelector isSelected={this.props.isSelected}
                                 onClick={(isSelected) => this.onContributionSelected(this.props.contribution)}/>
@@ -171,12 +174,17 @@ ContributionDetails.propTypes = {
     onContributionSelected: PropTypes.func,
     isSelected: PropTypes.bool,
     onClickClose: PropTypes.func,
+    h: PropTypes.number,
+    w: PropTypes.number
+
 };
 
 ContributionDetails.defaultProps = {
     contribution: {},
     onContributionSelected : () => {},
     isSelected: false,
-    onClickClose: () => {}
+    onClickClose: () => {},
+    h: 550,
+    w: 550
 };
 export default ContributionDetails;
