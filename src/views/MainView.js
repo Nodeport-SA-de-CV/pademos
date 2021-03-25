@@ -7,6 +7,7 @@ import Header from "../components/Header";
 import PlotView from "./plots/PlotView";
 import GroupList from "../components/plots/GroupList";
 import {parse} from "@fortawesome/fontawesome-svg-core";
+import API from "../lib/api/API";
 const _ = require('underscore');
 
 class MainView extends React.Component{
@@ -56,6 +57,7 @@ class MainView extends React.Component{
     }
 
     onTopicsLoaded(topics){
+
         let keywords = {};
         let ktopics = topics.map((t) => t.contributions.map((c) => c.document_keywords[0]));
         ktopics =  [].concat.apply([],ktopics);
@@ -77,13 +79,30 @@ class MainView extends React.Component{
             }
         });
         keywordsArray = keywordsArray.map((k) => Object.keys(k)[0])
+        // topics (list)
+        // perspectives (list)
+
         this.setState({
             topics : topics,
             contributionsCount : topics.map((t) => t.contributions.length).reduce((a,v) => a+v,0),
             keywords: keywordsArray
         })
+        this.loadSideBarLists();
     }
+    loadSideBarLists(){
+        API.getTopics().then((r) =>{
+            if(r.success){
+                let topicsList = _.uniq(r.topics.map((t) => t.topic));
+                let perspectivesList = _.uniq(r.topics.map((t) => t.perspective));
+                this.setState({
+                    topicsList:topicsList,
+                    perspectivesList:perspectivesList
+                })
+            }
+        })
 
+
+    }
     onContributionSelected(contribution) {
         let newContributions = this.state.selectedContributions;
 
@@ -127,12 +146,24 @@ class MainView extends React.Component{
                         </div>
                         <Sidebar selectedContributions={this.state.selectedContributions}
                                  onTopicSelected={(topic) =>{this.onTopicSelected(topic)}}
-                                 onFormSaved={() => this.plotView.loadData()}
+                                 onFormSaved={() => this.onTopicSaved()}
+                                 topicsList={this.state.topicsList}
+                                 perspectivesList={this.state.perspectivesList}
+
                         />
                     </div>
                 </div>
             </NPIf>
         )
+    }
+
+    onTopicSaved() {
+        this.loadSideBarLists();
+        this.plotView.loadData();
+        this.setState({
+            selectedContributions:[]
+        })
+
     }
 }
 
