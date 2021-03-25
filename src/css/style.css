@@ -792,9 +792,16 @@ search-box-wrapper{
 /*---------hover start-----------------------------*/
 .recreated-tile:hover{
     transform: scale(1.25);
+    transform-origin: top left;
     z-index: 999;
     box-shadow: 0px 0px 1px 1px #5b5b5b4f;
     /*font-size: 5px;*/
+}
+.recreated-tile.tile-bottom:hover{
+    transform-origin: bottom left;
+}
+.recreated-tile.tile-right:hover{
+    transform-origin: bottom right;
 }
 .recreated-tile:hover .ui-selector{
     /*font-size: 5px;*/
