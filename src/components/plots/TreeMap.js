@@ -279,8 +279,8 @@ class TreeMap extends React.Component {
                                       this.props.onContributionSelected(selectedContributions)}
                                   onClickContributionDetails={(c) => this.props.onClickContributionDetails(c)}
                                   selectedContributions={this.props.selectedContributions}
-
-
+                                  widthTreemap={this.props.w}
+                                  heightTreemap={this.props.h}
                 />
             </div>
 

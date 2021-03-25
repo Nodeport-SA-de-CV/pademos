@@ -29,6 +29,8 @@ class RecreatedTreemap extends React.Component {
                                selectedTopic={this.props.selectedTopic}
                                isSelected={this.isContributionSelected(tile.contribution)}
                                onClickContributionDetails={(c) => this.props.onClickContributionDetails(c)}
+                               widthTreemap={this.props.widthTreemap}
+                               heightTreemap={this.props.heightTreemap}
 
                 />
             )
