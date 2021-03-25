@@ -47,8 +47,8 @@ class RecreatedTile extends React.Component {
     render(){
         let showConnections = false;
         if(this.props.selectedTopic){
-            const contributionIds = this.props.selectedTopic.contributions.map((c) => c._id);
-            if(contributionIds.includes(this.props.contribution._id)){
+            const conversationThreadIds = this.props.selectedTopic.contributions.map((c) => c.conversation_thread_id);
+            if(conversationThreadIds.includes(this.props.contribution.conversation_thread_id)){
                 showConnections = true;
             }
         }
