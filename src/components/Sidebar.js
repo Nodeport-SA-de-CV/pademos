@@ -127,6 +127,8 @@ class Sidebar extends React.Component{
                     <ConnectionForm  onFormSaved={() => this.onFormSaved()}
                                      onCancel={() => this.setState({showConnectionForm:false})}
                                      selectedContributions={this.props.selectedContributions}
+                                     topicsList={this.props.topicsList}
+                                     perspectivesList={this.props.perspectivesList}
                     />
                 </NPElse>
             </NPIf>

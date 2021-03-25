@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import NPInput from "./NPInput";
 import API from "../lib/api/API";
+import Sidebar from "./Sidebar";
 
 
 class ConnectionForm extends React.Component{
@@ -20,6 +21,8 @@ class ConnectionForm extends React.Component{
         this.onClickHelp = this.onClickHelp.bind(this);
         this.onChange = this.onChange.bind(this);
         this.onClickSave = this.onClickSave.bind(this);
+        this.onTopicChange = this.onTopicChange.bind(this);
+        this.onPerspectiveChange = this.onPerspectiveChange.bind(this);
 
     }
 
@@ -30,8 +33,8 @@ class ConnectionForm extends React.Component{
     onClickSave(){
         const topic = {
             contributions: this.props.selectedContributions,
-            topic: this.state.otherTopic,
-            perspective: this.state.otherPerspective,
+            topic: this.state.topic ? this.state.topic : this.state.otherTopic,
+            perspective: this.state.perspective ? this.state.perspective : this.state.otherPerspective,
             connection_explanation: this.state.explanation,
             links: this.state.links,
             proposed_topics: this.state.proposeTopics,
@@ -62,8 +65,17 @@ class ConnectionForm extends React.Component{
 
                     {/*select */}
                     <label className={'mt-2'}>2. Zu welchem Forschungsthema haben die Bürgerbeiträge einen Bezug? (*)</label>
-                    <select>
+                    <select onChange={this.onTopicChange}>
                         <option value={''}>Wählen Sie ein Thema </option>
+                        {
+                            this.props.topicsList.map((t,i) => {
+                                return(
+                                    <option key={i} value={t}>
+                                        {t}
+                                    </option>
+                                )
+                            })
+                        }
                     </select>
 
                     <NPInput label={'Wenn nicht in der Liste, legen Sie ein neues Forschungsthema an: '}
@@ -74,8 +86,17 @@ class ConnectionForm extends React.Component{
 
                     {/*select */}
                     <label className={'mt-2'}>3. Aus welcher Perspektive (einer Fachrichtung oder Ihrer Position) legen Sie diese Verbindung an? (*)   </label>
-                    <select>
-                        <option value={''}>Wählen Sie eine Verbindung </option>
+                    <select onChange={this.onPerspectiveChange}>
+                        <option value={''}>Wählen Sie eine Perspektive </option>
+                        {
+                            this.props.perspectivesList.map((t,i) => {
+                                return(
+                                <option key={i} value={t}>
+                                    {t}
+                                </option>
+                                )
+                            })
+                        }
                     </select>
 
                     <NPInput label={'Wenn nicht in der Liste, legen Sie eine neue Perspektive an: '}
@@ -115,6 +136,17 @@ class ConnectionForm extends React.Component{
             </div>
         )
     }
+
+    onTopicChange(e) {
+        this.setState({
+            "topic":e.target.value
+        });
+    }
+    onPerspectiveChange(e) {
+        this.setState({
+            "perspective":e.target.value
+        });
+    }
 }
 
 export default ConnectionForm;
@@ -122,12 +154,15 @@ export default ConnectionForm;
 ConnectionForm.propTypes = {
     onFormSaved: PropTypes.func,
     onCancel: PropTypes.func,
-    selectedContributions: PropTypes.array
-
+    selectedContributions: PropTypes.array,
+    topicsList: PropTypes.array,
+    perspectivesList: PropTypes.array
 };
 
 ConnectionForm.defaultProps = {
     onFormSaved: PropTypes.func,
     onCancel: () => {},
-    selectedContributions : []
+    selectedContributions : [],
+    topicsList: [],
+    perspectivesList: [],
 };
