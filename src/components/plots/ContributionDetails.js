@@ -139,17 +139,17 @@ class ContributionDetails extends React.Component {
                             return <div key={index}>{keyword}</div>
                         })}
                     </div>
-                    <UIQuestion question={this.renderQuestion1(type)}
-                                answer={'text of the answer'}
+                    <UIQuestion question={this.props.contribution.document_what_question}
+                                answer={this.props.contribution.document_what_response}
                                 className={'mb-4'}/>
-                    <UIQuestion question={this.renderQuestion2(type)}
-                                answer={'text of the answer'}
+                    <UIQuestion question={this.props.contribution.document_why_question}
+                                answer={this.props.contribution.document_why_response}
                                 className={'mb-4'}/>
-                    <UIQuestion question={this.renderQuestion3(type)}
-                                answer={'text of the answer'}
+                    <UIQuestion question={this.props.contribution.document_for_whom_question}
+                                answer={this.props.contribution.document_for_whom_response}
                                 className={'mb-4'}/>
-                    <UIQuestion question={this.renderQuestion4(type)}
-                                answer={'text of the answer'}/>
+                    <UIQuestion question={this.props.contribution.document_effect_question}
+                                answer={this.props.contribution.document_effect_response}/>
                 </div>
                 <div className={'cd-footer'}>
                     <span className={'mr-auto'}>Wissenschaftsthemen zu denen der Beitrag zugeordnet wurde:</span>

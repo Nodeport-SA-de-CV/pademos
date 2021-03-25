@@ -3,10 +3,17 @@ import PropTypes from 'prop-types';
 
 class UIQuestion extends React.Component {
 
+    cleanQuestion(questionDirty){
+        const stringArray = questionDirty.split('? ');
+
+        return stringArray[0];
+    }
+
     render(){
+        const question = this.cleanQuestion(this.props.question);
         return(
             <div className={`ui-question ${this.props.className}`}>
-                <div className={'question'}>{this.props.question}</div>
+                <div className={'question'}>{question}?</div>
                 <div className={'answer'}>{this.props.answer}</div>
             </div>
         )

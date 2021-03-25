@@ -12,18 +12,25 @@ class RecreatedTile extends React.Component {
 
         }
         this.onClickShowDetails = this.onClickShowDetails.bind(this);
+        this.calcRtContentHeight = this.calcRtContentHeight.bind(this);
     }
 
     componentDidMount() {
-        const spaceKeywords = Math.floor(this.rtContent.clientHeight / 18);
-        this.setState({spaceKeywords});
+        this.calcRtContentHeight();
     }
     
     onClickShowDetails(){
+        this.calcRtContentHeight();
+
         const contribution = this.props.contribution;
         contribution.color = this.props.color;
         contribution.isSelected = this.props.isSelected;
         this.props.onClickContributionDetails(contribution);
+    }
+
+    calcRtContentHeight(){
+        const spaceKeywords = Math.floor(this.rtContent.clientHeight / 18);
+        this.setState({spaceKeywords});
     }
 
     renderKeywords(){
@@ -60,7 +67,9 @@ class RecreatedTile extends React.Component {
             <div className={'recreated-tile'} style={styleTile}>
                 <div className={'rt-header'}>
                     <UISelector isSelected={this.props.isSelected}
-                                onClick={(isSelected) => this.props.onContributionSelected(this.props.contribution)} />
+                                onClick={(isSelected) => {
+                                    this.props.onContributionSelected(this.props.contribution);
+                                }} />
                     <div className={'rt-title'}>{this.props.contribution.document_title_response}</div>
                 </div>
 
