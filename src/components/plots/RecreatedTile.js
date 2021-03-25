@@ -43,6 +43,17 @@ class RecreatedTile extends React.Component {
         return spaceKeywords < keywords.length ? keywords.slice(spaceKeywords) : keywords;
     }
 
+    hoverPositionClass(width,height,left,top){
+        const wTreeMap = Math.round(this.props.widthTreemap);
+        const hTreeMap = Math.round(this.props.heightTreemap);
+        if(left+width+4 === wTreeMap){
+            return 'tile-right'
+        }
+        if(top+height === hTreeMap){
+            return 'tile-bottom'
+        }
+        return '';
+    }
 
     render(){
         let showConnections = false;
@@ -62,9 +73,10 @@ class RecreatedTile extends React.Component {
         }
         const icons = this.props.contribution.icons ? this.props.contribution.icons : [];
         const renderKeywords = this.renderKeywords();
+        const hoverPositionClass = this.hoverPositionClass(this.props.width,this.props.height,this.props.left,this.props.top);
 
         return (
-            <div className={'recreated-tile'} style={styleTile}>
+            <div className={`recreated-tile ${hoverPositionClass}`} style={styleTile}>
                 <div className={'rt-header'}>
                     <UISelector isSelected={this.props.isSelected}
                                 onClick={(isSelected) => {
@@ -113,7 +125,9 @@ RecreatedTile.propTypes = {
     isSelected: PropTypes.bool,
     onClickContributionDetails: PropTypes.func,
     onContributionSelected: PropTypes.func,
-    selectedTopic: PropTypes.object
+    selectedTopic: PropTypes.object,
+    widthTreemap: PropTypes.number,
+    heightTreemap: PropTypes.number,
 };
 
 RecreatedTile.defaultProps = {
