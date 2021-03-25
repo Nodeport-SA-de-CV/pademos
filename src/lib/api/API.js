@@ -129,5 +129,23 @@ const API = {
                 return error;
             });
     },
+
+    uploadData(data) {
+        return fetch(`${API.API_URL}/admin/uploadDataSet`, {
+            method: "POST",
+            headers: {
+                'Accept': 'application/json',
+            },
+            body: data,
+            credentials: "include",
+        })
+            .then((response) => response.json())
+            .then((responseJson) => {
+                return responseJson;
+            })
+            .catch((error) => {
+                return error;
+            });
+    },
 };
 export default API;
