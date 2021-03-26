@@ -504,11 +504,14 @@ search-box-wrapper{
     flex-wrap: wrap;
 }
 .group-name{
-    padding: 0 12px 5px 2px;
+    margin: 0 12px 5px 2px;
     font-size: 0.9rem;
     display: flex;
     cursor: pointer;
     flex:1;
+    background-color: #eeeeee8c;
+    padding: 0px 5px;
+    border-radius: 2px;
 }
 .group-icon-keywords{
     cursor: pointer;
@@ -559,12 +562,11 @@ search-box-wrapper{
 }
 
 .overlay{
-    background-color: white;
-    opacity:0.6;
     padding: 0.5rem 1rem;
     font-size: 0.9rem;
     display: flex;
     flex-direction: column;
+    box-shadow: 0px 0px 1px 1px #5b5b5b4f;
 }
 
 .overlay-btn-icon{
@@ -746,11 +748,11 @@ search-box-wrapper{
     font-size: 0.9rem;
 }
 .question{
-    color:white;
+    color:#e3e3e3;
     font-weight: 500;
 }
 .answer{
-    border: 2px solid white;
+    border: 2px solid #e3e3e3;
     color: black;
     padding: 0.25rem 0.5rem;
     overflow-y: hidden;
