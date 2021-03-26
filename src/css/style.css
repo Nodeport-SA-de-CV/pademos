@@ -812,6 +812,7 @@ search-box-wrapper{
     height: 1rem;
     background-color: #00000042;
     text-align: center;
+    line-height: 1rem;
 }
 .recreated-tile:hover .rt-icon{
     /*height: 6px;*/
