@@ -53,6 +53,13 @@ class RecreatedTile extends React.Component {
         return '';
     }
 
+    isPortrait(width,height){
+        if(width < height){
+            return 'portrait';
+        }
+        return '';
+    }
+
     render(){
         let showConnections = false;
         if(this.props.selectedTopic){
@@ -72,9 +79,10 @@ class RecreatedTile extends React.Component {
         const icons = this.props.contribution.icons ? this.props.contribution.icons : [];
         const renderKeywords = this.renderKeywords();
         const hoverPositionClass = this.hoverPositionClass(this.props.width,this.props.height,this.props.left,this.props.top);
+        const isPortrait = this.isPortrait(this.props.width,this.props.height);
 
         return (
-            <div className={`recreated-tile ${hoverPositionClass}`} style={styleTile}>
+            <div className={`recreated-tile ${hoverPositionClass} ${isPortrait}`} style={styleTile}>
                 <div className={'rt-header'}>
                     <UISelector isSelected={this.props.isSelected}
                                 onClick={(isSelected) => {

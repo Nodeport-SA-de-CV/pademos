@@ -794,11 +794,22 @@ search-box-wrapper{
 /*---------hover start-----------------------------*/
 .recreated-tile:hover{
     transform: scale(1.25);
+    -webkit-transform: scale(1.25);
+    -moz-transform:    scale(1.25);
+    -ms-transform:     scale(1.25);
+    -o-transform:      scale(1.25);
     transform-origin: top left;
     z-index: 999;
     box-shadow: 0px 0px 1px 1px #5b5b5b4f;
     font-size: 0.75rem;
     /*font-size: 5px;*/
+}
+.recreated-tile.portrait:hover{
+    transform: scale(1.50);
+    -webkit-transform: scale(1.50);
+    -moz-transform:    scale(1.50);
+    -ms-transform:     scale(1.50);
+    -o-transform:      scale(1.50);
 }
 .recreated-tile.tile-bottom:hover{
     transform-origin: bottom left;
