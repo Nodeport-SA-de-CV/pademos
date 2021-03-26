@@ -504,11 +504,14 @@ search-box-wrapper{
     flex-wrap: wrap;
 }
 .group-name{
-    padding: 0 12px 5px 2px;
+    margin: 0 12px 5px 2px;
     font-size: 0.9rem;
     display: flex;
     cursor: pointer;
     flex:1;
+    background-color: #eeeeee8c;
+    padding: 0px 5px;
+    border-radius: 2px;
 }
 .group-icon-keywords{
     cursor: pointer;
@@ -559,12 +562,11 @@ search-box-wrapper{
 }
 
 .overlay{
-    background-color: white;
-    opacity:0.6;
     padding: 0.5rem 1rem;
     font-size: 0.9rem;
     display: flex;
     flex-direction: column;
+    box-shadow: 0px 0px 1px 1px #5b5b5b4f;
 }
 
 .overlay-btn-icon{
@@ -746,11 +748,11 @@ search-box-wrapper{
     font-size: 0.9rem;
 }
 .question{
-    color:white;
+    color:#e3e3e3;
     font-weight: 500;
 }
 .answer{
-    border: 2px solid white;
+    border: 2px solid #e3e3e3;
     color: black;
     padding: 0.25rem 0.5rem;
     overflow-y: hidden;
@@ -781,7 +783,7 @@ search-box-wrapper{
 .recreated-tile{
     position: absolute;
     transition: 0.5s all;
-    font-size: 0.75rem;
+    font-size: 1.2rem;
     overflow: hidden;
     color: #01080D;
     cursor: pointer;
@@ -792,10 +794,22 @@ search-box-wrapper{
 /*---------hover start-----------------------------*/
 .recreated-tile:hover{
     transform: scale(1.25);
+    -webkit-transform: scale(1.25);
+    -moz-transform:    scale(1.25);
+    -ms-transform:     scale(1.25);
+    -o-transform:      scale(1.25);
     transform-origin: top left;
     z-index: 999;
     box-shadow: 0px 0px 1px 1px #5b5b5b4f;
+    font-size: 0.75rem;
     /*font-size: 5px;*/
+}
+.recreated-tile.portrait:hover{
+    transform: scale(1.50);
+    -webkit-transform: scale(1.50);
+    -moz-transform:    scale(1.50);
+    -ms-transform:     scale(1.50);
+    -o-transform:      scale(1.50);
 }
 .recreated-tile.tile-bottom:hover{
     transform-origin: bottom left;
@@ -811,6 +825,7 @@ search-box-wrapper{
     height: 1rem;
     background-color: #00000042;
     text-align: center;
+    line-height: 1rem;
 }
 .recreated-tile:hover .rt-icon{
     /*height: 6px;*/

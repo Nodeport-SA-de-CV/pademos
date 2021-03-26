@@ -34,7 +34,7 @@ class NavBar extends React.Component{
                 <Navbar.Toggle aria-controls="basic-navbar-nav" />
                 <Navbar.Collapse id="basic-navbar-nav" className="justify-content-end">
                     <Form inline className={'mr-auto ml-auto'}>
-                        <Form.Control as="select" custom id="custom-select">
+                        <Form.Control as="select" custom id="custom-select" disabled>
                             <option value={'bürger'}>Bürger:innen</option>
                             <option value={'Wissenschaftler'}>Wissenschaftler:innen</option>
                             <option value={'journalist'}>Journalist:innen</option>

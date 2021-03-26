@@ -28,7 +28,7 @@ class Header extends React.Component{
                 <div className={'header-row justify-content-between'}>
                     <div className={'txt-right'}>
                         <h2>{this.props.title} <span>{this.props.subtitle}</span></h2>
-                        <div className={'btn btn-tiny'}>Was können Sie hier tun? <FontAwesomeIcon icon={'caret-down'}/></div>
+                        <div style={{visibility:'hidden'}} className={'btn btn-tiny'}>Was können Sie hier tun? <FontAwesomeIcon icon={'caret-down'}/></div>
                     </div>
                     <div className={'txt-right'}><h2>{this.props.contributions}</h2><div>{this.props.subContributions}</div></div>
                 </div>

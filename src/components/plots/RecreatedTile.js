@@ -20,8 +20,6 @@ class RecreatedTile extends React.Component {
     }
     
     onClickShowDetails(){
-        this.calcRtContentHeight();
-
         const contribution = this.props.contribution;
         contribution.color = this.props.color;
         contribution.isSelected = this.props.isSelected;
@@ -29,18 +27,18 @@ class RecreatedTile extends React.Component {
     }
 
     calcRtContentHeight(){
-        const spaceKeywords = Math.floor(this.rtContent.clientHeight / 18);
+        const spaceKeywords = Math.floor(this.rtContent.clientHeight / 28.8);
         this.setState({spaceKeywords});
     }
 
     renderKeywords(){
-        const keywords = this.props.contribution.document_title_keywords ? this.props.contribution.document_title_keywords : [];
+        const keywords = this.props.contribution.document_keywords ? Object.keys(this.props.contribution.document_keywords[0]) : [];
         const spaceKeywords = this.state.spaceKeywords;
         if(spaceKeywords <= 0 ){
             return [];
         }
 
-        return spaceKeywords < keywords.length ? keywords.slice(spaceKeywords) : keywords;
+        return spaceKeywords < keywords.length ? keywords.slice(0,spaceKeywords) : keywords;
     }
 
     hoverPositionClass(width,height,left,top){
@@ -51,6 +49,13 @@ class RecreatedTile extends React.Component {
         }
         if(top+height === hTreeMap){
             return 'tile-bottom'
+        }
+        return '';
+    }
+
+    isPortrait(width,height){
+        if(width < height){
+            return 'portrait';
         }
         return '';
     }
@@ -74,12 +79,14 @@ class RecreatedTile extends React.Component {
         const icons = this.props.contribution.icons ? this.props.contribution.icons : [];
         const renderKeywords = this.renderKeywords();
         const hoverPositionClass = this.hoverPositionClass(this.props.width,this.props.height,this.props.left,this.props.top);
+        const isPortrait = this.isPortrait(this.props.width,this.props.height);
 
         return (
-            <div className={`recreated-tile ${hoverPositionClass}`} style={styleTile}>
+            <div className={`recreated-tile ${hoverPositionClass} ${isPortrait}`} style={styleTile}>
                 <div className={'rt-header'}>
                     <UISelector isSelected={this.props.isSelected}
                                 onClick={(isSelected) => {
+                                    this.calcRtContentHeight();
                                     this.props.onContributionSelected(this.props.contribution);
                                 }} />
                     <div className={'rt-title'}>{this.props.contribution.document_title_response}</div>
