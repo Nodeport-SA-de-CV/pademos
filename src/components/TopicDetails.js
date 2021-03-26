@@ -7,7 +7,7 @@ import NPIf from "np-if";
 
 class TopicDetails extends React.Component{
     render(){
-        const topic = this.props.topic
+        const topic = this.props.topic;
         return(
             <div className={`topic-details ${this.props.className}`} style={{backgroundColor:topic.color}}>
                 <FontAwesomeIcon className={'tp-close-btn txt-right'} icon={'times'} onClick={() => this.props.onClickHide()}/>
@@ -18,11 +18,18 @@ class TopicDetails extends React.Component{
                     </NPIf>
                 </div>
                 <div className={'mt-2 mb-2'}>Beispielverbindungen, die Wissenschaftler:innen angelegt haben</div>
-                <div className={'perspective'}>
-                    <div>Perspective 1 --> Connection 1</div>
-                    <div className={'mt-1 mb-1'}>This relates to the research on AI in HCI .. </div>
-                    <div className={'btn btn-tiny'} onClick={() => this.props.onClickShowAll()}>alles anzeigen</div>
-                </div>
+                {
+                    topic.children.map((perspective,index) =>{
+                        return (
+                            <div className={'perspective mb-2'} key={index}>
+                                <div>{perspective.perspective} --> Connection { index + 1 }</div>
+                                <div className={'mt-1 mb-1'}>{perspective.connection_explanation}</div>
+                                <div className={'btn btn-tiny'} onClick={() => this.props.onClickShowAll()}>alles anzeigen</div>
+                            </div>
+                        )
+                    })
+                }
+
                 <div className={'mt-auto'}>Sie können weitere Verbindungen in der Ansicht für Wissenschaftler*innen sehen oder hier eine neue Verbindung anlegen..</div>
             </div>
         )

@@ -19,7 +19,7 @@ class GroupTitle extends React.Component {
     render(){
         const group = this.props.group;
         const color = this.props.group.color;
-        const keywords = this.props.group.contributions ? Object.keys(this.props.group.contributions[0].topic_keywords) : [];
+        const keywords = this.props.group.contributions ? this.props.group.contributions[0].topic_keywords : [];
         return(
             <div style={{flex:1}} onMouseLeave={() => this.showOverlay(false)}>
                 <div key={group._id}
