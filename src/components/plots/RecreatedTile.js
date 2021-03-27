@@ -38,7 +38,7 @@ class RecreatedTile extends React.Component {
             return [];
         }
 
-        return spaceKeywords < keywords.length ? keywords.slice(0,spaceKeywords) : keywords;
+        return  keywords.slice(0,3);
     }
 
     hoverPositionClass(width,height,left,top){
@@ -93,15 +93,16 @@ class RecreatedTile extends React.Component {
                 </div>
 
                 <div className={'rt-content'} ref={ (rtContent) => { this.rtContent = rtContent } }>
-                    <div className={'rt-keywords'}>
-                        {
-                            renderKeywords.map((keyword,index) => {
-                                return(
-                                    <div key={index}>{keyword}</div>
-                                )
-                            })
-                        }
-                    </div>
+                    {this.props.contribution.document_title_response}
+                    {/*<div className={'rt-keywords'}>*/}
+                    {/*    {*/}
+                    {/*        renderKeywords.map((keyword,index) => {*/}
+                    {/*            return(*/}
+                    {/*                <div key={index}>{keyword}</div>*/}
+                    {/*            )*/}
+                    {/*        })*/}
+                    {/*    }*/}
+                    {/*</div>*/}
                     <div className={'rt-description'}>
                         {this.props.contribution.document_what_response}
                     </div>

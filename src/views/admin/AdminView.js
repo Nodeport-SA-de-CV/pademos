@@ -12,7 +12,8 @@ class AdminView extends React.Component {
         super();
         this.state = {
             file:null,
-            result:null
+            result:null,
+            isUploading:false
         }
     }
     onFileSelected(e){
@@ -31,8 +32,15 @@ class AdminView extends React.Component {
         const msg  = this.state.result ? this.state.result.message: '';
         return(
             <div>
-                Result: {msg}
-
+                <div className={'mt-2 mb-2'}>
+                    <b>Result: {msg}</b>
+                </div>
+                <div style={{display:'flex'}}>
+                    <div style={{width:200}}><b>Row</b></div>
+                    <div style={{width:200}}><b>Is Row Valid</b></div>
+                    <div style={{width:200}}><b>Validation Error</b></div>
+                    <div style={{width:200}}><b>Saved to Database</b></div>
+                </div>
                 {
                     rows.map((row,index) =>{
                         return (
@@ -43,8 +51,12 @@ class AdminView extends React.Component {
                                 <div style={{width:200}}>
                                     {row.isValid ? 'true' : 'false'}
                                 </div>
-                                <div>
+                                <div style={{width:200}}>
                                     {row.errors.length > 0 ? row.errors[0] : 'No error'}
+                                </div>
+                                <div style={{width:200}}>
+
+                                    {row.saved ? 'yes': 'no'}
                                 </div>
                             </div>
                         )
@@ -56,9 +68,13 @@ class AdminView extends React.Component {
 
     }
     onUpload(){
+        this.setState({
+            isUploading:true
+        })
         API.uploadData(this.state.file).then((r) =>{
             this.setState({
-                result:r
+                result:r,
+                isUploading:false
             })
             // if(r.success){
             //
@@ -76,6 +92,12 @@ class AdminView extends React.Component {
                             <input type={'file'} onChange={(e) => this.onFileSelected(e)}></input>
                             {this.renderTable()}
                             <div className={'btn btn-burgundy'} onClick={() => this.onUpload()}>Upload</div>
+
+                            <NPIf condition={this.state.isUploading}>
+                                <div className={'mt-2 mb-2'}>
+                                    <b>Uploading...</b>
+                                </div>
+                            </NPIf>
                         </div>
                         {/*<div className={'mt-2'}>*/}
                         {/*    <h3>Delete Data</h3>*/}
