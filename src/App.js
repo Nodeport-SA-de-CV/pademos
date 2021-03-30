@@ -18,6 +18,8 @@ import RegisterView from "./views/auth/RegisterView";
 import LoginView from "./views/auth/LoginView";
 import NoMatchView from "./views/auth/NoMatchView";
 import AdminView from "./views/admin/AdminView";
+import ScientistView from "./views/ScientistView";
+
 // init icons
 library.add(fab, far, fas);
 
@@ -70,6 +72,9 @@ class App extends React.Component {
             <AuthContext.Provider value={this.state}>
                 <Router>
                     <Switch>
+                        <Route path='/scientist'>
+                            { this.state.isLoggedIn ? <ScientistView /> : <LoginView/> }
+                        </Route>
                         <Route exact path='/'>
                             {this.state.isLoggedIn ? <MainView /> : <Redirect to="/login"/>}
                         </Route>
