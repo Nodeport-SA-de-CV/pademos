@@ -134,6 +134,9 @@ class ScientistView extends React.Component {
                                     contributions={this.state.contributionsCount}
                                     subContributions={'definierte Verbindungen'}
                             />
+                            <div className={'header-row align-items-start pt-3 pb-3'}>
+                                Übersicht
+                            </div>
                             {/*Get the legends of the treemap*/}
                             <GroupList/>
                             {/*<PlotView ref={(ref) => this.plotView = ref}*/}
