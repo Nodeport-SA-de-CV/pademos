@@ -947,3 +947,8 @@ search-box-wrapper{
     pointer-events: none;
     cursor: not-allowed !important;
 }
+
+.scientist-title{
+    font-size: 1.25rem;
+    color: #5A5656;
+}
