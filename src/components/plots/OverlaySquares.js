@@ -1,21 +1,11 @@
 import React from "react";
 import PropTypes from "prop-types";
-import RecreatedTreemap from "../RecreatedTreemap";
 
 class OverlaySquares extends React.Component {
 
-    constructor(props) {
-        super(props);
-        this.state     = {
-            // data:[],
-        }
-        // this.loadData       = this.loadData.bind(this);
-    }
-
-
-
     render(){
         const group = this.props.group;
+        const hidden = this.props.hidden ? 'hidden' : ''
         const  style = {
             position:'absolute',
             left: group.x0,
@@ -23,9 +13,10 @@ class OverlaySquares extends React.Component {
             top: group.y0,
             height: group.y1 - group.y0,
             backgroundColor:group.color,
+            visibility: hidden
         }
         return(
-            <div className={'overlay-squares'} style={style}>
+            <div className={'overlay-squares'} style={style} onClick={() => {this.props.onHide(group.name)}}>
                 <div className={'os-row flex-wrap'}>
                     <div className={'mr-4'}>Group {this.props.index}</div>
                     <div>{group.name}</div>
@@ -42,11 +33,16 @@ export default OverlaySquares;
 
 OverlaySquares.propTypes = {
     group: PropTypes.object,
-    index: PropTypes.number
+    index: PropTypes.number,
+    onHide: PropTypes.func,
+    hidden: PropTypes.bool
+
 };
 
 OverlaySquares.defaultProps = {
     group: {},
     index: 1,
+    onHide: () => {},
+    hidden: false
 };
 

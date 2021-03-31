@@ -22,7 +22,8 @@ class TreeMap extends React.Component {
             overlayWidth:100,
             overlayHeight:100,
             leafsArray: [],
-            overlaySquares:[]
+            overlaySquares:[],
+            groupHidden: '',
         }
         this.svg = null;
         this.drawChart = this.drawChart.bind(this);
@@ -174,11 +175,11 @@ class TreeMap extends React.Component {
         //     .attr('y', function(d) { return d.y0})
         //     .attr('width', function(d) { return d.x1 - d.x0})
         //     .attr('height', function(d) { return d.y1 - d.y0})
+
+        //Get groups
         const groups = _.groupBy(leafsArray,((l) => l.d.parent.data.name));
-        debugger;
         let overlaySquares = [];
         Object.keys(groups).forEach((k) =>{
-
             overlaySquares.push({
                 color:groups[k][0].color,
                 name:groups[k][0].d.parent.data.name,
@@ -282,9 +283,17 @@ class TreeMap extends React.Component {
             })
         },500)
     }
+    isSquareHidden(group){
+        return this.state.groupHidden === group.name;
+    }
+    onClickHide(group){
+        this.setState({groupHidden:group});
+    }
+
     render() {
         const disabledClass = this.props.disabledCursorEvents ? 'disabled' : '';
         const overlaySquares = this.state.overlaySquares;
+
         return (
             <div className={`treemap-wrapper ${disabledClass}` }>
                 <NPIf condition={this.state.data === null || this.state.isLoading}>
@@ -306,7 +315,12 @@ class TreeMap extends React.Component {
                 />
                 {
                     overlaySquares.map((square,i) => {
-                        return <OverlaySquares key={square.name} group={square} index={i+1} />
+                        return <OverlaySquares key={square.name}
+                                               group={square}
+                                               index={i+1}
+                                               hidden={this.isSquareHidden(square)}
+                                               onHide={(s) => this.onClickHide(s)}
+                        />
                     })
                 }
 
