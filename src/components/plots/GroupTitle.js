@@ -2,7 +2,7 @@ import React from "react";
 import PropTypes from 'prop-types';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {Overlay} from "react-bootstrap";
-
+//TODO: REMOVE IF NOT NEEDED
 class GroupTitle extends React.Component {
     constructor(props) {
         super(props);

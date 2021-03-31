@@ -131,7 +131,6 @@ class MainView extends React.Component{
                                     isActionsDisabled={this.state.isActionsDisabled}
                             />
                             {/*Get the legends of the treemap*/}
-                            <GroupList />
                             <PlotView ref={(ref) => this.plotView = ref}
                                       selectedTopic={this.state.selectedTopic}
                                       onTopicsLoaded={(topics) => this.onTopicsLoaded(topics)}

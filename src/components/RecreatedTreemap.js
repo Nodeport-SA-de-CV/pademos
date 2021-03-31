@@ -19,7 +19,7 @@ class RecreatedTreemap extends React.Component {
     render(){
         return this.props.data.map((tile) =>{
             return(
-                <RecreatedTile height={tile.height}
+                <RecreatedTile key={tile.contribution.id} height={tile.height}
                                width={tile.width}
                                left={tile.x}
                                top={tile.y}
@@ -38,11 +38,11 @@ class RecreatedTreemap extends React.Component {
     }
 }
 RecreatedTreemap.propTypes = {
-    data: PropTypes.array
+    data: PropTypes.array,
 };
 
 RecreatedTreemap.defaultProps = {
-    data: []
+    data: [],
 };
 export default RecreatedTreemap;
 

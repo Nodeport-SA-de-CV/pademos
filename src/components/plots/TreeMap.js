@@ -1,13 +1,16 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import * as d3 from "d3";
-import {Col, Row, Container, Spinner} from "react-bootstrap";
+import {Spinner} from "react-bootstrap";
 import API from "../../lib/api/API";
 import RecreatedTreemap from "../RecreatedTreemap";
 import NPIf from "np-if";
 import PropTypes from "prop-types";
 import RecreatedTile from "./RecreatedTile";
+import OverlaySquares from "./OverlaySquares"
 const _ = require('underscore');
+
+
 class TreeMap extends React.Component {
 
     constructor(props) {
@@ -18,7 +21,9 @@ class TreeMap extends React.Component {
             overlayY:100,
             overlayWidth:100,
             overlayHeight:100,
-            leafsArray: []
+            leafsArray: [],
+            overlaySquares:[],
+            groupHidden: '',
         }
         this.svg = null;
         this.drawChart = this.drawChart.bind(this);
@@ -64,7 +69,7 @@ class TreeMap extends React.Component {
                 const groupWeight = (g.contributions.length * area) / 100;
                 return{
                     data:g,
-                    name:'',
+                    name:g.name,
                     group:'',
                     colName:'',
                     children:g.contributions.map((c) =>{
@@ -142,7 +147,7 @@ class TreeMap extends React.Component {
             .attr('x', function (d,i) {
                 const self = d3.select(this);
                 const contribution = self.data()[0].data.data;
-                leafsArray.push({x: d.x0,contribution:contribution});
+                leafsArray.push({x: d.x0,d:d,contribution:contribution});
                 return d.x0;
             })
             .attr('y', function (d,i) {
@@ -170,6 +175,23 @@ class TreeMap extends React.Component {
         //     .attr('y', function(d) { return d.y0})
         //     .attr('width', function(d) { return d.x1 - d.x0})
         //     .attr('height', function(d) { return d.y1 - d.y0})
+
+        //Get groups
+        const groups = _.groupBy(leafsArray,((l) => l.d.parent.data.name));
+        let overlaySquares = [];
+        Object.keys(groups).forEach((k) =>{
+            overlaySquares.push({
+                color:groups[k][0].color,
+                name:groups[k][0].d.parent.data.name,
+                x0:groups[k][0].d.parent.x0,
+                y0:groups[k][0].d.parent.y0,
+                x1:groups[k][0].d.parent.x1,
+                y1:groups[k][0].d.parent.y1,
+                contributionCount: groups[k].length,
+            });
+        });
+
+        this.setState({overlaySquares:overlaySquares});
 
     }
     drawChart(w, h) {
@@ -261,8 +283,17 @@ class TreeMap extends React.Component {
             })
         },500)
     }
+    isSquareHidden(group){
+        return this.state.groupHidden === group.name;
+    }
+    onClickHide(group){
+        this.setState({groupHidden:group});
+    }
+
     render() {
         const disabledClass = this.props.disabledCursorEvents ? 'disabled' : '';
+        const overlaySquares = this.state.overlaySquares;
+
         return (
             <div className={`treemap-wrapper ${disabledClass}` }>
                 <NPIf condition={this.state.data === null || this.state.isLoading}>
@@ -282,8 +313,18 @@ class TreeMap extends React.Component {
                                   widthTreemap={this.props.w}
                                   heightTreemap={this.props.h}
                 />
-            </div>
+                {
+                    overlaySquares.map((square,i) => {
+                        return <OverlaySquares key={square.name}
+                                               group={square}
+                                               index={i+1}
+                                               hidden={this.isSquareHidden(square)}
+                                               onHide={(s) => this.onClickHide(s)}
+                        />
+                    })
+                }
 
+            </div>
         )
     }
 };
