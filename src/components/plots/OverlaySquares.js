@@ -25,7 +25,16 @@ class OverlaySquares extends React.Component {
             backgroundColor:group.color,
         }
         return(
-            <div className={'OverlaySquares'} style={style}>{group.name}</div>
+            <div className={'overlay-squares'} style={style}>
+                <div className={'os-row flex-wrap'}>
+                    <div className={'mr-4'}>Group</div>
+                    <div>{group.name}</div>
+                </div>
+                <div className={'os-row align-self-end'} style={{color:'black'}}>
+                    <div>Anzahl der Beiträge</div>
+                    <div className={'number ml-2'}>52</div>
+                </div>
+            </div>
         )
     }
 }
