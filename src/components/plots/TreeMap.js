@@ -23,7 +23,7 @@ class TreeMap extends React.Component {
             overlayHeight:100,
             leafsArray: [],
             overlaySquares:[],
-            groupHidden: '',
+            groupsHidden: [],
         }
         this.svg = null;
         this.drawChart = this.drawChart.bind(this);
@@ -284,10 +284,14 @@ class TreeMap extends React.Component {
         },500)
     }
     isSquareHidden(group){
-        return this.state.groupHidden === group.name;
+        return this.state.groupsHidden.includes(group.name);
     }
     onClickHide(group){
-        this.setState({groupHidden:group});
+        let groups = this.state.groupsHidden;
+        if(! groups.includes(group)){
+            groups.push(group);
+            this.setState({groupsHidden:groups});
+        }
     }
 
     render() {
