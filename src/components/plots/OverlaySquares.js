@@ -27,12 +27,12 @@ class OverlaySquares extends React.Component {
         return(
             <div className={'overlay-squares'} style={style}>
                 <div className={'os-row flex-wrap'}>
-                    <div className={'mr-4'}>Group</div>
+                    <div className={'mr-4'}>Group {this.props.index}</div>
                     <div>{group.name}</div>
                 </div>
                 <div className={'os-row align-self-end'} style={{color:'black'}}>
                     <div>Anzahl der Beiträge</div>
-                    <div className={'number ml-2'}>52</div>
+                    <div className={'number ml-2'}>{group.contributionCount}</div>
                 </div>
             </div>
         )
@@ -41,10 +41,12 @@ class OverlaySquares extends React.Component {
 export default OverlaySquares;
 
 OverlaySquares.propTypes = {
-    group: PropTypes.object
+    group: PropTypes.object,
+    index: PropTypes.number
 };
 
 OverlaySquares.defaultProps = {
-    group: {}
+    group: {},
+    index: 1,
 };
 

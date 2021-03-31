@@ -186,6 +186,7 @@ class TreeMap extends React.Component {
                 y0:groups[k][0].d.parent.y0,
                 x1:groups[k][0].d.parent.x1,
                 y1:groups[k][0].d.parent.y1,
+                contributionCount: groups[k].length,
             });
         });
 
@@ -304,8 +305,8 @@ class TreeMap extends React.Component {
                                   heightTreemap={this.props.h}
                 />
                 {
-                    overlaySquares.map(square => {
-                        return <OverlaySquares group={square}/>
+                    overlaySquares.map((square,i) => {
+                        return <OverlaySquares key={square.name} group={square} index={i+1} />
                     })
                 }
 
