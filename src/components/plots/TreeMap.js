@@ -246,6 +246,10 @@ class TreeMap extends React.Component {
         this.updateTreeMap(root);
     }
     search(value) {
+        if(value.trim() === ''){
+            //show all groups
+            this.props.onHideGroup([]);
+        }
         var search = new RegExp(value, 'i');
         // console.log(this.state.data)
         const data = this.state.topics.filter((t) => {
@@ -257,19 +261,11 @@ class TreeMap extends React.Component {
                     && (this.props.searchDocumentType ? contribution.document_type === this.props.searchDocumentType : true)
                 );
 
-                // if(! contribution.isDisabled){
-                //     const groupsHidden = this.state.groupsHidden;
-                //     groupsHidden.push(contribution.topic_label);
-                //     this.setState({groupsHidden});
-                // }
-
                 return contribution;
             })
 
             return t;
         })
-
-        // this.hideGroupsFromContribution();
 
         const treeData = this.buildTree(data);
         this.setState({
