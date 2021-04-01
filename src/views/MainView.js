@@ -22,7 +22,9 @@ class MainView extends React.Component{
             contributionsCount:0,
             keywords:[],
             searchKeyWord:'',
-            searchBoxValue:''
+            searchBoxValue:'',
+            groupsOptions:[],
+            hiddenGroups:[],
         }
         this.onKeyWordChange   = this.onKeyWordChange.bind(this);
         this.onSearchBoxChange = this.onSearchBoxChange.bind(this);
@@ -116,6 +118,20 @@ class MainView extends React.Component{
         });
     }
 
+    setGroupsOptions(groups){
+        let options = groups.map(g => {
+            return(
+                {value:g.name, label:g.name}
+            )
+        });
+        this.setState({groupsOptions:options});
+    }
+
+    onSelectGroup(groups){
+        let hiddenGroups = groups.map(g => g.value);
+        this.setState({hiddenGroups})
+    }
+
     render(){
         return(
             <NPIf condition={this.context.isLoggedIn}>
@@ -129,6 +145,9 @@ class MainView extends React.Component{
                                     keywords={this.state.keywords}
                                     contributions={this.state.contributionsCount}
                                     isActionsDisabled={this.state.isActionsDisabled}
+                                    options={this.state.groupsOptions}
+                                    onSelectGroup={(group) => this.onSelectGroup(group)}
+                                    hiddenGroups={this.state.hiddenGroups}
                             />
                             {/*Get the legends of the treemap*/}
                             <PlotView ref={(ref) => this.plotView = ref}
@@ -141,6 +160,9 @@ class MainView extends React.Component{
                                           this.onContributionSelected(contribution)
                                       }}
                                       onShowContributionsDetails={(show) => this.setState({isActionsDisabled:show})}
+                                      onSetGroups={(g) => this.setGroupsOptions(g)}
+                                      hiddenGroups={this.state.hiddenGroups}
+                                      onHideGroup={(h) => this.setState({hiddenGroups:h})}
                             />
                         </div>
                         <Sidebar selectedContributions={this.state.selectedContributions}

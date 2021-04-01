@@ -22,7 +22,7 @@ class OverlaySquares extends React.Component {
                     <div>{group.name}</div>
                 </div>
                 <div className={'os-row align-self-end'} style={{color:'black'}}>
-                    <div>Anzahl der Beiträge</div>
+                    <div style={{fontSize:'0.9rem'}}>Anzahl der Beiträge</div>
                     <div className={'number ml-2'}>{group.contributionCount}</div>
                 </div>
             </div>

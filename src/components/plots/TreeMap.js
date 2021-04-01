@@ -23,7 +23,7 @@ class TreeMap extends React.Component {
             overlayHeight:100,
             leafsArray: [],
             overlaySquares:[],
-            groupHidden: '',
+            groupsHidden: [],
         }
         this.svg = null;
         this.drawChart = this.drawChart.bind(this);
@@ -192,6 +192,7 @@ class TreeMap extends React.Component {
         });
 
         this.setState({overlaySquares:overlaySquares});
+        this.props.onSetGroups(overlaySquares);
 
     }
     drawChart(w, h) {
@@ -270,10 +271,9 @@ class TreeMap extends React.Component {
             // console.log(treeData)
             // this.updateTreeMap(root);
             this.drawChart(this.props.w,this.props.h);
-
         })
-
     }
+
     changeColors(){
         this.colorsInterval = setInterval(() => {
             this.currentColorIndex = this.currentColorIndex + 1;
@@ -283,11 +283,17 @@ class TreeMap extends React.Component {
             })
         },500)
     }
+
     isSquareHidden(group){
-        return this.state.groupHidden === group.name;
+        return this.props.hiddenGroups.includes(group.name);
     }
-    onClickHide(group){
-        this.setState({groupHidden:group});
+
+    onHideGroup(group){
+        let groups = this.props.hiddenGroups;
+        if(! groups.includes(group)){
+            groups.push(group);
+            this.props.onHideGroup(groups);
+        }
     }
 
     render() {
@@ -319,7 +325,7 @@ class TreeMap extends React.Component {
                                                group={square}
                                                index={i+1}
                                                hidden={this.isSquareHidden(square)}
-                                               onHide={(s) => this.onClickHide(s)}
+                                               onHide={(s) => this.onHideGroup(s)}
                         />
                     })
                 }
@@ -330,24 +336,30 @@ class TreeMap extends React.Component {
 };
 
 TreeMap.propTypes = {
-    onContributionSelected: PropTypes.func,
-    selectedTopic: PropTypes.object,
+    onContributionSelected    : PropTypes.func,
+    selectedTopic             : PropTypes.object,
     onClickContributionDetails: PropTypes.func,
-    onTopicsLoaded: PropTypes.func,
-    searchKeyword: PropTypes.string,
-    searchDocumentType: PropTypes.string,
-    zoom: PropTypes.number,
-    disabledCursorEvents: PropTypes.bool
+    onTopicsLoaded            : PropTypes.func,
+    searchKeyword             : PropTypes.string,
+    searchDocumentType        : PropTypes.string,
+    zoom                      : PropTypes.number,
+    disabledCursorEvents      : PropTypes.bool,
+    onSetGroups               : PropTypes.func,
+    hiddenGroups              : PropTypes.array,
+    onHideGroup               : PropTypes.func
 };
 
 TreeMap.defaultProps = {
-    onContributionSelected: () => {},
-    selectedTopic: null,
+    onContributionSelected    : () => {},
+    selectedTopic             : null,
     onClickContributionDetails: () => {},
-    onTopicsLoaded: () => {},
-    searchKeyword: 'idee',
-    searchDocumentType: '',
-    zoom: 1,
-    disabledCursorEvents: false
+    onTopicsLoaded            : () => {},
+    searchKeyword             : 'idee',
+    searchDocumentType        : '',
+    zoom                      : 1,
+    disabledCursorEvents      : false,
+    onSetGroups               : () => {},
+    hiddenGroups              : [],
+    onHideGroup               : () => {}
 };
 export default TreeMap;

@@ -1,12 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
 import NPIf from "np-if";
 import SearchBox from "./SearchBox";
+import Select from 'react-select'
 
 
-
-class Header extends React.Component{
+class Header extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -16,21 +16,33 @@ class Header extends React.Component{
     }
 
 
-
-    onClickHelp(){
+    onClickHelp() {
         console.log('help clicked');
     }
 
-    render(){
-        return(
+    getValue(groups){
+        return groups.map(g => {
+            return (
+                {value:g, label:g}
+            )
+        });
+    }
+
+    render() {
+        const hiddenGroups = this.getValue(this.props.hiddenGroups);
+
+        return (
             <div className={'header'}>
                 {/*title row*/}
                 <div className={'header-row justify-content-between'}>
                     <div className={'txt-right'}>
                         <h2>{this.props.title} <span>{this.props.subtitle}</span></h2>
-                        <div style={{visibility:'hidden'}} className={'btn btn-tiny'}>Was können Sie hier tun? <FontAwesomeIcon icon={'caret-down'}/></div>
+                        <div style={{visibility: 'hidden'}} className={'btn btn-tiny'}>Was können Sie hier
+                            tun? <FontAwesomeIcon icon={'caret-down'}/></div>
                     </div>
-                    <div className={'txt-right'}><h2>{this.props.contributions}</h2><div>{this.props.subContributions}</div></div>
+                    <div className={'txt-right'}><h2>{this.props.contributions}</h2>
+                        <div>{this.props.subContributions}</div>
+                    </div>
                 </div>
                 {/*action row*/}
                 <NPIf condition={this.props.showActions}>
@@ -38,19 +50,19 @@ class Header extends React.Component{
                         <SearchBox disabled={this.props.isActionsDisabled}
                                    onChange={(value) => this.props.onSearchBoxChange(value)}/>
                         <select className={'mr-4'}
-                                style={{height:'37.2px'}}
+                                style={{height: '37.2px'}}
                                 disabled={this.props.isActionsDisabled}
                                 onChange={(e) => this.props.onKeyWordChange(e.target.value)}>
                             <option value={''}>Stichwort</option>
                             {
-                                this.props.keywords.map((k,i) =>{
-                                    return(
+                                this.props.keywords.map((k, i) => {
+                                    return (
                                         <option value={k} key={i}>{k}</option>
                                     )
                                 })
                             }
                         </select>
-                        <select style={{height:'37.2px'}}
+                        <select className={'mr-4'} style={{height: '37.2px'}}
                                 disabled={this.props.isActionsDisabled}
                                 onChange={(e) => this.props.onDocumentTypeChange(e.target.value)}>
                             <option value={''}>Beitragsart</option>
@@ -58,6 +70,24 @@ class Header extends React.Component{
                             <option value={2}>Problem</option>
                             <option value={3}>Zukunftsvision</option>
                         </select>
+
+                        <Select className={'multi-select'}
+                                isMulti={true}
+                                isDisabled={this.props.isActionsDisabled}
+                                options={this.props.options}
+                                placeholder={'Groups: '}
+                                onChange={(e) => this.props.onSelectGroup(e)}
+                                value={hiddenGroups}
+                                theme={theme => ({
+                                    ...theme,
+                                    borderRadius:0,
+                                    colors: {
+                                        ...theme.colors,
+                                        neutral0: '#f1f1f1',
+                                    },
+                                })}
+                        />
+
                     </div>
                 </NPIf>
             </div>
@@ -68,27 +98,33 @@ class Header extends React.Component{
 export default Header;
 
 Header.propTypes = {
-    title: PropTypes.string,
-    subtitle: PropTypes.string,
-    contributions: PropTypes.string,
-    subContributions: PropTypes.string,
-    showActions: PropTypes.string,
-    onSearchBoxChange: PropTypes.func,
-    keywords          : PropTypes.array,
-    onKeyWordChange   : PropTypes.func,
-    onDocumentTypeChange : PropTypes.func,
-    isActionsDisabled: PropTypes.bool,
+    title               : PropTypes.string,
+    subtitle            : PropTypes.string,
+    contributions       : PropTypes.string,
+    subContributions    : PropTypes.string,
+    showActions         : PropTypes.string,
+    onSearchBoxChange   : PropTypes.func,
+    keywords            : PropTypes.array,
+    onKeyWordChange     : PropTypes.func,
+    onDocumentTypeChange: PropTypes.func,
+    isActionsDisabled   : PropTypes.bool,
+    options             : PropTypes.array,
+    onSelectGroup       : PropTypes.func,
+    hiddenGroups        : PropTypes.array,
 };
 
 Header.defaultProps = {
-    title: 'Bürgerbeiträge',
-    subtitle:'gruppiert nach Ähnlichkeit',
-    contributions: '-',
-    subContributions: 'Eingereichte Beiträge',
-    showActions: true,
-    onSearchBoxChange: (value) => {},
-    keywords:[],
-    onKeyWordChange    : () => {},
-    onDocumentTypeChange : () => {},
-    isActionsDisabled    : false
+    title               : 'Bürgerbeiträge',
+    subtitle            : 'gruppiert nach Ähnlichkeit',
+    contributions       : '-',
+    subContributions    : 'Eingereichte Beiträge',
+    showActions         : true,
+    onSearchBoxChange   : (value) => {},
+    keywords            : [],
+    onKeyWordChange     : () => {},
+    onDocumentTypeChange: () => {},
+    isActionsDisabled   : false,
+    options             : [],
+    onSelectGroup       : () => {},
+    hiddenGroups        : [],
 };
