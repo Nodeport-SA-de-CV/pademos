@@ -78,6 +78,14 @@ class Header extends React.Component {
                                 placeholder={'Groups: '}
                                 onChange={(e) => this.props.onSelectGroup(e)}
                                 value={hiddenGroups}
+                                theme={theme => ({
+                                    ...theme,
+                                    borderRadius:0,
+                                    colors: {
+                                        ...theme.colors,
+                                        neutral0: '#f1f1f1',
+                                    },
+                                })}
                         />
 
                     </div>
