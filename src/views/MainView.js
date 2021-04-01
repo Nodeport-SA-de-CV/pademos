@@ -22,7 +22,9 @@ class MainView extends React.Component{
             contributionsCount:0,
             keywords:[],
             searchKeyWord:'',
-            searchBoxValue:''
+            searchBoxValue:'',
+            groupsOptions:[  { value: 'all', label: 'All' },
+                { value: 'none', label: 'None' }]
         }
         this.onKeyWordChange   = this.onKeyWordChange.bind(this);
         this.onSearchBoxChange = this.onSearchBoxChange.bind(this);
@@ -129,6 +131,7 @@ class MainView extends React.Component{
                                     keywords={this.state.keywords}
                                     contributions={this.state.contributionsCount}
                                     isActionsDisabled={this.state.isActionsDisabled}
+                                    options={this.state.groupsOptions}
                             />
                             {/*Get the legends of the treemap*/}
                             <PlotView ref={(ref) => this.plotView = ref}

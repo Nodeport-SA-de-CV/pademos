@@ -28,6 +28,7 @@
     "react-resize-detector": "^6.6.0",
     "react-router-dom": "^5.2.0",
     "react-scripts": "4.0.2",
+    "react-select": "^4.3.0",
     "underscore": "^1.12.1",
     "web-vitals": "^1.1.0"
   },
