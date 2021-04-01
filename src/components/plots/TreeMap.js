@@ -49,9 +49,10 @@ class TreeMap extends React.Component {
             '#F6F3AE',
             '#F4B616'
         ]
-        this.currentColorIndex = 0;
-        this.updateTreeMap = this.updateTreeMap.bind(this);
-        this.search        = this.search.bind(this);
+        this.currentColorIndex          = 0;
+        this.updateTreeMap              = this.updateTreeMap.bind(this);
+        this.search                     = this.search.bind(this);
+        this.hideGroupsFromContribution = this.hideGroupsFromContribution.bind(this)
     }
 
     componentDidMount() {
@@ -255,11 +256,21 @@ class TreeMap extends React.Component {
                     && (this.props.searchKeyWord ? Object.keys(contribution.document_keywords[0]).includes(this.props.searchKeyWord) : true)
                     && (this.props.searchDocumentType ? contribution.document_type === this.props.searchDocumentType : true)
                 );
+
+                // if(! contribution.isDisabled){
+                //     const groupsHidden = this.state.groupsHidden;
+                //     groupsHidden.push(contribution.topic_label);
+                //     this.setState({groupsHidden});
+                // }
+
                 return contribution;
             })
 
             return t;
         })
+
+        // this.hideGroupsFromContribution();
+
         const treeData = this.buildTree(data);
         this.setState({
             data: treeData
@@ -271,7 +282,14 @@ class TreeMap extends React.Component {
             // console.log(treeData)
             // this.updateTreeMap(root);
             this.drawChart(this.props.w,this.props.h);
+            this.hideGroupsFromContribution();
         })
+    }
+
+    hideGroupsFromContribution(){
+        const contributions = this.state.leafsArray.filter(l => ! l.contribution.isDisabled);
+        const groups = contributions.map(c => c.contribution.topic_label);
+        this.props.onHideGroup(_.uniq(groups) );
     }
 
     changeColors(){
