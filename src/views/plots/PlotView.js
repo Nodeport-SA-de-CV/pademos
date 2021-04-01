@@ -108,6 +108,8 @@ class PlotView extends React.Component {
                          selectedContributions={this.props.selectedContributions}
                          disabledCursorEvents={this.state.showContributionDetails}
                          onSetGroups={(g) => this.props.onSetGroups(g)}
+                         hiddenGroups={this.props.hiddenGroups}
+                         onHideGroup={(h) => this.props.onHideGroup(h)}
                 />
                 <NPIf condition={this.state.showContributionDetails}>
                     <ContributionDetails w={this.state.w} h={this.state.h}
@@ -139,7 +141,9 @@ PlotView.propTypes = {
     searchKeyWord             : PropTypes.string,
     searchDocumentType        : PropTypes.string,
     onShowContributionsDetails: PropTypes.func,
-    onSetGroups               : PropTypes.func
+    onSetGroups               : PropTypes.func,
+    hiddenGroups              : PropTypes.array,
+    onHideGroup               : PropTypes.func
 };
 
 PlotView.defaultProps = {
@@ -149,7 +153,9 @@ PlotView.defaultProps = {
     searchKeyWord             : '',
     searchDocumentType        : '',
     onShowContributionsDetails: () => {},
-    onSetGroups               : () => {}
+    onSetGroups               : () => {},
+    hiddenGroups              : [],
+    onHideGroup               : () => {}
 };
 
 export default PlotView;

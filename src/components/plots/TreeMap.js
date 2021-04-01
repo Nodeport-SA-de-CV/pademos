@@ -283,14 +283,16 @@ class TreeMap extends React.Component {
             })
         },500)
     }
+
     isSquareHidden(group){
-        return this.state.groupsHidden.includes(group.name);
+        return this.props.hiddenGroups.includes(group.name);
     }
-    onClickHide(group){
-        let groups = this.state.groupsHidden;
+
+    onHideGroup(group){
+        let groups = this.props.hiddenGroups;
         if(! groups.includes(group)){
             groups.push(group);
-            this.setState({groupsHidden:groups});
+            this.props.onHideGroup(groups);
         }
     }
 
@@ -323,7 +325,7 @@ class TreeMap extends React.Component {
                                                group={square}
                                                index={i+1}
                                                hidden={this.isSquareHidden(square)}
-                                               onHide={(s) => this.onClickHide(s)}
+                                               onHide={(s) => this.onHideGroup(s)}
                         />
                     })
                 }
@@ -342,7 +344,9 @@ TreeMap.propTypes = {
     searchDocumentType        : PropTypes.string,
     zoom                      : PropTypes.number,
     disabledCursorEvents      : PropTypes.bool,
-    onSetGroups               : PropTypes.func
+    onSetGroups               : PropTypes.func,
+    hiddenGroups              : PropTypes.array,
+    onHideGroup               : PropTypes.func
 };
 
 TreeMap.defaultProps = {
@@ -354,6 +358,8 @@ TreeMap.defaultProps = {
     searchDocumentType        : '',
     zoom                      : 1,
     disabledCursorEvents      : false,
-    onSetGroups               : () => {}
+    onSetGroups               : () => {},
+    hiddenGroups              : [],
+    onHideGroup               : () => {}
 };
 export default TreeMap;

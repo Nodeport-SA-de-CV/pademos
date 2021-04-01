@@ -23,8 +23,8 @@ class MainView extends React.Component{
             keywords:[],
             searchKeyWord:'',
             searchBoxValue:'',
-            groupsOptions:[  { value: 'all', label: 'All' },
-                { value: 'none', label: 'None' }]
+            groupsOptions:[],
+            hiddenGroups:[],
         }
         this.onKeyWordChange   = this.onKeyWordChange.bind(this);
         this.onSearchBoxChange = this.onSearchBoxChange.bind(this);
@@ -127,6 +127,11 @@ class MainView extends React.Component{
         this.setState({groupsOptions:options});
     }
 
+    onSelectGroup(groups){
+        let hiddenGroups = groups.map(g => g.value);
+        this.setState({hiddenGroups})
+    }
+
     render(){
         return(
             <NPIf condition={this.context.isLoggedIn}>
@@ -141,6 +146,8 @@ class MainView extends React.Component{
                                     contributions={this.state.contributionsCount}
                                     isActionsDisabled={this.state.isActionsDisabled}
                                     options={this.state.groupsOptions}
+                                    onSelectGroup={(group) => this.onSelectGroup(group)}
+                                    hiddenGroups={this.state.hiddenGroups}
                             />
                             {/*Get the legends of the treemap*/}
                             <PlotView ref={(ref) => this.plotView = ref}
@@ -154,6 +161,8 @@ class MainView extends React.Component{
                                       }}
                                       onShowContributionsDetails={(show) => this.setState({isActionsDisabled:show})}
                                       onSetGroups={(g) => this.setGroupsOptions(g)}
+                                      hiddenGroups={this.state.hiddenGroups}
+                                      onHideGroup={(h) => this.setState({hiddenGroups:h})}
                             />
                         </div>
                         <Sidebar selectedContributions={this.state.selectedContributions}

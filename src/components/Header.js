@@ -20,7 +20,17 @@ class Header extends React.Component {
         console.log('help clicked');
     }
 
+    getValue(groups){
+        return groups.map(g => {
+            return (
+                {value:g, label:g}
+            )
+        });
+    }
+
     render() {
+        const hiddenGroups = this.getValue(this.props.hiddenGroups);
+
         return (
             <div className={'header'}>
                 {/*title row*/}
@@ -65,7 +75,9 @@ class Header extends React.Component {
                                 isMulti={true}
                                 isDisabled={this.props.isActionsDisabled}
                                 options={this.props.options}
-                                placeholder={'Show contributions: '}
+                                placeholder={'Groups: '}
+                                onChange={(e) => this.props.onSelectGroup(e)}
+                                value={hiddenGroups}
                         />
 
                     </div>
@@ -88,7 +100,9 @@ Header.propTypes = {
     onKeyWordChange     : PropTypes.func,
     onDocumentTypeChange: PropTypes.func,
     isActionsDisabled   : PropTypes.bool,
-    options             : PropTypes.array
+    options             : PropTypes.array,
+    onSelectGroup       : PropTypes.func,
+    hiddenGroups        : PropTypes.array,
 };
 
 Header.defaultProps = {
@@ -102,5 +116,7 @@ Header.defaultProps = {
     onKeyWordChange     : () => {},
     onDocumentTypeChange: () => {},
     isActionsDisabled   : false,
-    options             : []
+    options             : [],
+    onSelectGroup       : () => {},
+    hiddenGroups        : [],
 };
