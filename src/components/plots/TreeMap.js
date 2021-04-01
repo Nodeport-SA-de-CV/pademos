@@ -192,6 +192,7 @@ class TreeMap extends React.Component {
         });
 
         this.setState({overlaySquares:overlaySquares});
+        this.props.onSetGroups(overlaySquares);
 
     }
     drawChart(w, h) {
@@ -270,10 +271,9 @@ class TreeMap extends React.Component {
             // console.log(treeData)
             // this.updateTreeMap(root);
             this.drawChart(this.props.w,this.props.h);
-
         })
-
     }
+
     changeColors(){
         this.colorsInterval = setInterval(() => {
             this.currentColorIndex = this.currentColorIndex + 1;
@@ -334,24 +334,26 @@ class TreeMap extends React.Component {
 };
 
 TreeMap.propTypes = {
-    onContributionSelected: PropTypes.func,
-    selectedTopic: PropTypes.object,
+    onContributionSelected    : PropTypes.func,
+    selectedTopic             : PropTypes.object,
     onClickContributionDetails: PropTypes.func,
-    onTopicsLoaded: PropTypes.func,
-    searchKeyword: PropTypes.string,
-    searchDocumentType: PropTypes.string,
-    zoom: PropTypes.number,
-    disabledCursorEvents: PropTypes.bool
+    onTopicsLoaded            : PropTypes.func,
+    searchKeyword             : PropTypes.string,
+    searchDocumentType        : PropTypes.string,
+    zoom                      : PropTypes.number,
+    disabledCursorEvents      : PropTypes.bool,
+    onSetGroups               : PropTypes.func
 };
 
 TreeMap.defaultProps = {
-    onContributionSelected: () => {},
-    selectedTopic: null,
+    onContributionSelected    : () => {},
+    selectedTopic             : null,
     onClickContributionDetails: () => {},
-    onTopicsLoaded: () => {},
-    searchKeyword: 'idee',
-    searchDocumentType: '',
-    zoom: 1,
-    disabledCursorEvents: false
+    onTopicsLoaded            : () => {},
+    searchKeyword             : 'idee',
+    searchDocumentType        : '',
+    zoom                      : 1,
+    disabledCursorEvents      : false,
+    onSetGroups               : () => {}
 };
 export default TreeMap;

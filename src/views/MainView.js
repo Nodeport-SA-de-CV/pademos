@@ -118,6 +118,15 @@ class MainView extends React.Component{
         });
     }
 
+    setGroupsOptions(groups){
+        let options = groups.map(g => {
+            return(
+                {value:g.name, label:g.name}
+            )
+        });
+        this.setState({groupsOptions:options});
+    }
+
     render(){
         return(
             <NPIf condition={this.context.isLoggedIn}>
@@ -144,6 +153,7 @@ class MainView extends React.Component{
                                           this.onContributionSelected(contribution)
                                       }}
                                       onShowContributionsDetails={(show) => this.setState({isActionsDisabled:show})}
+                                      onSetGroups={(g) => this.setGroupsOptions(g)}
                             />
                         </div>
                         <Sidebar selectedContributions={this.state.selectedContributions}

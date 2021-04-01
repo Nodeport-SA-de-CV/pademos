@@ -92,7 +92,8 @@ class PlotView extends React.Component {
     render() {
         return (
             <div className={'h-100 d-flex'}>
-                <ReactResizeDetector handleWidth handleHeight onResize={(w, h) => this.onResize(w, h)}>
+                <ReactResizeDetector handleWidth handleHeight
+                                     onResize={(w, h) => this.onResize(w, h)}>
                 </ReactResizeDetector>
                 <TreeMap ref={(ref) => this.treeMap = ref} w={this.state.w} h={this.state.h}
                          searchDocumentType={this.props.searchDocumentType}
@@ -106,7 +107,7 @@ class PlotView extends React.Component {
                          }}
                          selectedContributions={this.props.selectedContributions}
                          disabledCursorEvents={this.state.showContributionDetails}
-
+                         onSetGroups={(g) => this.props.onSetGroups(g)}
                 />
                 <NPIf condition={this.state.showContributionDetails}>
                     <ContributionDetails w={this.state.w} h={this.state.h}
@@ -132,21 +133,23 @@ class PlotView extends React.Component {
 };
 
 PlotView.propTypes = {
-    onContributionSelected : PropTypes.func,
-    selectedTopic          : PropTypes.object,
-    onTopicsLoaded         : PropTypes.func,
-    searchKeyWord          : PropTypes.string,
-    searchDocumentType     : PropTypes.string,
+    onContributionSelected    : PropTypes.func,
+    selectedTopic             : PropTypes.object,
+    onTopicsLoaded            : PropTypes.func,
+    searchKeyWord             : PropTypes.string,
+    searchDocumentType        : PropTypes.string,
     onShowContributionsDetails: PropTypes.func,
+    onSetGroups               : PropTypes.func
 };
 
 PlotView.defaultProps = {
-    onContributionSelected : () => {},
-    selectedTopic          : null,
-    onTopicsLoaded         : () => {},
-    searchKeyWord          : '',
-    searchDocumentType     : '',
-    onShowContributionsDetails : () => {}
+    onContributionSelected    : () => {},
+    selectedTopic             : null,
+    onTopicsLoaded            : () => {},
+    searchKeyWord             : '',
+    searchDocumentType        : '',
+    onShowContributionsDetails: () => {},
+    onSetGroups               : () => {}
 };
 
 export default PlotView;
