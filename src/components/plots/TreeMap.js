@@ -246,10 +246,6 @@ class TreeMap extends React.Component {
         this.updateTreeMap(root);
     }
     search(value) {
-        if(value.trim() === ''){
-            //show all groups and clear the disabled
-            this.props.onHideGroup([]);
-        }
         var search = new RegExp(value, 'i');
         // console.log(this.state.data)
         const data = this.state.topics.filter((t) => {
@@ -278,7 +274,7 @@ class TreeMap extends React.Component {
             // console.log(treeData)
             // this.updateTreeMap(root);
             this.drawChart(this.props.w,this.props.h);
-            this.hideGroupsFromContribution();
+            this.hideGroupsFromContribution(value);
         })
     }
 
@@ -291,12 +287,18 @@ class TreeMap extends React.Component {
         this.setState({overlaySquares:overlaySquares});
     }
 
-    hideGroupsFromContribution(){
+    hideGroupsFromContribution(value){
+        // let here;
+        if(value === '' && this.props.searchDocumentType === '' && this.props.searchKeyWord === ''){
+            // here = 1;
+            return this.props.onHideGroup( [] );
+        }
+        // debugger;
         const contributions = this.state.leafsArray.filter(l => ! l.contribution.isDisabled);
         let groups = contributions.map(c => c.contribution.topic_label);
-            groups = _.uniq(groups);
+        groups = _.uniq(groups);
 
-            //disabled the other groups
+        //disabled the other groups
         let overlaySquares = this.state.overlaySquares;
         overlaySquares = overlaySquares.map((os) =>{
             os.disabled = !groups.includes(os.name);
