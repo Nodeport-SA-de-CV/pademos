@@ -5,14 +5,16 @@ class OverlaySquares extends React.Component {
 
     render(){
         const group = this.props.group;
-        const hidden = this.props.hidden ? 'hidden' : ''
+        const hidden = this.props.hidden ? 'hidden' : '';
+        const background = this.props.group.disabled ? 'gray' : group.color;
+
         const  style = {
             position:'absolute',
             left: group.x0,
             width: group.x1 - group.x0 - 2, //2 is the padding(white gutter)
             top: group.y0,
             height: group.y1 - group.y0,
-            backgroundColor:group.color,
+            backgroundColor: background,
             visibility: hidden
         }
         return(
@@ -35,14 +37,13 @@ OverlaySquares.propTypes = {
     group: PropTypes.object,
     index: PropTypes.number,
     onHide: PropTypes.func,
-    hidden: PropTypes.bool
-
+    hidden: PropTypes.bool,
 };
 
 OverlaySquares.defaultProps = {
     group: {},
     index: 1,
     onHide: () => {},
-    hidden: false
+    hidden: false,
 };
 

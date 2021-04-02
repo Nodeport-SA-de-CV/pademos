@@ -247,7 +247,7 @@ class TreeMap extends React.Component {
     }
     search(value) {
         if(value.trim() === ''){
-            //show all groups
+            //show all groups and clear the disabled
             this.props.onHideGroup([]);
         }
         var search = new RegExp(value, 'i');
@@ -282,10 +282,29 @@ class TreeMap extends React.Component {
         })
     }
 
+    setGroupsEnable(){
+        let overlaySquares = this.state.overlaySquares;
+        overlaySquares = overlaySquares.map((os) =>{
+            os.disabled = false;
+            return os;
+        });
+        this.setState({overlaySquares:overlaySquares});
+    }
+
     hideGroupsFromContribution(){
         const contributions = this.state.leafsArray.filter(l => ! l.contribution.isDisabled);
-        const groups = contributions.map(c => c.contribution.topic_label);
-        this.props.onHideGroup(_.uniq(groups) );
+        let groups = contributions.map(c => c.contribution.topic_label);
+            groups = _.uniq(groups);
+
+            //disabled the other groups
+        let overlaySquares = this.state.overlaySquares;
+        overlaySquares = overlaySquares.map((os) =>{
+            os.disabled = !groups.includes(os.name);
+            return os;
+        })
+        this.setState({overlaySquares:overlaySquares});
+
+        this.props.onHideGroup( groups );
     }
 
     changeColors(){
