@@ -288,12 +288,11 @@ class TreeMap extends React.Component {
     }
 
     hideGroupsFromContribution(value){
-        // let here;
+        //show all groups
         if(value === '' && this.props.searchDocumentType === '' && this.props.searchKeyWord === ''){
-            // here = 1;
             return this.props.onHideGroup( [] );
         }
-        // debugger;
+        
         const contributions = this.state.leafsArray.filter(l => ! l.contribution.isDisabled);
         let groups = contributions.map(c => c.contribution.topic_label);
         groups = _.uniq(groups);
