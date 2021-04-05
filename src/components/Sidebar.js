@@ -130,6 +130,7 @@ class Sidebar extends React.Component{
                                      selectedContributions={this.props.selectedContributions}
                                      topicsList={this.props.topicsList}
                                      perspectivesList={this.props.perspectivesList}
+                                     onRemoveContribution={(c) => this.props.onRemoveContribution(c)}
                     />
                 </NPElse>
             </NPIf>
@@ -143,11 +144,15 @@ export default Sidebar;
 Sidebar.propTypes = {
     selectedContributions : PropTypes.array,
     onTopicSelected       : PropTypes.func,
-    onFormSaved           : PropTypes.func
+    onFormSaved           : PropTypes.func,
+    onRemoveContribution  : PropTypes.func,
+
 };
 
 Sidebar.defaultProps = {
     selectedContributions : [],
     onTopicSelected       : () => {},
-    onFormSaved           : () => {}
+    onFormSaved           : () => {},
+    onRemoveContribution  : () => {},
+
 };

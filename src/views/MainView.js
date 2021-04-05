@@ -29,6 +29,7 @@ class MainView extends React.Component{
         this.onKeyWordChange   = this.onKeyWordChange.bind(this);
         this.onSearchBoxChange = this.onSearchBoxChange.bind(this);
         this.onTopicsLoaded    = this.onTopicsLoaded.bind(this);
+        this.onRemoveContribution = this.onRemoveContribution.bind(this);
     }
     onSearchBoxChange(value){
         this.setState({
@@ -132,6 +133,13 @@ class MainView extends React.Component{
         this.setState({hiddenGroups})
     }
 
+    onRemoveContribution(c){
+        let selectedContributions = this.state.selectedContributions;
+        selectedContributions = selectedContributions.filter(contribution => contribution._id !== c._id);
+        this.setState({selectedContributions:selectedContributions});
+        debugger;
+    }
+
     render(){
         return(
             <NPIf condition={this.context.isLoggedIn}>
@@ -170,8 +178,10 @@ class MainView extends React.Component{
                                  onFormSaved={() => this.onTopicSaved()}
                                  topicsList={this.state.topicsList}
                                  perspectivesList={this.state.perspectivesList}
+                                 onRemoveContribution={(c) => this.onRemoveContribution(c)}
 
-                        />
+
+                    />
                     </div>
                 </div>
             </NPIf>

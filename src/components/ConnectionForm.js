@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import NPInput from "./NPInput";
 import API from "../lib/api/API";
-import Sidebar from "./Sidebar";
 
 
 class ConnectionForm extends React.Component{
@@ -71,7 +70,9 @@ class ConnectionForm extends React.Component{
                                      className={'sidebar-form-contribution mb-1'}
                                      style={{backgroundColor:c.color}}>
                                      <div>{c.document_title_response}</div>
-                                     <FontAwesomeIcon className={'remove'} icon={'times'}/>
+                                     <FontAwesomeIcon className={'remove'}
+                                                      icon={'times' }
+                                                      onClick={() => this.props.onRemoveContribution(c)}/>
                                 </div>
                             )
                         })
@@ -170,7 +171,8 @@ ConnectionForm.propTypes = {
     onCancel: PropTypes.func,
     selectedContributions: PropTypes.array,
     topicsList: PropTypes.array,
-    perspectivesList: PropTypes.array
+    perspectivesList: PropTypes.array,
+    onRemoveContribution: PropTypes.func,
 };
 
 ConnectionForm.defaultProps = {
@@ -179,4 +181,5 @@ ConnectionForm.defaultProps = {
     selectedContributions : [],
     topicsList: [],
     perspectivesList: [],
+    onRemoveContribution: () => {}
 };
