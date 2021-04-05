@@ -296,6 +296,29 @@ body {
     flex-direction: row;
     justify-content: space-between;
 }
+
+.sidebar-form-contribution{
+    padding: 0.10rem 0.25rem;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+.sidebar-form-contribution div{
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    flex:1;
+}
+.remove {
+    background-color: #ffffff85;
+    padding: 0 5px;
+    border-radius: 50%;
+    height: 20px;
+    color: red;
+    cursor: pointer;
+    font-size: 26px;
+    margin-left: 5px;
+}
 /*--------------------------------------------------------------------------------------------------------------------*/
 /*---------------------------------------------------Topic-------------------------------------------------------------*/
 /*--------------------------------------------------------------------------------------------------------------------*/

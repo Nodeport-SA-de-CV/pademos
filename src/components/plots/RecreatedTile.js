@@ -20,8 +20,6 @@ class RecreatedTile extends React.Component {
     }
     
     onClickShowDetails(contribution){
-        // const contribution = this.props.contribution;
-        // contribution.color = this.props.color;
         contribution.isSelected = this.props.isSelected;
         this.props.onClickContributionDetails(contribution);
     }
@@ -150,8 +148,6 @@ RecreatedTile.defaultProps = {
     onClickContributionDetails: () => {},
     onContributionSelected: () => {},
     selectedTopic: {},
-
-
 };
 export default RecreatedTile;
 

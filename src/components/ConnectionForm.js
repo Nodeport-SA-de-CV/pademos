@@ -67,7 +67,12 @@ class ConnectionForm extends React.Component{
                     {
                         contributions.map(c => {
                             return(
-                                <div key={c._id} style={{backgroundColor:c.color}}>{c.document_title_response}</div>
+                                <div key={c._id}
+                                     className={'sidebar-form-contribution mb-1'}
+                                     style={{backgroundColor:c.color}}>
+                                     <div>{c.document_title_response}</div>
+                                     <FontAwesomeIcon className={'remove'} icon={'times'}/>
+                                </div>
                             )
                         })
                     }
