@@ -54,6 +54,8 @@ class ConnectionForm extends React.Component{
 
 
     render(){
+        const contributions = this.props.selectedContributions;
+
         return(
             <div className={'sidebar'}>
                 <div className={'sidebar-form-header'}>
@@ -62,6 +64,13 @@ class ConnectionForm extends React.Component{
                 </div>
                 <div className={'sidebar-form mt-3'}>
                     <label>1. Wählen Sie einen oder mehrere aus den Bürgerbeiträgen auf der linken Seite.</label>
+                    {
+                        contributions.map(c => {
+                            return(
+                                <div key={c._id} style={{backgroundColor:c.color}}>{c.document_title_response}</div>
+                            )
+                        })
+                    }
 
                     {/*select */}
                     <label className={'mt-2'}>2. Zu welchem Forschungsthema haben die Bürgerbeiträge einen Bezug? (*)</label>
