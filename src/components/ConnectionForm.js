@@ -3,8 +3,9 @@ import PropTypes from 'prop-types';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import NPInput from "./NPInput";
 import API from "../lib/api/API";
-import Sidebar from "./Sidebar";
 
+// CommonJS
+const Swal = require('sweetalert2');
 
 class ConnectionForm extends React.Component{
     constructor(props) {
@@ -50,6 +51,26 @@ class ConnectionForm extends React.Component{
 
     onChange(e){
         this.setState({[e.target.id]:e.target.value});
+    }
+    cancel(){
+        const customSwal = Swal.mixin({
+            customClass: {
+                popup: 'popup-custom',
+                confirmButton: 'confirm-custom',
+                cancelButton: 'cancel-custom',
+                content:'title-custom',
+                icon: 'icon-custom'
+            },
+        })
+         customSwal.fire({
+             icon:'warning',
+             text:'ok custom',
+             showCancelButton: true,
+             showConfirmButton:true,
+             confirmButtonText: 'Yes, delete it!',
+             cancelButtonText: 'No, cancel!',
+
+         });
     }
 
 
@@ -131,7 +152,10 @@ class ConnectionForm extends React.Component{
                 </div>
                 <div className={'sidebar-form-buttons'}>
                     <div className={'btn btn-burgundy'} onClick={() => this.onClickSave()}>SPEICHERN</div>
-                    <div className={'btn btn-outline-burgundy'} onClick={() => this.props.onCancel()}>ABBRECHEN</div>
+                    <div className={'btn btn-outline-burgundy'} onClick={() => {
+                        this.cancel();
+                        // this.props.onCancel();
+                    }}>ABBRECHEN</div>
                 </div>
             </div>
         )

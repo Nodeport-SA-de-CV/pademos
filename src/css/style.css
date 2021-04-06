@@ -982,3 +982,28 @@ search-box-wrapper{
     font-size: 2rem;
     font-weight: 500;
 }
+/*--------------------------------------------------------------------------------------------------------------------*/
+/*--------------------------------------------------CUSTOM SWAL-------------------------------------------------------*/
+/*--------------------------------------------------------------------------------------------------------------------*/
+.popup-custom{
+    background-color: #C4C4C4 !important;
+}
+.confirm-custom{
+    background-color: #5C1919 !important;
+    color:white;
+    border-radius: 0px !important;
+}
+.cancel-custom{
+    border: 1px solid #5C1919 !important;
+    background-color: #C4C4C4 !important;
+    color:#5C1919 !important;
+    border-radius: 0px !important;
+}
+.title-custom{
+    color: black !important;
+}
+.icon-custom{
+    color:#c4c4c4 !important;
+    background-color:#5C1919fa !important;
+    background-image: url("");
+}
