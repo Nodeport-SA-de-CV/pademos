@@ -6,7 +6,15 @@ import API from "../lib/api/API";
 
 // CommonJS
 const Swal = require('sweetalert2');
-
+const CustomSwal = Swal.mixin({
+    customClass: {
+        popup: 'popup-custom',
+        confirmButton: 'confirm-custom',
+        cancelButton: 'cancel-custom',
+        content:'title-custom',
+        icon: 'icon-custom'
+    },
+});
 class ConnectionForm extends React.Component{
     constructor(props) {
         super(props);
@@ -24,45 +32,80 @@ class ConnectionForm extends React.Component{
         this.onClickSave = this.onClickSave.bind(this);
         this.onTopicChange = this.onTopicChange.bind(this);
         this.onPerspectiveChange = this.onPerspectiveChange.bind(this);
-
+        this.validatedContributions = this.validatedContributions.bind(this);
+        this.invalidContributionsSwal = this.invalidContributionsSwal.bind(this);
+        this.cancel = this.cancel.bind(this);
+        this.validateRequiredField = this.validateRequiredField.bind(this);
+        this.requiredFieldsSwal = this.requiredFieldsSwal.bind(this);
     }
 
     onClickHelp(){
         console.log('help clicked');
     }
-
+    validatedContributions() {
+        const contributions = this.props.selectedContributions;
+        return (contributions.length !== 0);
+    }
+    validateRequiredField(value){
+        return ( value.trim() !== '')
+    }
     onClickSave(){
-        const topic = {
-            contributions: this.props.selectedContributions,
-            topic: this.state.topic ? this.state.topic : this.state.otherTopic,
-            perspective: this.state.perspective ? this.state.perspective : this.state.otherPerspective,
-            connection_explanation: this.state.explanation,
-            links: this.state.links,
-            proposed_topics: this.state.proposeTopics,
-        }
-        API.postTopic(topic).then((r) =>{
-            if(r.success){
-                this.props.onFormSaved();
-            }else{
+        const validatedContributions = this.validatedContributions();
 
+        if(validatedContributions){
+            const topic = {
+                contributions: this.props.selectedContributions,
+                topic: this.state.topic ? this.state.topic : this.state.otherTopic,
+                perspective: this.state.perspective ? this.state.perspective : this.state.otherPerspective,
+                connection_explanation: this.state.explanation,
+                links: this.state.links,
+                proposed_topics: this.state.proposeTopics,
             }
-        })
+            const validateTopic = this.validateRequiredField(topic.topic);
+            const validatePerspective = this.validateRequiredField(topic.perspective);
+            const validateConnection = this.validateRequiredField(topic.connection_explanation);
+
+            if(validateTopic && validatePerspective && validateConnection){
+                API.postTopic(topic).then((r) =>{
+                    if(r.success){
+                        this.props.onFormSaved();
+                    }else{
+                        // TODO
+                        //    show error
+                    }
+                })
+            }else {
+                this.requiredFieldsSwal();
+            }
+        }else{
+            this.invalidContributionsSwal();
+        }
+    }
+
+    requiredFieldsSwal(){
+        CustomSwal.fire({
+            icon:'warning',
+            text:'Bitte füllen Sie alle Felder aus, die mit * gekennzeichnet sind. ',
+            showConfirmButton:false
+        });
+    }
+
+    invalidContributionsSwal(){
+        CustomSwal.fire({
+            icon:'warning',
+            text:'Um eine Verbindung anzulegen, müssen Sie zuerst einen oder mehrere Beiträge auswählen. ' +
+                'Sie können die Beiträge auswählen wenn ' +
+                'Sie auf den gewünschten Beitrag klicken und ihn mit einem “✓“ versehen.',
+            showConfirmButton:false
+        });
     }
 
     onChange(e){
         this.setState({[e.target.id]:e.target.value});
     }
+
     cancel(){
-        const customSwal = Swal.mixin({
-            customClass: {
-                popup: 'popup-custom',
-                confirmButton: 'confirm-custom',
-                cancelButton: 'cancel-custom',
-                content:'title-custom',
-                icon: 'icon-custom'
-            },
-        });
-         customSwal.fire({
+         CustomSwal.fire({
              icon:'warning',
              iconHtml:'',
              text:'ok custom',

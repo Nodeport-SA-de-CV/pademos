@@ -178,8 +178,6 @@ class MainView extends React.Component{
                                  topicsList={this.state.topicsList}
                                  perspectivesList={this.state.perspectivesList}
                                  onRemoveContribution={(c) => this.onRemoveContribution(c)}
-
-
                     />
                     </div>
                 </div>
