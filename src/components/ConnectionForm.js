@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import NPInput from "./NPInput";
 import API from "../lib/api/API";
-import Sidebar from "./Sidebar";
 
 
 class ConnectionForm extends React.Component{
@@ -54,6 +53,8 @@ class ConnectionForm extends React.Component{
 
 
     render(){
+        const contributions = this.props.selectedContributions;
+
         return(
             <div className={'sidebar'}>
                 <div className={'sidebar-form-header'}>
@@ -62,6 +63,20 @@ class ConnectionForm extends React.Component{
                 </div>
                 <div className={'sidebar-form mt-3'}>
                     <label>1. Wählen Sie einen oder mehrere aus den Bürgerbeiträgen auf der linken Seite.</label>
+                    {
+                        contributions.map(c => {
+                            return(
+                                <div key={c._id}
+                                     className={'sidebar-form-contribution mb-1'}
+                                     style={{backgroundColor:c.color}}>
+                                     <div>{c.document_title_response}</div>
+                                     <FontAwesomeIcon className={'remove'}
+                                                      icon={'times' }
+                                                      onClick={() => this.props.onRemoveContribution(c)}/>
+                                </div>
+                            )
+                        })
+                    }
 
                     {/*select */}
                     <label className={'mt-2'}>2. Zu welchem Forschungsthema haben die Bürgerbeiträge einen Bezug? (*)</label>
@@ -156,7 +171,8 @@ ConnectionForm.propTypes = {
     onCancel: PropTypes.func,
     selectedContributions: PropTypes.array,
     topicsList: PropTypes.array,
-    perspectivesList: PropTypes.array
+    perspectivesList: PropTypes.array,
+    onRemoveContribution: PropTypes.func,
 };
 
 ConnectionForm.defaultProps = {
@@ -165,4 +181,5 @@ ConnectionForm.defaultProps = {
     selectedContributions : [],
     topicsList: [],
     perspectivesList: [],
+    onRemoveContribution: () => {}
 };

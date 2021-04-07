@@ -19,9 +19,7 @@ class RecreatedTile extends React.Component {
         this.calcRtContentHeight();
     }
     
-    onClickShowDetails(){
-        const contribution = this.props.contribution;
-        contribution.color = this.props.color;
+    onClickShowDetails(contribution){
         contribution.isSelected = this.props.isSelected;
         this.props.onClickContributionDetails(contribution);
     }
@@ -76,6 +74,8 @@ class RecreatedTile extends React.Component {
             backgroundColor: this.props.contribution.isDisabled ? 'gray' : this.props.color,
             border: showConnections ? `4px solid ${this.props.selectedTopic.color}` : ''
         }
+        let contribution = this.props.contribution;
+            contribution.color = this.props.color;
         const icons = this.props.contribution.icons ? this.props.contribution.icons : [];
         const renderKeywords = this.renderKeywords();
         const hoverPositionClass = this.hoverPositionClass(this.props.width,this.props.height,this.props.left,this.props.top);
@@ -87,13 +87,13 @@ class RecreatedTile extends React.Component {
                     <UISelector isSelected={this.props.isSelected}
                                 onClick={(isSelected) => {
                                     this.calcRtContentHeight();
-                                    this.props.onContributionSelected(this.props.contribution);
+                                    this.props.onContributionSelected(contribution);
                                 }} />
-                    <div className={'rt-title'}>{this.props.contribution.document_title_response}</div>
+                    <div className={'rt-title'}>{contribution.document_title_response}</div>
                 </div>
 
                 <div className={'rt-content'} ref={ (rtContent) => { this.rtContent = rtContent } }>
-                    {this.props.contribution.document_title_response}
+                    {contribution.document_title_response}
                     {/*<div className={'rt-keywords'}>*/}
                     {/*    {*/}
                     {/*        renderKeywords.map((keyword,index) => {*/}
@@ -104,10 +104,10 @@ class RecreatedTile extends React.Component {
                     {/*    }*/}
                     {/*</div>*/}
                     <div className={'rt-description'}>
-                        {this.props.contribution.document_what_response}
+                        {contribution.document_what_response}
                     </div>
                     <div className={'rt-show-all-btn'}
-                         onClick={(c) => this.onClickShowDetails()}>... alles anzeigen
+                         onClick={(c) => this.onClickShowDetails(contribution)}>... alles anzeigen
                     </div>
                 </div>
 
@@ -148,8 +148,6 @@ RecreatedTile.defaultProps = {
     onClickContributionDetails: () => {},
     onContributionSelected: () => {},
     selectedTopic: {},
-
-
 };
 export default RecreatedTile;
 
