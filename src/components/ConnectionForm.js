@@ -62,9 +62,6 @@ class ConnectionForm extends React.Component{
                 icon: 'icon-custom'
             },
         });
-        const icondiv = () => {
-            return <div className={'icon-custom'}>icon</div>
-        };
          customSwal.fire({
              icon:'warning',
              iconHtml:'',
@@ -73,6 +70,11 @@ class ConnectionForm extends React.Component{
              showConfirmButton:true,
              confirmButtonText: 'Yes, delete it!',
              cancelButtonText: 'No, cancel!',
+         }).then((result) => {
+             /* Read more about isConfirmed, isDenied below */
+             if (result.isConfirmed) {
+                 this.props.onCancel();
+             }
          });
     }
 
@@ -157,7 +159,6 @@ class ConnectionForm extends React.Component{
                     <div className={'btn btn-burgundy'} onClick={() => this.onClickSave()}>SPEICHERN</div>
                     <div className={'btn btn-outline-burgundy'} onClick={() => {
                         this.cancel();
-                        // this.props.onCancel();
                     }}>ABBRECHEN</div>
                 </div>
             </div>
