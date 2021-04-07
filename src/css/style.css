@@ -1003,7 +1003,10 @@ search-box-wrapper{
     color: black !important;
 }
 .icon-custom{
-    color:#c4c4c4 !important;
-    background-color:#5C1919fa !important;
-    background-image: url("");
+    color:transparent !important;
+    background-image: url("../img/warning.png");
+    background-position: center;
+    background-repeat: no-repeat;
+    border:none !important;
+    border-radius:  0px !important;
 }

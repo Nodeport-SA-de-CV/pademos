@@ -61,15 +61,18 @@ class ConnectionForm extends React.Component{
                 content:'title-custom',
                 icon: 'icon-custom'
             },
-        })
+        });
+        const icondiv = () => {
+            return <div className={'icon-custom'}>icon</div>
+        };
          customSwal.fire({
              icon:'warning',
+             iconHtml:'',
              text:'ok custom',
              showCancelButton: true,
              showConfirmButton:true,
              confirmButtonText: 'Yes, delete it!',
              cancelButtonText: 'No, cancel!',
-
          });
     }
 
