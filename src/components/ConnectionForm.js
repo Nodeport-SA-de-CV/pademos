@@ -4,6 +4,8 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import NPInput from "./NPInput";
 import API from "../lib/api/API";
 
+// CommonJS
+const Swal = require('sweetalert2');
 
 class ConnectionForm extends React.Component{
     constructor(props) {
@@ -49,6 +51,31 @@ class ConnectionForm extends React.Component{
 
     onChange(e){
         this.setState({[e.target.id]:e.target.value});
+    }
+    cancel(){
+        const customSwal = Swal.mixin({
+            customClass: {
+                popup: 'popup-custom',
+                confirmButton: 'confirm-custom',
+                cancelButton: 'cancel-custom',
+                content:'title-custom',
+                icon: 'icon-custom'
+            },
+        });
+         customSwal.fire({
+             icon:'warning',
+             iconHtml:'',
+             text:'ok custom',
+             showCancelButton: true,
+             showConfirmButton:true,
+             confirmButtonText: 'Yes, delete it!',
+             cancelButtonText: 'No, cancel!',
+         }).then((result) => {
+             /* Read more about isConfirmed, isDenied below */
+             if (result.isConfirmed) {
+                 this.props.onCancel();
+             }
+         });
     }
 
 
@@ -146,7 +173,9 @@ class ConnectionForm extends React.Component{
                 </div>
                 <div className={'sidebar-form-buttons'}>
                     <div className={'btn btn-burgundy'} onClick={() => this.onClickSave()}>SPEICHERN</div>
-                    <div className={'btn btn-outline-burgundy'} onClick={() => this.props.onCancel()}>ABBRECHEN</div>
+                    <div className={'btn btn-outline-burgundy'} onClick={() => {
+                        this.cancel();
+                    }}>ABBRECHEN</div>
                 </div>
             </div>
         )
