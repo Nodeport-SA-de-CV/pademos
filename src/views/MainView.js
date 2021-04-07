@@ -137,7 +137,6 @@ class MainView extends React.Component{
         let selectedContributions = this.state.selectedContributions;
         selectedContributions = selectedContributions.filter(contribution => contribution._id !== c._id);
         this.setState({selectedContributions:selectedContributions});
-        debugger;
     }
 
     render(){
