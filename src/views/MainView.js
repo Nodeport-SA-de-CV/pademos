@@ -8,6 +8,7 @@ import PlotView from "./plots/PlotView";
 import GroupList from "../components/plots/GroupList";
 import {parse} from "@fortawesome/fontawesome-svg-core";
 import API from "../lib/api/API";
+
 const _ = require('underscore');
 
 class MainView extends React.Component{
@@ -26,10 +27,10 @@ class MainView extends React.Component{
             groupsOptions:[],
             hiddenGroups:[],
         }
-        this.onKeyWordChange   = this.onKeyWordChange.bind(this);
-        this.onSearchBoxChange = this.onSearchBoxChange.bind(this);
-        this.onTopicsLoaded    = this.onTopicsLoaded.bind(this);
-        this.onRemoveContribution = this.onRemoveContribution.bind(this);
+        this.onKeyWordChange            = this.onKeyWordChange.bind(this);
+        this.onSearchBoxChange          = this.onSearchBoxChange.bind(this);
+        this.onTopicsLoaded             = this.onTopicsLoaded.bind(this);
+        this.onRemoveContribution       = this.onRemoveContribution.bind(this);
     }
     onSearchBoxChange(value){
         this.setState({
@@ -195,4 +196,4 @@ class MainView extends React.Component{
     }
 }
 
-export default MainView;
+export default withRouter (MainView);
