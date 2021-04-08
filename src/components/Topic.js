@@ -1,9 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import NPIf from "np-if";
 import API from "../lib/api/API";
 
+const _ = require('underscore');
 
 
 class Topic extends React.Component{
@@ -12,18 +11,27 @@ class Topic extends React.Component{
         this.state = {
         }
         this.onClickHelp = this.onClickHelp.bind(this);
+        this.hideGroups  = this.hideGroups.bind(this);
     }
 
     onClickHelp(){
         console.log('help clicked');
     }
 
+    hideGroups(contributions){
+        let groups = contributions.map(c => c.topic_label);
+        groups = _.uniq(groups);
+        this.props.onHideGroup( groups );
+        this.props.onClick()
+    }
+
     render(){
         return(
             <div className={`topic ${this.props.className}`} style={{backgroundColor:this.props.color}}
-                 onClick={() => this.props.onClick()}>
+                 onClick={() => {
+                     this.hideGroups(this.props.topic.contributions)
+                 }}>
                 {this.props.title}
-                {/*{JSON.stringify(this.props.topic)}*/}
                 <img src={`${API.API_URL}/icons/${this.props.icon}`} height={20}></img>
             </div>
         )
@@ -33,19 +41,21 @@ class Topic extends React.Component{
 export default Topic;
 
 Topic.propTypes = {
-    topic: PropTypes.object,
-    title: PropTypes.string,
-    icon: PropTypes.string,
-    color: PropTypes.string,
-    className: PropTypes.string,
-    onClick: PropTypes.func
+    topic      : PropTypes.object,
+    title      : PropTypes.string,
+    icon       : PropTypes.string,
+    color      : PropTypes.string,
+    className  : PropTypes.string,
+    onClick    : PropTypes.func,
+    onHideGroup: PropTypes.func
 };
 
 Topic.defaultProps = {
-    topic: {},
-    title: '',
-    icon: '',
-    color:'burgundy',
-    className: '',
-    onClick: () => {}
+    topic      : {},
+    title      : '',
+    icon       : '',
+    color      : 'burgundy',
+    className  : '',
+    onClick    : () => {},
+    onHideGroup: () => {}
 };
