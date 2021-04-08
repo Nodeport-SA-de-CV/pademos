@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import NPIf from "np-if";
 import { withRouter } from "react-router-dom";
+import API from "../lib/api/API";
 
 const Swal = require('sweetalert2');
 
@@ -45,9 +46,9 @@ class TopicDetails extends React.Component{
             <div className={`topic-details ${this.props.className}`} style={{backgroundColor:topic.color}}>
                 <FontAwesomeIcon className={'tp-close-btn txt-right'} icon={'times'} onClick={() => this.props.onClickHide()}/>
                 <div className={'tp-title'}>
-                    <b>{topic.title}</b>
+                    <b>{topic.topic}</b>
                     <NPIf condition={topic.icon !== ''}>
-                        <FontAwesomeIcon className={`icon-${topic.color}`} icon={topic.icon}/>
+                        <img className={`tp-icon`} src={`${API.API_URL}/icons/${topic.icon}`}/>
                     </NPIf>
                 </div>
                 <div className={'mt-2 mb-2'}>Beispielverbindungen, die Wissenschaftler:innen angelegt haben</div>
