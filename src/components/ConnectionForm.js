@@ -105,14 +105,15 @@ class ConnectionForm extends React.Component{
     }
 
     cancel(){
+        
          CustomSwal.fire({
              icon:'warning',
              iconHtml:'',
              text:'ok custom',
              showCancelButton: true,
              showConfirmButton:true,
-             confirmButtonText: 'Yes, delete it!',
-             cancelButtonText: 'No, cancel!',
+             confirmButtonText: 'Yes, cancel',
+             cancelButtonText: 'No',
          }).then((result) => {
              /* Read more about isConfirmed, isDenied below */
              if (result.isConfirmed) {
@@ -217,7 +218,7 @@ class ConnectionForm extends React.Component{
                 <div className={'sidebar-form-buttons'}>
                     <div className={'btn btn-burgundy'} onClick={() => this.onClickSave()}>SPEICHERN</div>
                     <div className={'btn btn-outline-burgundy'} onClick={() => {
-                        this.cancel();
+                        this.props.onCancel();
                     }}>ABBRECHEN</div>
                 </div>
             </div>

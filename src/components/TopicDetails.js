@@ -29,8 +29,8 @@ class TopicDetails extends React.Component{
             text:'Hiermit verlassen Sie die Ansicht für Bürger:innen. Bitte bestätigen Sie.',
             showCancelButton: true,
             showConfirmButton:true,
-            confirmButtonText: 'BESTÄTIGEN (continuar)',
-            cancelButtonText: 'ABBRECHEN (cancelar)',
+            confirmButtonText: 'BESTÄTIGEN',
+            cancelButtonText: 'ABBRECHEN',
         }).then((result) => {
             /* Read more about isConfirmed, isDenied below */
             if (result.isConfirmed) {
