@@ -196,4 +196,4 @@ class MainView extends React.Component{
     }
 }
 
-export default withRouter (MainView);
+export default MainView;
