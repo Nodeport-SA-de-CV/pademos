@@ -93,7 +93,7 @@ class Sidebar extends React.Component{
                             {
                                 this.state.topics.map((topic) =>{
                                     return(
-                                        <Topic title={topic.connection_explanation}
+                                        <Topic title={topic.topic}
                                                color={topic.color} icon={topic.icon}
                                                topic={topic}
                                                onClick={() => this.showTopicDetails(topic)}
