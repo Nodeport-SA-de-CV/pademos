@@ -54,6 +54,7 @@ class Sidebar extends React.Component{
                 color:''
             }
         });
+        this.props.onHideGroup([]);
         this.props.onTopicSelected(null);
     }
     loadTopics(){
@@ -95,7 +96,8 @@ class Sidebar extends React.Component{
                                         <Topic title={topic.connection_explanation}
                                                color={topic.color} icon={topic.icon}
                                                topic={topic}
-                                               onClick={() => this.showTopicDetails(topic)}>
+                                               onClick={() => this.showTopicDetails(topic)}
+                                               onHideGroup={(hg) => this.props.onHideGroup(hg)}>
                                         </Topic>
                                     )
                                 })
@@ -110,7 +112,8 @@ class Sidebar extends React.Component{
 
                         {/*/render topic details*/}
                         <NPElse>
-                            <TopicDetails topic={this.state.topicSelected} onClickHide={() => this.hideTopicDetails()}/>
+                            <TopicDetails topic={this.state.topicSelected}
+                                          onClickHide={() => this.hideTopicDetails()}/>
                         </NPElse>
                     </NPIf>
                 </div>
@@ -136,7 +139,7 @@ Sidebar.propTypes = {
     onTopicSelected       : PropTypes.func,
     onFormSaved           : PropTypes.func,
     onRemoveContribution  : PropTypes.func,
-
+    onHideGroup           : PropTypes.func
 };
 
 Sidebar.defaultProps = {
@@ -144,5 +147,6 @@ Sidebar.defaultProps = {
     onTopicSelected       : () => {},
     onFormSaved           : () => {},
     onRemoveContribution  : () => {},
+    onHideGroup           : () => {}
 
 };

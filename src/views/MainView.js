@@ -179,7 +179,8 @@ class MainView extends React.Component{
                                  topicsList={this.state.topicsList}
                                  perspectivesList={this.state.perspectivesList}
                                  onRemoveContribution={(c) => this.onRemoveContribution(c)}
-                    />
+                                 onHideGroup={(h) => this.setState({hiddenGroups: h})}
+                        />
                     </div>
                 </div>
             </NPIf>
