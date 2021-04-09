@@ -57,7 +57,7 @@ class TopicDetails extends React.Component{
                         return (
                             <div className={'perspective mb-2'} key={index}>
                                 <div>{perspective.perspective} --> Connection { index + 1 }</div>
-                                <div className={'mt-1 mb-1'}>{perspective.connection_explanation}</div>
+                                <div className={'perspective-ex mt-1 mb-1'}>{perspective.connection_explanation}</div>
                                 <div className={'btn btn-tiny'} onClick={() => this.confirmSwal()}>alles anzeigen</div>
                             </div>
                         )
