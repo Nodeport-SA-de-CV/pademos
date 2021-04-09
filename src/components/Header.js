@@ -46,7 +46,7 @@ class Header extends React.Component {
                 </div>
                 {/*action row*/}
                 <NPIf condition={this.props.showActions}>
-                    <div className={'header-row align-items-start pt-3 pb-3'}>
+                    <div className={'header-inputs header-row align-items-start pt-3 pb-3'}>
                         <SearchBox disabled={this.props.isActionsDisabled}
                                    onChange={(value) => this.props.onSearchBoxChange(value)}/>
                         <select className={'mr-4'}
