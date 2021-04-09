@@ -72,7 +72,8 @@ class RecreatedTile extends React.Component {
             left: this.props.left,
             top:this.props.top,
             backgroundColor: this.props.contribution.isDisabled ? 'gray' : this.props.color,
-            border: showConnections ? `4px solid ${this.props.selectedTopic.color}` : ''
+            border: showConnections ? `4px solid ${this.props.selectedTopic.color}` : '',
+            color: this.props.contribution.isDisabled ? 'rgb(66, 66, 66)' : '#01080D'
         }
         let contribution = this.props.contribution;
             contribution.color = this.props.color;
