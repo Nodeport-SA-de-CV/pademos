@@ -46,47 +46,57 @@ class Header extends React.Component {
                 </div>
                 {/*action row*/}
                 <NPIf condition={this.props.showActions}>
-                    <div className={'header-inputs header-row align-items-start pt-3 pb-3'}>
+                    <div className={'header-selects pt-3 pb-3'}>
                         <SearchBox disabled={this.props.isActionsDisabled}
                                    onChange={(value) => this.props.onSearchBoxChange(value)}/>
-                        <select className={'mr-4'}
-                                style={{height: '37.2px'}}
-                                disabled={this.props.isActionsDisabled}
-                                onChange={(e) => this.props.onKeyWordChange(e.target.value)}>
-                            <option value={''}>Stichwort</option>
-                            {
-                                this.props.keywords.map((k, i) => {
-                                    return (
-                                        <option value={k} key={i}>{k}</option>
-                                    )
-                                })
-                            }
-                        </select>
-                        <select className={'mr-4'} style={{height: '37.2px'}}
-                                disabled={this.props.isActionsDisabled}
-                                onChange={(e) => this.props.onDocumentTypeChange(e.target.value)}>
-                            <option value={''}>Beitragsart</option>
-                            <option value={1}>Frage</option>
-                            <option value={2}>Problem</option>
-                            <option value={3}>Zukunftsvision</option>
-                        </select>
 
-                        <Select className={'multi-select'}
-                                isMulti={true}
-                                isDisabled={this.props.isActionsDisabled}
-                                options={this.props.options}
-                                placeholder={'Groups: '}
-                                onChange={(e) => this.props.onSelectGroup(e)}
-                                value={hiddenGroups}
-                                theme={theme => ({
-                                    ...theme,
-                                    borderRadius:0,
-                                    colors: {
-                                        ...theme.colors,
-                                        neutral0: '#f1f1f1',
-                                    },
-                                })}
-                        />
+                        <div className={'header-select-wrapper mr-4'}>
+                            <label>Gewähltes Stichwort: </label>
+                            <select style={{height: '37.2px'}}
+                                    disabled={this.props.isActionsDisabled}
+                                    onChange={(e) => this.props.onKeyWordChange(e.target.value)}>
+                                <option value={''}>ALLE</option>
+                                {
+                                    this.props.keywords.map((k, i) => {
+                                        return (
+                                            <option value={k} key={i}>{k}</option>
+                                        )
+                                    })
+                                }
+                            </select>
+                        </div>
+
+                        <div className={'header-select-wrapper mr-4'}>
+                            <label>Gewählte Beitragsart: </label>
+                            <select style={{height: '37.2px'}}
+                                    disabled={this.props.isActionsDisabled}
+                                    onChange={(e) => this.props.onDocumentTypeChange(e.target.value)}>
+                                <option value={''}>ALLE</option>
+                                <option value={1}>Frage</option>
+                                <option value={2}>Problem</option>
+                                <option value={3}>Zukunftsvision</option>
+                            </select>
+                        </div>
+
+                        <div className={'header-select-wrapper'}>
+                            <label>Geöffnete Gruppen: </label>
+                            <Select className={'multi-select'}
+                                    isMulti={true}
+                                    isDisabled={this.props.isActionsDisabled}
+                                    options={this.props.options}
+                                    placeholder={'KEINE '}
+                                    onChange={(e) => this.props.onSelectGroup(e)}
+                                    value={hiddenGroups}
+                                    theme={theme => ({
+                                        ...theme,
+                                        borderRadius:0,
+                                        colors: {
+                                            ...theme.colors,
+                                            neutral0: '#f1f1f1',
+                                        },
+                                    })}
+                            />
+                        </div>
 
                     </div>
                 </NPIf>

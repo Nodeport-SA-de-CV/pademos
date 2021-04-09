@@ -439,7 +439,13 @@ body {
     flex-direction: row;
     flex-wrap: wrap;
 }
-.header-row>*{
+.header-selects{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: flex-end;
+}
+.header-selects>*{
     margin-top: 0.5rem;
 }
 .header h2{
@@ -449,7 +455,13 @@ body {
 .header h2 span{
     font-size: 1.25rem;
 }
-
+.header-select-wrapper{
+    display: flex;
+    flex-direction: column;
+}
+.header-select-wrapper label{
+    margin-bottom: 0.25rem;
+}
 /*---------------------------------------------------------------------------------------------------------------------*/
 /*---------------------------------------------------SELECT-------------------------------------------------------------*/
 /*---------------------------------------------------------------------------------------------------------------------*/

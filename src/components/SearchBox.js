@@ -10,7 +10,7 @@ class SearchBox extends React.Component{
     render(){
         const results = this.props.results;
         return(
-            <div className={'search-box-wrapper mr-4'}>
+            <div className={'search-box-wrapper mr-5'}>
                 <div className={`search-box ${this.props.searchBoxClass}`}>
                     <input className={this.props.inputClass}
                            onChange={(e) => this.props.onChange(e.target.value)}
