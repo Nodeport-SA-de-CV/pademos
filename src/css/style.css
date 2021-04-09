@@ -382,6 +382,13 @@ body {
     text-decoration: underline;
     align-self: end;
 }
+.perspective-ex{
+    display: -webkit-box;
+    line-clamp:6;
+    -webkit-line-clamp: 6;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
 /*--------------------------------------------------------------------------------------------------------------------*/
 /*---------------------------------------------------BTNS-------------------------------------------------------------*/
 /*--------------------------------------------------------------------------------------------------------------------*/
@@ -439,12 +446,28 @@ body {
     flex-direction: row;
     flex-wrap: wrap;
 }
+.header-selects{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: flex-end;
+}
+.header-selects>*{
+    margin-top: 0.5rem;
+}
 .header h2{
     margin-bottom: 0;
     color:black;
 }
 .header h2 span{
     font-size: 1.25rem;
+}
+.header-select-wrapper{
+    display: flex;
+    flex-direction: column;
+}
+.header-select-wrapper label{
+    margin-bottom: 0.25rem;
 }
 /*---------------------------------------------------------------------------------------------------------------------*/
 /*---------------------------------------------------SELECT-------------------------------------------------------------*/
@@ -947,8 +970,8 @@ search-box-wrapper{
     margin-right: 3px;
 }
 .rt-icon{
-    height: 12px;
-    width: 12px;
+    height: 24px;
+    width: 24px;
 }
 /*--------------------------------------------------------------------------------------------------------------------*/
 /*--------------------------------------------------SPINNER-----------------------------------------------------------*/

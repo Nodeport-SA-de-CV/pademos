@@ -7,6 +7,8 @@ class OverlaySquares extends React.Component {
         const group = this.props.group;
         const hidden = this.props.hidden ? 'hidden' : '';
         const background = this.props.group.disabled ? 'gray' : group.color;
+        const color = this.props.group.disabled ? 'rgb(66, 66, 66)' : '';
+        const colorFooter = this.props.group.disabled ? 'rgb(66, 66, 66)' : 'black';
 
         const  style = {
             position:'absolute',
@@ -15,7 +17,8 @@ class OverlaySquares extends React.Component {
             top: group.y0,
             height: group.y1 - group.y0,
             backgroundColor: background,
-            visibility: hidden
+            visibility: hidden,
+            color: color,
         }
         return(
             <div className={'overlay-squares'} style={style} onClick={() => {this.props.onHide(group.name)}}>
@@ -23,7 +26,7 @@ class OverlaySquares extends React.Component {
                     <div className={'mr-4'}>Group {this.props.index}</div>
                     <div>{group.name}</div>
                 </div>
-                <div className={'os-row align-self-end'} style={{color:'black'}}>
+                <div className={'os-row align-self-end'} style={{color:colorFooter}}>
                     <div style={{fontSize:'0.9rem'}}>Anzahl der Beiträge</div>
                     <div className={'number ml-2'}>{group.contributionCount}</div>
                 </div>
