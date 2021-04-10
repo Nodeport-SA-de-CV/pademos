@@ -42,6 +42,11 @@ class TopicDetails extends React.Component{
 
     render(){
         const topic = this.props.topic;
+        let t = {...topic};
+        delete t.children;
+        t = [t];
+
+        const list = [...t,...topic.children]
         return(
             <div className={`topic-details ${this.props.className}`} style={{backgroundColor:topic.color}}>
                 <FontAwesomeIcon className={'tp-close-btn txt-right'} icon={'times'} onClick={() => this.props.onClickHide()}/>
@@ -53,7 +58,7 @@ class TopicDetails extends React.Component{
                 </div>
                 <div className={'mt-2 mb-2'}>Beispielverbindungen, die Wissenschaftler:innen angelegt haben</div>
                 {
-                    topic.children.map((perspective,index) =>{
+                    list.map((perspective,index) =>{
                         return (
                             <div className={'perspective mb-2'} key={index}>
                                 <div>{perspective.perspective} --> Connection { index + 1 }</div>
