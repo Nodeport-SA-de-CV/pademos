@@ -41,6 +41,9 @@ class GroupTitle extends React.Component {
                                 <FontAwesomeIcon className={'overlay-btn-icon ml-auto'}
                                                  onClick={() => this.showOverlay(false)}
                                                  icon={'times'}/>
+                                 <div className={'overlay-title'}>
+                                     {group.name}
+                                 </div>
                                 <div className={'overlay-content'}>
                                     {
                                         keywords.map((keyword,index) => {

@@ -28,7 +28,7 @@ class ScientistView extends React.Component {
             })
         })
     }
-    
+
 
     render() {
         return (
