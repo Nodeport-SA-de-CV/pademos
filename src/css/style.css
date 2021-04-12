@@ -320,6 +320,12 @@ body {
     font-size: 26px;
     margin-left: 5px;
 }
+.sidebar-footer{
+    display: flex;
+    flex-direction: column;
+    font-size: 0.85rem;
+    margin-bottom: 1rem;
+}
 /*--------------------------------------------------------------------------------------------------------------------*/
 /*---------------------------------------------------Topic-------------------------------------------------------------*/
 /*--------------------------------------------------------------------------------------------------------------------*/
@@ -558,18 +564,19 @@ search-box-wrapper{
 /*--------------------------------------------------------------------------------------------------------------------*/
 .group-list{
     display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
+    flex-direction: column;
 }
 .group-name{
-    margin: 0 12px 5px 2px;
-    font-size: 0.9rem;
-    display: flex;
     cursor: pointer;
-    flex:1;
-    background-color: #eeeeee8c;
-    padding: 0px 5px;
-    border-radius: 2px;
+    border-width: 1px;
+    border-style: solid;
+    border-radius: 4px;
+    font-weight: 450;
+    margin-bottom: 0.5rem;
+    padding:  0.3rem 0.5rem;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 .group-icon-keywords{
     cursor: pointer;

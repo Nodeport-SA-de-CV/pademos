@@ -5,7 +5,6 @@ import NavBar from "../components/NavBar";
 import Sidebar from "../components/Sidebar";
 import Header from "../components/Header";
 import PlotView from "./plots/PlotView";
-import GroupList from "../components/plots/GroupList";
 import {parse} from "@fortawesome/fontawesome-svg-core";
 import API from "../lib/api/API";
 
