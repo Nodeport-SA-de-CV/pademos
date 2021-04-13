@@ -2,7 +2,8 @@ import React from "react";
 import PropTypes from 'prop-types';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {Overlay} from "react-bootstrap";
-//TODO: REMOVE IF NOT NEEDED
+
+
 class GroupTitle extends React.Component {
     constructor(props) {
         super(props);
@@ -24,16 +25,12 @@ class GroupTitle extends React.Component {
             <div style={{flex:1}} onMouseLeave={() => this.showOverlay(false)}>
                 <div key={group._id}
                      className={'group-name'}
-                     style={{color:group.color}}
-                     ref={(ref) => (this.divTarget)= ref}>
-                    <div className={'mr-auto'}
-                         onMouseEnter={() => {
-                             this.setState({groupSelected:group});
-                             this.showOverlay(true);
-                         }}>{group.name}</div>
-                    <FontAwesomeIcon className={'group-icon-keywords'}
-                                     onClick={() => this.showOverlay(true)}
-                                     icon={'angle-down'}/>
+                     style={{color:group.color,borderColor:group.color}}
+                     ref={(ref) => (this.divTarget)= ref}
+                     onMouseEnter={() => {
+                         this.setState({groupSelected:group});
+                         this.showOverlay(true)}}>
+                    {group.name}
                 </div>
                 <Overlay target={this.divTarget} show={this.state.showOverlay} placement="bottom">
                     {({ placement, arrowProps, show: _show, popper, ...props }) => (
@@ -44,6 +41,9 @@ class GroupTitle extends React.Component {
                                 <FontAwesomeIcon className={'overlay-btn-icon ml-auto'}
                                                  onClick={() => this.showOverlay(false)}
                                                  icon={'times'}/>
+                                 <div className={'overlay-title'}>
+                                     {group.name}
+                                 </div>
                                 <div className={'overlay-content'}>
                                     {
                                         keywords.map((keyword,index) => {
@@ -61,7 +61,6 @@ class GroupTitle extends React.Component {
                         </div>
                     )}
                 </Overlay>
-
             </div>
         )
     }
