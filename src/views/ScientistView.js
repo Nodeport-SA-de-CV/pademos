@@ -29,6 +29,9 @@ class ScientistView extends React.Component {
         })
     }
 
+    onChange(data){
+        console.log(data);
+    }
 
     render() {
         return (
@@ -45,6 +48,13 @@ class ScientistView extends React.Component {
                             />
                             <div className={'header-row align-items-start pt-3 pb-3'}>
                                 Übersicht
+                                <div className={'header-select-wrapper ml-4'}>
+                                    <label>Geöffnete Themen mit zugeordneten Perspektiven:  </label>
+                                    <select style={{height: '37.2px'}}
+                                            onChange={(e) => this.onChange(e.target.value)}>
+                                        <option value={''}>KEINE</option>
+                                    </select>
+                                </div>
                             </div>
 
                             {/*<PlotView ref={(ref) => this.plotView = ref}*/}
