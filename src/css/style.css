@@ -1083,3 +1083,15 @@ search-box-wrapper{
     border:none !important;
     border-radius:  0px !important;
 }
+/*--------------------------------------------------------------------------------------------------------------------*/
+/*--------------------------------------------------RECREATED SCIENTIST TILE------------------------------------------*/
+/*--------------------------------------------------------------------------------------------------------------------*/
+.recreated-scientist-tile{
+    position: absolute;
+    font-size: 1.2rem;
+    overflow: hidden;
+    color: white;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+}

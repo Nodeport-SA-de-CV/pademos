@@ -71,21 +71,17 @@ class ScientistTreeMap extends React.Component {
     buildTree(groups) {
         const tree = {
             children: groups.sort((g,g1) => g1.children.length - g.children.length).map((g) => {
-                debugger;
                 const children = [...[g],...g.children];
                 return {
                     data: g,
-                    name: g.name,
-                    group: '',
-                    colName: '',
+                    name: g.topic,
+                    group: g.topic,
                     children: children.map((c) => {
                         return {
                             data: c,
-                            name: '',
-                            group: '',
+                            name: c.perspective,
+                            group: c.topic,
                             value: this.calculateContributionWeight(c),
-                            colName: '',
-                            children: []
                         }
                     }).sort((a, b) => b.value - a.value)
                 }
@@ -144,8 +140,8 @@ class ScientistTreeMap extends React.Component {
             .classed('leaf', true)
             .attr('x', function (d, i) {
                 const self         = d3.select(this);
-                const contribution = self.data()[0].data.data;
-                leafsArray.push({x: d.x0, d: d, contribution: contribution});
+                const tileData = self.data()[0].data.data;
+                leafsArray.push({x: d.x0, d: d, tileData: tileData});
                 return d.x0;
             })
             .attr('y', function (d, i) {
@@ -186,7 +182,7 @@ class ScientistTreeMap extends React.Component {
                 y0: groups[k][0].d.parent.y0,
                 x1: groups[k][0].d.parent.x1,
                 y1: groups[k][0].d.parent.y1,
-                contributionCount: groups[k].length,
+                perspectiveCount: groups[k].length,
             });
         });
 
@@ -257,8 +253,8 @@ class ScientistTreeMap extends React.Component {
 
                 </div>
                 <RecreatedScientistTreemap data={this.state.leafsArray}
-                                  widthTreemap={this.props.w}
-                                  heightTreemap={this.props.h}
+                                              widthTreemap={this.props.w}
+                                              heightTreemap={this.props.h}
                 />
                 <NPIf condition={this.props.isLoading}>
                     <Spinner className={'spinner_scientist'} animation={'grow'}

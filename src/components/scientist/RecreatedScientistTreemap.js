@@ -12,12 +12,12 @@ class RecreatedScientistTreemap extends React.Component {
     render(){
         return this.props.data.map((tile) =>{
             return(
-                <RecreatedScientistTile key={tile.contribution.id} height={tile.height}
+                <RecreatedScientistTile key={tile.tileData.id} height={tile.height}
                                width={tile.width}
                                left={tile.x}
                                top={tile.y}
                                color={tile.color}
-                               contribution={tile.contribution}
+                               tileData={tile.tileData}
                                widthTreemap={this.props.widthTreemap}
                                heightTreemap={this.props.heightTreemap}
 
