@@ -4,12 +4,17 @@ import ReactResizeDetector from "react-resize-detector";
 import NPIf from "np-if";
 import {Spinner} from "react-bootstrap";
 import * as d3 from "d3";
+import OverlaySquares from "../../../components/plots/OverlaySquares";
+import RecreatedTreemap from "../../../components/RecreatedTreemap";
+import RecreatedScientistTreemap from "../../../components/scientist/RecreatedScientistTreemap";
 const _ = require('underscore');
 class ScientistTreeMap extends React.Component {
 
     constructor(props) {
         super(props);
-        this.state             = {}
+        this.state             = {
+            overlaySquares:[]
+        }
         this.spinnerColors     = [
             '#1A87D7',
             '#339F34',
@@ -38,11 +43,23 @@ class ScientistTreeMap extends React.Component {
         this.changeColors();
         const tree = this.buildTree(this.props.data);
         this.setState({
-            data:tree
+            data:tree,
+            overlaySquares:[]
         })
     }
 
     static getDerivedStateFromProps(props, state) {
+
+    }
+    componentDidUpdate(prevProps, prevState, snapshot) {
+        if(prevProps.data.length !== this.props.data.length){
+            const tree = this.buildTree(this.props.data);
+            this.setState({
+                data:tree
+            }, () =>{
+                this.drawChart(this.state.w,this.state.h);
+            })
+        }
     }
 
     calculateContributionWeight(c) {
@@ -53,8 +70,7 @@ class ScientistTreeMap extends React.Component {
 
     buildTree(groups) {
         const tree = {
-            //.sort((g,g1) => g1.contributions.length - g.contributions.length).
-            children: groups.map((g) => {
+            children: groups.sort((g,g1) => g1.contributions.length - g.contributions.length).map((g) => {
                 return {
                     data: g,
                     name: g.name,
@@ -142,15 +158,23 @@ class ScientistTreeMap extends React.Component {
                 leafsArray[i].height = d.y1 - d.y0;
                 return d.y1 - d.y0;
             })
-            .style("stroke", "red")
+            .style("stroke", "white")
             .style("fill", function (d, i) {
-                // leafsArray[i].color = d.parent.data.data.color;
-                return "red"
+                try{
+                    leafsArray[i].color = d.parent.data.data.color;
+                    return "transparent";
+                }catch (e) {
+                    return "transparent";
+
+                }
             })
         this.setState({leafsArray: leafsArray});
 
         //Get groups
-        const groups       = _.groupBy(leafsArray, ((l) => l.d.parent.data.name));
+        const groups       = _.groupBy(leafsArray, ((l) => {
+            return l.d.parent.data.data.topic
+        }));
+
         let overlaySquares = [];
         Object.keys(groups).forEach((k) => {
             overlaySquares.push({
@@ -178,7 +202,7 @@ class ScientistTreeMap extends React.Component {
             leafsArray: []
         })
         const data = this.state.data;
-        if (!data) {
+        if (data.children.length === 0) {
             return null;
         }
         d3.select("#treemap").selectAll("*").remove()
@@ -216,14 +240,24 @@ class ScientistTreeMap extends React.Component {
 
         this.updateTreeMap(root);
     }
-
+    onHideGroup(group){
+        let groups = this.props.hiddenGroups;
+        if(! groups.includes(group)){
+            groups.push(group);
+            this.props.onHideGroup(groups);
+        }
+    }
     render() {
-
+        const overlaySquares = this.state.overlaySquares;
         return (
-            <div className={'h-100 d-flex'} style={{justifyContent: 'center'}}>
+            <div className={'h-100 d-flex treemap-wrapper'} style={{justifyContent: 'center'}}>
                 <div id={"treemap"} ref={(ref) => this.treeMapDiv = ref}>
 
                 </div>
+                <RecreatedScientistTreemap data={this.state.leafsArray}
+                                  widthTreemap={this.props.w}
+                                  heightTreemap={this.props.h}
+                />
                 <NPIf condition={this.props.isLoading}>
                     <Spinner className={'spinner_scientist'} animation={'grow'}
                              style={{backgroundColor: this.state.spinnerColor}}>
@@ -233,6 +267,16 @@ class ScientistTreeMap extends React.Component {
                 <ReactResizeDetector handleWidth handleHeight
                                      onResize={(w, h) => this.onResize(w, h)}>
                 </ReactResizeDetector>
+                {
+                    overlaySquares.map((square,i) => {
+                        return <OverlaySquares key={square.name}
+                                               group={square}
+                                               index={i+1}
+                                               hidden={true}
+                                               onHide={(s) => this.onHideGroup(s)}
+                        />
+                    })
+                }
             </div>
         )
 
@@ -255,21 +299,7 @@ ScientistTreeMap.propTypes = {
 
 ScientistTreeMap.defaultProps = {
     data: [
-        {
-            name: 'a',
-            contributions: [
-                {
-                    name:'a'
-                },
-                {
-                    name:'b'
-                }
-            ]
-        },
-        {
-            name: 'b',
-            contributions: []
-        },
+
     ],
     isLoading: false,
     onContributionSelected: () => {

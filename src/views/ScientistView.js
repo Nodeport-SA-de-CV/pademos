@@ -18,7 +18,9 @@ class ScientistView extends React.Component {
     constructor() {
         super();
         this.state = {
-            topics: [],
+            topics: [
+
+            ],
         }
 
     }
@@ -59,7 +61,7 @@ class ScientistView extends React.Component {
                                 </div>
                             </div>
                             <div className={'d-flex mb-auto'}></div>
-                            <ScientistTreeMap></ScientistTreeMap>
+                            <ScientistTreeMap data={this.state.topics}></ScientistTreeMap>
                             {/*<PlotView ref={(ref) => this.plotView = ref}*/}
                             {/*          selectedTopic={this.state.selectedTopic}*/}
                             {/*          onTopicsLoaded={(topics) => this.onTopicsLoaded(topics)}*/}
