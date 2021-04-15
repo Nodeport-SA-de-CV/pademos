@@ -21,6 +21,7 @@ class ScientistView extends React.Component {
             topics: [
 
             ],
+            level:'scientist' // scientist, theme, perspective,contribution
         }
 
     }
@@ -36,7 +37,18 @@ class ScientistView extends React.Component {
     onChange(data){
         console.log(data);
     }
-
+    renderContent(){
+        switch (this.state.level){
+            case "scientist":
+                return <ScientistTreeMap data={this.state.topics}></ScientistTreeMap>
+                break;
+            case "theme":
+                return <ScientistTreeMap data={this.state.topics}></ScientistTreeMap>
+                break;
+            default:
+                return null;
+        }
+    }
     render() {
         return (
             <NPIf condition={this.context.isLoggedIn}>
@@ -61,7 +73,7 @@ class ScientistView extends React.Component {
                                 </div>
                             </div>
                             <div className={'d-flex mb-auto'}></div>
-                            <ScientistTreeMap data={this.state.topics}></ScientistTreeMap>
+                            {this.renderContent()}
                             {/*<PlotView ref={(ref) => this.plotView = ref}*/}
                             {/*          selectedTopic={this.state.selectedTopic}*/}
                             {/*          onTopicsLoaded={(topics) => this.onTopicsLoaded(topics)}*/}
