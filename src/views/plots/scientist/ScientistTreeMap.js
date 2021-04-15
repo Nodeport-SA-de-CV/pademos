@@ -70,13 +70,15 @@ class ScientistTreeMap extends React.Component {
 
     buildTree(groups) {
         const tree = {
-            children: groups.sort((g,g1) => g1.contributions.length - g.contributions.length).map((g) => {
+            children: groups.sort((g,g1) => g1.children.length - g.children.length).map((g) => {
+                debugger;
+                const children = [...[g],...g.children];
                 return {
                     data: g,
                     name: g.name,
                     group: '',
                     colName: '',
-                    children: g.contributions.map((c) => {
+                    children: children.map((c) => {
                         return {
                             data: c,
                             name: '',
