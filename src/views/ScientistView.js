@@ -9,6 +9,7 @@ import GroupList from "../components/plots/GroupList";
 import API from "../lib/api/API";
 import SidebarScientist from "../components/SidebarScientist";
 import Form from "react-bootstrap/Form";
+import ScientistTreeMap from "./plots/scientist/ScientistTreeMap";
 const _ = require('underscore');
 
 class ScientistView extends React.Component {
@@ -58,6 +59,7 @@ class ScientistView extends React.Component {
                                 </div>
                             </div>
                             <div className={'d-flex mb-auto'}></div>
+                            <ScientistTreeMap></ScientistTreeMap>
                             {/*<PlotView ref={(ref) => this.plotView = ref}*/}
                             {/*          selectedTopic={this.state.selectedTopic}*/}
                             {/*          onTopicsLoaded={(topics) => this.onTopicsLoaded(topics)}*/}
