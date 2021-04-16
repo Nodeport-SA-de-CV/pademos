@@ -30,7 +30,7 @@ class NavBar extends React.Component{
         return(
             <Navbar bg="dark" variant="dark" expand="lg">
 
-                <Link to="/"><Navbar.Brand>Visualisierung der Beiträge für:</Navbar.Brand></Link>
+                <Link to="/"><Navbar.Brand>Visualisierung der Beiträge VON:</Navbar.Brand></Link>
                 <Navbar.Toggle aria-controls="basic-navbar-nav" />
                 <Navbar.Collapse id="basic-navbar-nav" className="justify-content-end">
                     <Form inline className={'mr-auto ml-auto'}>
