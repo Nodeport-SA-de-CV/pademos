@@ -2,14 +2,13 @@ import React from 'react';
 import {AuthContext} from "../lib/AuthContext";
 import NPIf from "np-if";
 import NavBar from "../components/NavBar";
-import Sidebar from "../components/Sidebar";
 import Header from "../components/Header";
-import PlotView from "./plots/PlotView";
-import GroupList from "../components/plots/GroupList";
 import API from "../lib/api/API";
 import SidebarScientist from "../components/SidebarScientist";
 import Form from "react-bootstrap/Form";
 import ScientistTreeMap from "./plots/scientist/ScientistTreeMap";
+import Select from 'react-select'
+
 const _ = require('underscore');
 
 class ScientistView extends React.Component {
@@ -24,6 +23,8 @@ class ScientistView extends React.Component {
             level:'scientist' // scientist, theme, perspective,contribution
         }
         this.setGroupsOptions          = this.setGroupsOptions.bind(this);
+        this.onSelectGroup             = this.onSelectGroup.bind(this);
+        this.getValue                  = this.getValue.bind(this);
     }
 
     componentDidMount() {
@@ -45,13 +46,18 @@ class ScientistView extends React.Component {
         this.setState({groupsOptions:options});
     }
 
-    onChange(data){
-        console.log(data);
-    }
 
     onSelectGroup(groups){
         let hiddenGroups = groups.map(g => g.value);
         this.setState({hiddenGroups})
+    }
+
+    getValue(groups){
+        return groups.map(g => {
+            return (
+                {value:g, label:g}
+            )
+        });
     }
 
     renderContent(){
@@ -70,6 +76,8 @@ class ScientistView extends React.Component {
         }
     }
     render() {
+        const hiddenGroups = this.getValue(this.state.hiddenGroups);
+
         return (
             <NPIf condition={this.context.isLoggedIn}>
                 <div className={'h-100'}>
@@ -86,10 +94,21 @@ class ScientistView extends React.Component {
                                 Übersicht
                                 <div className={'header-select-wrapper ml-4'} style={{fontSize:'0.8rem'}}>
                                     <label>Geöffnete Themen mit zugeordneten Perspektiven:  </label>
-                                    <select style={{height: '37.2px'}}
-                                            onChange={(e) => this.onChange(e.target.value)}>
-                                        <option value={''}>KEINE</option>
-                                    </select>
+                                    <Select className={'multi-select'}
+                                            isMulti={true}
+                                            options={this.state.groupsOptions}
+                                            placeholder={'KEINE '}
+                                            onChange={(e) => this.onSelectGroup(e)}
+                                            value={hiddenGroups}
+                                            theme={theme => ({
+                                                ...theme,
+                                                borderRadius:0,
+                                                colors: {
+                                                    ...theme.colors,
+                                                    neutral0: '#f1f1f1',
+                                                },
+                                            })}
+                                    />
                                 </div>
                             </div>
                             <div className={'d-flex mb-auto'}></div>
