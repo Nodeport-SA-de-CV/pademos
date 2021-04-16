@@ -42,7 +42,7 @@ class ScientistView extends React.Component {
                 {value:g.topic, label:g.topic}
             )
         });
-        options.unshift({value:'Alles',label:'Alles'});
+        options.unshift({value:'Alle',label:'Alle'});
         this.setState({groupsOptions:options});
     }
 
@@ -50,8 +50,8 @@ class ScientistView extends React.Component {
     onSelectGroup(groups){
         let hiddenGroups = [];
         if(groups.length > 0){
-            if(groups[groups.length - 1].value === 'Alles'){
-                hiddenGroups = this.state.groupsOptions.filter(g => g.value !== 'Alles').map( g => g.value);
+            if(groups[groups.length - 1].value === 'Alle'){
+                hiddenGroups = this.state.groupsOptions.filter(g => g.value !== 'Alle').map( g => g.value);
             }else{
                 hiddenGroups = groups.map(g => g.value);
             }

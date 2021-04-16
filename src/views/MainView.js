@@ -125,11 +125,19 @@ class MainView extends React.Component{
                 {value:g.name, label:g.name}
             )
         });
+        options.unshift({value:'Alle',label:'Alle'});
         this.setState({groupsOptions:options});
     }
 
     onSelectGroup(groups){
-        let hiddenGroups = groups.map(g => g.value);
+        let hiddenGroups = [];
+        if(groups.length > 0){
+            if(groups[groups.length - 1].value === 'Alle'){
+                hiddenGroups = this.state.groupsOptions.filter(g => g.value !== 'Alle').map( g => g.value);
+            }else{
+                hiddenGroups = groups.map(g => g.value);
+            }
+        }
         this.setState({hiddenGroups})
     }
 
