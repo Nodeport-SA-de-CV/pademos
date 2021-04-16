@@ -40,7 +40,7 @@ class OverlaySquares extends React.Component {
 
                     <NPElse>
                         <div className={'os-row flex-wrap'}>
-                            <div className={'mr-4'}>Group {this.props.index}</div>
+                            <div className={'mr-4'}>Gruppe {this.props.index}</div>
                             <div>{group.name}</div>
                         </div>
                         <div className={'os-row align-self-end'} style={{color:colorFooter}}>

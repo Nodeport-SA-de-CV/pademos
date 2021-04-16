@@ -903,7 +903,7 @@ search-box-wrapper{
     height: 16px;
     width: 16px;
 }
-.recreated-tile:hover .rt-keywords{
+.recreated-tile:hover .rt-title-content{
     display: none;
 }
 .recreated-tile:hover .rt-description{
@@ -920,7 +920,6 @@ search-box-wrapper{
     justify-content: space-around;
 }
 /*---------hover end-----------------------------*/
-
 .rt-header{
     display: flex;
     flex-direction: row;
@@ -941,7 +940,6 @@ search-box-wrapper{
     text-overflow: ellipsis;
     display: none;
     flex:1;
-
 }
 .rt-content{
     display: flex;
@@ -949,13 +947,13 @@ search-box-wrapper{
     flex:1;
     overflow: hidden;
 }
-.rt-keywords{
+.rt-title-content{
     display: flex;
     flex-direction: column;
     justify-content: center;
     flex: 1;
 }
-.rt-keywords div{
+.rt-title-content div{
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -967,11 +965,9 @@ search-box-wrapper{
 }
 .rt-show-all-btn{
     color:white;
-    cursor: pointer;
     font-size: 4px;
     margin: 2px 0;
     display: none;
-    text-align: right;
 }
 .rt-footer{
     display: flex;

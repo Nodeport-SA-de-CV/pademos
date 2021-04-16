@@ -58,6 +58,24 @@ class RecreatedTile extends React.Component {
         return '';
     }
 
+    renderDocumentType(type){
+        let typeLabel = '';
+        switch (type){
+            case '1':
+                typeLabel = 'Frage';
+                break;
+            case '2':
+                typeLabel = 'Problem';
+                break;
+            case '3':
+                typeLabel = 'Zukunftsvision';
+                break;
+            default:
+                typeLabel = '';
+        }
+        return typeLabel;
+    }
+
     render(){
         let showConnections = false;
         if(this.props.selectedTopic){
@@ -82,12 +100,17 @@ class RecreatedTile extends React.Component {
         const renderKeywords = this.renderKeywords();
         const hoverPositionClass = this.hoverPositionClass(this.props.width,this.props.height,this.props.left,this.props.top);
         const isPortrait = this.isPortrait(this.props.width,this.props.height);
+        const type = this.props.contribution.document_type ? this.props.contribution.document_type : '1';
+
 
         return (
-            <div className={`recreated-tile ${hoverPositionClass} ${isPortrait}`} style={styleTile}>
+            <div className={`recreated-tile ${hoverPositionClass} ${isPortrait}`}
+                 style={styleTile}
+                 onClick={(c) => this.onClickShowDetails(contribution)}>
                 <div className={'rt-header'}>
                     <UISelector isSelected={this.props.isSelected}
-                                onClick={(isSelected) => {
+                                onClick={(isSelected,e) => {
+                                    // e.stopPropagation();
                                     this.calcRtContentHeight();
                                     this.props.onContributionSelected(contribution);
                                 }} />
@@ -95,21 +118,12 @@ class RecreatedTile extends React.Component {
                 </div>
 
                 <div className={'rt-content'} ref={ (rtContent) => { this.rtContent = rtContent } }>
-                    {contribution.document_title_response}
-                    {/*<div className={'rt-keywords'}>*/}
-                    {/*    {*/}
-                    {/*        renderKeywords.map((keyword,index) => {*/}
-                    {/*            return(*/}
-                    {/*                <div key={index}>{keyword}</div>*/}
-                    {/*            )*/}
-                    {/*        })*/}
-                    {/*    }*/}
-                    {/*</div>*/}
+                    <div className={'rt-show-all-btn'}>{this.renderDocumentType(type)}</div>
+
+                    <div className={'rt-title-content'}>{contribution.document_title_response}</div>
+
                     <div className={'rt-description'}>
                         {contribution.document_what_response}
-                    </div>
-                    <div className={'rt-show-all-btn'}
-                         onClick={(c) => this.onClickShowDetails(contribution)}>... alles anzeigen
                     </div>
                 </div>
 
