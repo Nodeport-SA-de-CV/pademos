@@ -185,12 +185,12 @@ class ScientistTreeMap extends React.Component {
         });
 
         this.setState({overlaySquares: overlaySquares});
-        // this.props.onSetGroups(overlaySquares);
-
     }
+
     onResize(w, h) {
         this.drawChart(w, h);
     }
+
     drawChart(w, h) {
         this.setState({
             w,
@@ -236,6 +236,7 @@ class ScientistTreeMap extends React.Component {
 
         this.updateTreeMap(root);
     }
+
     onHideGroup(group){
         let groups = this.props.hiddenGroups;
         if(! groups.includes(group)){
@@ -243,6 +244,11 @@ class ScientistTreeMap extends React.Component {
             this.props.onHideGroup(groups);
         }
     }
+
+    isSquareHidden(group){
+        return this.props.hiddenGroups.includes(group.name);
+    }
+
     render() {
         const overlaySquares = this.state.overlaySquares;
         return (
@@ -267,7 +273,8 @@ class ScientistTreeMap extends React.Component {
                     overlaySquares.map((square,i) => {
                         return <OverlaySquares key={square.name}
                                                group={square}
-                                               hidden={false}
+                                               // hidden={false}
+                                               hidden={this.isSquareHidden(square)}
                                                onHide={(s) => this.onHideGroup(s)}
                                                isScientistTreeMap={true}
                         />
@@ -288,30 +295,21 @@ ScientistTreeMap.propTypes = {
     searchKeyWord: PropTypes.string,
     searchDocumentType: PropTypes.string,
     onShowContributionsDetails: PropTypes.func,
-    onSetGroups: PropTypes.func,
     hiddenGroups: PropTypes.array,
     onHideGroup: PropTypes.func
 };
 
 ScientistTreeMap.defaultProps = {
-    data: [
-
-    ],
+    data: [],
     isLoading: false,
-    onContributionSelected: () => {
-    },
+    onContributionSelected: () => {},
     selectedTopic: null,
-    onTopicsLoaded: () => {
-    },
+    onTopicsLoaded: () => {},
     searchKeyWord: '',
     searchDocumentType: '',
-    onShowContributionsDetails: () => {
-    },
-    onSetGroups: () => {
-    },
+    onShowContributionsDetails: () => {},
     hiddenGroups: [],
-    onHideGroup: () => {
-    }
+    onHideGroup: () => {}
 };
 
 export default ScientistTreeMap;

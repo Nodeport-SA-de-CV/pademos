@@ -18,29 +18,49 @@ class ScientistView extends React.Component {
     constructor() {
         super();
         this.state = {
-            topics: [
-
-            ],
+            topics: [],
+            groupsOptions:[],
+            hiddenGroups:[],
             level:'scientist' // scientist, theme, perspective,contribution
         }
-
+        this.setGroupsOptions          = this.setGroupsOptions.bind(this);
     }
 
     componentDidMount() {
         API.getTopics().then((topics) =>{
+            this.setGroupsOptions(topics.topics);
             this.setState({
                 topics:topics.topics
-            })
+            });
         })
+    }
+
+    setGroupsOptions(topics){
+        // debugger;
+        let options = topics.map(g => {
+            return(
+                {value:g.topic, label:g.topic}
+            )
+        });
+        this.setState({groupsOptions:options});
     }
 
     onChange(data){
         console.log(data);
     }
+
+    onSelectGroup(groups){
+        let hiddenGroups = groups.map(g => g.value);
+        this.setState({hiddenGroups})
+    }
+
     renderContent(){
         switch (this.state.level){
             case "scientist":
-                return <ScientistTreeMap data={this.state.topics}></ScientistTreeMap>
+                return <ScientistTreeMap data={this.state.topics}
+                                         hiddenGroups={this.state.hiddenGroups}
+                                         onHideGroup={(h) => this.setState({hiddenGroups:h})}
+                />
                 break;
             case "theme":
                 return <ScientistTreeMap data={this.state.topics}></ScientistTreeMap>
