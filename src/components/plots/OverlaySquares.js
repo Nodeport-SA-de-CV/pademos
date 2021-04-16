@@ -1,5 +1,8 @@
 import React from "react";
 import PropTypes from "prop-types";
+import NPIf from "np-if";
+import NPElse from "np-if/src/NPElse";
+import API from "../../lib/api/API";
 
 class OverlaySquares extends React.Component {
 
@@ -22,14 +25,30 @@ class OverlaySquares extends React.Component {
         }
         return(
             <div className={'overlay-squares'} style={style} onClick={() => {this.props.onHide(group.name)}}>
-                <div className={'os-row flex-wrap'}>
-                    <div className={'mr-4'}>Group {this.props.index}</div>
-                    <div>{group.name}</div>
-                </div>
-                <div className={'os-row align-self-end'} style={{color:colorFooter}}>
-                    <div style={{fontSize:'0.9rem'}}>Anzahl der Beiträge</div>
-                    <div className={'number ml-2'}>{group.contributionCount}</div>
-                </div>
+                <NPIf condition={this.props.isScientistTreeMap}>
+                    <div className={'os-row flex-wrap'}>
+                        <img className={'mr-3'}
+                             src={`${API.API_URL}/icons/${group.icon}`}
+                             height={20}/>
+                        <div>{group.name}</div>
+                        <div className={'os-icon-zoom ml-auto'}></div>
+                    </div>
+                    <div className={'os-row align-self-end'}>
+                        <div style={{fontSize:'0.9rem'}}>Angelegte Perspektiven: </div>
+                        <div className={'number ml-2'}>{group.perspectiveCount}</div>
+                    </div>
+
+                    <NPElse>
+                        <div className={'os-row flex-wrap'}>
+                            <div className={'mr-4'}>Group {this.props.index}</div>
+                            <div>{group.name}</div>
+                        </div>
+                        <div className={'os-row align-self-end'} style={{color:colorFooter}}>
+                            <div style={{fontSize:'0.9rem'}}>Anzahl der Beiträge</div>
+                            <div className={'number ml-2'}>{group.contributionCount}</div>
+                        </div>
+                    </NPElse>
+                </NPIf>
             </div>
         )
     }
@@ -41,6 +60,7 @@ OverlaySquares.propTypes = {
     index: PropTypes.number,
     onHide: PropTypes.func,
     hidden: PropTypes.bool,
+    isScientistTreeMap: PropTypes.bool
 };
 
 OverlaySquares.defaultProps = {
@@ -48,5 +68,6 @@ OverlaySquares.defaultProps = {
     index: 1,
     onHide: () => {},
     hidden: false,
+    isScientistTreeMap: false
 };
 

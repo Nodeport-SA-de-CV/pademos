@@ -48,9 +48,6 @@ class ScientistTreeMap extends React.Component {
         })
     }
 
-    static getDerivedStateFromProps(props, state) {
-
-    }
     componentDidUpdate(prevProps, prevState, snapshot) {
         if(prevProps.data.length !== this.props.data.length){
             const tree = this.buildTree(this.props.data);
@@ -71,21 +68,17 @@ class ScientistTreeMap extends React.Component {
     buildTree(groups) {
         const tree = {
             children: groups.sort((g,g1) => g1.children.length - g.children.length).map((g) => {
-                debugger;
                 const children = [...[g],...g.children];
                 return {
                     data: g,
-                    name: g.name,
-                    group: '',
-                    colName: '',
+                    name: g.topic,
+                    group: g.topic,
                     children: children.map((c) => {
                         return {
                             data: c,
-                            name: '',
-                            group: '',
+                            name: c.perspective,
+                            group: c.topic,
                             value: this.calculateContributionWeight(c),
-                            colName: '',
-                            children: []
                         }
                     }).sort((a, b) => b.value - a.value)
                 }
@@ -144,8 +137,8 @@ class ScientistTreeMap extends React.Component {
             .classed('leaf', true)
             .attr('x', function (d, i) {
                 const self         = d3.select(this);
-                const contribution = self.data()[0].data.data;
-                leafsArray.push({x: d.x0, d: d, contribution: contribution});
+                const tileData = self.data()[0].data.data;
+                leafsArray.push({x: d.x0, d: d, tileData: tileData});
                 return d.x0;
             })
             .attr('y', function (d, i) {
@@ -186,17 +179,18 @@ class ScientistTreeMap extends React.Component {
                 y0: groups[k][0].d.parent.y0,
                 x1: groups[k][0].d.parent.x1,
                 y1: groups[k][0].d.parent.y1,
-                contributionCount: groups[k].length,
+                perspectiveCount: groups[k].length,
+                icon: groups[k][0].d.data.data.icon
             });
         });
 
         this.setState({overlaySquares: overlaySquares});
-        // this.props.onSetGroups(overlaySquares);
-
     }
+
     onResize(w, h) {
         this.drawChart(w, h);
     }
+
     drawChart(w, h) {
         this.setState({
             w,
@@ -242,6 +236,7 @@ class ScientistTreeMap extends React.Component {
 
         this.updateTreeMap(root);
     }
+
     onHideGroup(group){
         let groups = this.props.hiddenGroups;
         if(! groups.includes(group)){
@@ -249,6 +244,11 @@ class ScientistTreeMap extends React.Component {
             this.props.onHideGroup(groups);
         }
     }
+
+    isSquareHidden(group){
+        return this.props.hiddenGroups.includes(group.name);
+    }
+
     render() {
         const overlaySquares = this.state.overlaySquares;
         return (
@@ -257,8 +257,8 @@ class ScientistTreeMap extends React.Component {
 
                 </div>
                 <RecreatedScientistTreemap data={this.state.leafsArray}
-                                  widthTreemap={this.props.w}
-                                  heightTreemap={this.props.h}
+                                              widthTreemap={this.props.w}
+                                              heightTreemap={this.props.h}
                 />
                 <NPIf condition={this.props.isLoading}>
                     <Spinner className={'spinner_scientist'} animation={'grow'}
@@ -273,9 +273,10 @@ class ScientistTreeMap extends React.Component {
                     overlaySquares.map((square,i) => {
                         return <OverlaySquares key={square.name}
                                                group={square}
-                                               index={i+1}
-                                               hidden={true}
+                                               // hidden={false}
+                                               hidden={this.isSquareHidden(square)}
                                                onHide={(s) => this.onHideGroup(s)}
+                                               isScientistTreeMap={true}
                         />
                     })
                 }
@@ -294,30 +295,21 @@ ScientistTreeMap.propTypes = {
     searchKeyWord: PropTypes.string,
     searchDocumentType: PropTypes.string,
     onShowContributionsDetails: PropTypes.func,
-    onSetGroups: PropTypes.func,
     hiddenGroups: PropTypes.array,
     onHideGroup: PropTypes.func
 };
 
 ScientistTreeMap.defaultProps = {
-    data: [
-
-    ],
+    data: [],
     isLoading: false,
-    onContributionSelected: () => {
-    },
+    onContributionSelected: () => {},
     selectedTopic: null,
-    onTopicsLoaded: () => {
-    },
+    onTopicsLoaded: () => {},
     searchKeyWord: '',
     searchDocumentType: '',
-    onShowContributionsDetails: () => {
-    },
-    onSetGroups: () => {
-    },
+    onShowContributionsDetails: () => {},
     hiddenGroups: [],
-    onHideGroup: () => {
-    }
+    onHideGroup: () => {}
 };
 
 export default ScientistTreeMap;
