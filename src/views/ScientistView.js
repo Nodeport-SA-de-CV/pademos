@@ -43,16 +43,25 @@ class ScientistView extends React.Component {
                 {value:g.topic, label:g.topic}
             )
         });
+        options.unshift({value:'Alles',label:'Alles'});
         this.setState({groupsOptions:options});
     }
 
 
     onSelectGroup(groups){
-        let hiddenGroups = groups.map(g => g.value);
+        let hiddenGroups = [];
+        if(groups.length > 0){
+            if(groups[groups.length - 1].value === 'Alles'){
+                hiddenGroups = this.state.groupsOptions.filter(g => g.value !== 'Alles').map( g => g.value);
+            }else{
+                hiddenGroups = groups.map(g => g.value);
+            }
+        }
         this.setState({hiddenGroups})
     }
 
     getValue(groups){
+        // debugger;
         return groups.map(g => {
             return (
                 {value:g, label:g}
