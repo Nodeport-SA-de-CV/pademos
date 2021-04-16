@@ -37,7 +37,6 @@ class ScientistView extends React.Component {
     }
 
     setGroupsOptions(topics){
-        // debugger;
         let options = topics.map(g => {
             return(
                 {value:g.topic, label:g.topic}
@@ -61,7 +60,6 @@ class ScientistView extends React.Component {
     }
 
     getValue(groups){
-        // debugger;
         return groups.map(g => {
             return (
                 {value:g, label:g}
