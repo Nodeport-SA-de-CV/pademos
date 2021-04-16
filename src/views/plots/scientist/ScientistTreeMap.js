@@ -48,9 +48,6 @@ class ScientistTreeMap extends React.Component {
         })
     }
 
-    static getDerivedStateFromProps(props, state) {
-
-    }
     componentDidUpdate(prevProps, prevState, snapshot) {
         if(prevProps.data.length !== this.props.data.length){
             const tree = this.buildTree(this.props.data);
@@ -183,6 +180,7 @@ class ScientistTreeMap extends React.Component {
                 x1: groups[k][0].d.parent.x1,
                 y1: groups[k][0].d.parent.y1,
                 perspectiveCount: groups[k].length,
+                icon: groups[k][0].d.data.data.icon
             });
         });
 
@@ -269,9 +267,9 @@ class ScientistTreeMap extends React.Component {
                     overlaySquares.map((square,i) => {
                         return <OverlaySquares key={square.name}
                                                group={square}
-                                               index={i+1}
-                                               hidden={true}
+                                               hidden={false}
                                                onHide={(s) => this.onHideGroup(s)}
+                                               isScientistTreeMap={true}
                         />
                     })
                 }
