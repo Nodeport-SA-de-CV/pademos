@@ -66,23 +66,27 @@ class ScientistTreeMap extends React.Component {
     }
 
     buildTree(groups) {
+        let children = groups.sort((g,g1) => g1.children.length - g.children.length).map((g) => {
+            const children = [...[g],...g.children];
+            return {
+                data: g,
+                name: g.topic,
+                group: g.topic,
+                children: children.map((c) => {
+                    return {
+                        data: c,
+                        name: c.perspective,
+                        group: c.topic,
+                        value: this.calculateContributionWeight(c),
+                    }
+                }).sort((a, b) => b.value - a.value)
+            }
+        });
+        if(children.length > 0 && this.props.topicIndex !== -1){
+            children = [children[this.props.topicIndex]];
+        }
         const tree = {
-            children: groups.sort((g,g1) => g1.children.length - g.children.length).map((g) => {
-                const children = [...[g],...g.children];
-                return {
-                    data: g,
-                    name: g.topic,
-                    group: g.topic,
-                    children: children.map((c) => {
-                        return {
-                            data: c,
-                            name: c.perspective,
-                            group: c.topic,
-                            value: this.calculateContributionWeight(c),
-                        }
-                    }).sort((a, b) => b.value - a.value)
-                }
-            })
+            children: children
         }
         return tree;
     }
@@ -269,17 +273,21 @@ class ScientistTreeMap extends React.Component {
                 <ReactResizeDetector handleWidth handleHeight
                                      onResize={(w, h) => this.onResize(w, h)}>
                 </ReactResizeDetector>
-                {
-                    overlaySquares.map((square,i) => {
-                        return <OverlaySquares key={square.name}
-                                               group={square}
-                                               // hidden={false}
-                                               hidden={this.isSquareHidden(square)}
-                                               onHide={(s) => this.onHideGroup(s)}
-                                               isScientistTreeMap={true}
-                        />
-                    })
-                }
+                <NPIf condition={this.props.level === 'scientist'}>
+                    {
+                        overlaySquares.map((square,i) => {
+                            return <OverlaySquares key={square.name}
+                                                   group={square}
+                                // hidden={false}
+                                                   hidden={this.isSquareHidden(square)}
+                                                   onHide={(s) => this.onHideGroup(s)}
+                                                   isScientistTreeMap={true}
+                            />
+                        })
+                    }
+
+                </NPIf>
+
             </div>
         )
 
@@ -296,7 +304,8 @@ ScientistTreeMap.propTypes = {
     searchDocumentType: PropTypes.string,
     onShowContributionsDetails: PropTypes.func,
     hiddenGroups: PropTypes.array,
-    onHideGroup: PropTypes.func
+    onHideGroup: PropTypes.func,
+    topicIndex: PropTypes.number
 };
 
 ScientistTreeMap.defaultProps = {
@@ -309,7 +318,8 @@ ScientistTreeMap.defaultProps = {
     searchDocumentType: '',
     onShowContributionsDetails: () => {},
     hiddenGroups: [],
-    onHideGroup: () => {}
+    onHideGroup: () => {},
+    topicIndex: -1
 };
 
 export default ScientistTreeMap;
