@@ -8,6 +8,7 @@ import SidebarScientist from "../components/SidebarScientist";
 import Form from "react-bootstrap/Form";
 import ScientistTreeMap from "./plots/scientist/ScientistTreeMap";
 import Select from 'react-select'
+import MapWrapper from "../components/scientist/MapWrapper";
 
 const _ = require('underscore');
 
@@ -20,7 +21,7 @@ class ScientistView extends React.Component {
             topics: [],
             groupsOptions:[],
             hiddenGroups:[],
-            level:'scientist' // scientist, theme, perspective,contribution
+            level:'theme' // scientist, theme, perspective,contribution
         }
         this.setGroupsOptions          = this.setGroupsOptions.bind(this);
         this.onSelectGroup             = this.onSelectGroup.bind(this);
@@ -76,7 +77,11 @@ class ScientistView extends React.Component {
                 />
                 break;
             case "theme":
-                return <ScientistTreeMap data={this.state.topics}></ScientistTreeMap>
+                return (
+                    <MapWrapper>
+                        <ScientistTreeMap data={this.state.topics} topicIndex={1}  level={this.state.level}></ScientistTreeMap>
+                    </MapWrapper>
+                )
                 break;
             default:
                 return null;
