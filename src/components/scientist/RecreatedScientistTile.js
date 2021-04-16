@@ -1,5 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
+import PerspectiveTile from "./PerspectiveTile";
 
 class RecreatedScientistTile extends React.Component {
     constructor(props) {
@@ -14,7 +15,7 @@ class RecreatedScientistTile extends React.Component {
     renderContent(){
         const data = this.props.tileData;
         return(
-            <div>{data.perspective}</div>
+            <PerspectiveTile perspective={data}/>
         )
     }
 
