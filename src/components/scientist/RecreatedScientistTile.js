@@ -21,10 +21,10 @@ class RecreatedScientistTile extends React.Component {
 
     render(){
         const styleTile = {
-            width:this.props.width,
-            height:this.props.height,
-            left: this.props.left,
-            top:this.props.top,
+            width:this.props.width - 2, //padding to show the gutter
+            height:this.props.height -2,
+            left: this.props.left + 1,
+            top:this.props.top + 1 ,
             backgroundColor: this.props.tileData.isDisabled ? 'gray' : this.props.color,
             border:  '',
             boxShadow: '',

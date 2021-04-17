@@ -74,12 +74,14 @@ class ScientistView extends React.Component {
                 return <ScientistTreeMap data={this.state.topics}
                                          hiddenGroups={this.state.hiddenGroups}
                                          onHideGroup={(h) => this.setState({hiddenGroups:h})}
+
                 />
                 break;
             case "theme":
+                const topic = this.state.topics.length > 0 ? this.state.topics[0] : {color:'transparent'};
                 return (
-                    <MapWrapper>
-                        <ScientistTreeMap data={this.state.topics} topicIndex={1}  level={this.state.level}></ScientistTreeMap>
+                    <MapWrapper data={topic}  level={this.state.level} color={topic.color}>
+                        <ScientistTreeMap data={this.state.topics} topicIndex={0}  level={this.state.level}/>
                     </MapWrapper>
                 )
                 break;
@@ -87,6 +89,7 @@ class ScientistView extends React.Component {
                 return null;
         }
     }
+
     render() {
         const hiddenGroups = this.getValue(this.state.hiddenGroups);
 

@@ -231,7 +231,9 @@ class ScientistTreeMap extends React.Component {
             .size([width, height])
             .paddingTop(2)
             .paddingRight(2)
-            .paddingInner(2)      // Padding between each rectangle
+            .paddingBottom(2)
+            .paddingLeft(2)
+            .paddingInner(0)      // Padding between each rectangle
             //.paddingOuter(6)
             //.padding(20)
             .round(true)
