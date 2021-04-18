@@ -21,7 +21,8 @@ class ScientistView extends React.Component {
             topics: [],
             groupsOptions:[],
             hiddenGroups:[],
-            level:'theme' // scientist, theme, perspective,contribution
+            level:'scientist', // scientist, theme, perspective,contribution,
+            selectedIndex:-1
         }
         this.setGroupsOptions          = this.setGroupsOptions.bind(this);
         this.onSelectGroup             = this.onSelectGroup.bind(this);
@@ -67,21 +68,38 @@ class ScientistView extends React.Component {
             )
         });
     }
-
+    onClickZoom(index){
+        this.setState({
+            level:'theme',
+            selectedIndex:index
+        })
+    }
+    onClickClosed(){
+        this.setState({
+            level:'scientist',
+            selectedIndex:-1
+        })
+    }
     renderContent(){
         switch (this.state.level){
             case "scientist":
                 return <ScientistTreeMap data={this.state.topics}
                                          hiddenGroups={this.state.hiddenGroups}
+                                         level={this.state.level}
                                          onHideGroup={(h) => this.setState({hiddenGroups:h})}
+                                         onClickZoom={(i) => this.onClickZoom(i)}
 
                 />
                 break;
             case "theme":
-                const topic = this.state.topics.length > 0 ? this.state.topics[0] : {color:'transparent'};
+                const topic = this.state.topics.length > 0 ? this.state.topics[this.state.selectedIndex] : {color:'transparent'};
                 return (
-                    <MapWrapper data={topic}  level={this.state.level} color={topic.color}>
-                        <ScientistTreeMap data={this.state.topics} topicIndex={0}  level={this.state.level}/>
+                    <MapWrapper data={topic}  level={this.state.level} color={topic.color} onClickClose={(c) => this.onClickClosed()}>
+                        <ScientistTreeMap
+                            data={this.state.topics}
+                            topicIndex={this.state.selectedIndex}
+                            level={this.state.level}
+                            />
                     </MapWrapper>
                 )
                 break;

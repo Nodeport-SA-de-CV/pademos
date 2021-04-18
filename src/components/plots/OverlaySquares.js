@@ -31,7 +31,10 @@ class OverlaySquares extends React.Component {
                              src={`${API.API_URL}/icons/${group.icon}`}
                              height={20}/>
                         <div>{group.name}</div>
-                        <div className={'os-icon-zoom ml-auto'}></div>
+                        <div className={'os-icon-zoom ml-auto'} onClick={(ev) => {
+                            ev.stopPropagation();
+                            this.props.onClickZoom(this.props.index)}
+                        }></div>
                     </div>
                     <div className={'os-row align-self-end'}>
                         <div style={{fontSize:'0.9rem'}}>Angelegte Perspektiven: </div>
@@ -60,7 +63,9 @@ OverlaySquares.propTypes = {
     index: PropTypes.number,
     onHide: PropTypes.func,
     hidden: PropTypes.bool,
-    isScientistTreeMap: PropTypes.bool
+    isScientistTreeMap: PropTypes.bool,
+    onClickZoom:PropTypes.func,
+    topic: PropTypes.object
 };
 
 OverlaySquares.defaultProps = {
@@ -68,6 +73,8 @@ OverlaySquares.defaultProps = {
     index: 1,
     onHide: () => {},
     hidden: false,
-    isScientistTreeMap: false
+    isScientistTreeMap: false,
+    onClickZoom: () => {},
+    topic:null
 };
 

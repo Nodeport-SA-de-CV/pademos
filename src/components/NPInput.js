@@ -21,6 +21,8 @@ class NPInput extends React.Component{
                            onChange={(e) => this.props.onChange(e)}
                            value={this.props.value}
                            disabled={this.props.disabled}
+                           onKeyDown={(c) => this.props.onKeyDown(c)}
+
                     />
                     <NPElse>
                         <textarea className={this.props.inputClass}
@@ -30,6 +32,8 @@ class NPInput extends React.Component{
                                 value={this.props.value}
                                 disabled={this.props.disabled}
                                 rows={this.props.rows}>
+                                onKeyDown={(c) => this.props.onKeyDown(c)}
+
                         </textarea>
                     </NPElse>
                 </NPIf>
@@ -55,6 +59,7 @@ NPInput.propTypes = {
     disabled: PropTypes.bool,
     labelClass: PropTypes.string,
     rows: PropTypes.number,
+    onKeyDown: PropTypes.func
 
 };
 
@@ -69,5 +74,7 @@ NPInput.defaultProps = {
     value: '',
     disabled: false,
     labelClass: '',
-    rows: 3
+    rows: 3,
+    onKeyDown: () => {},
+
 };

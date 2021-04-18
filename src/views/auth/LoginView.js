@@ -41,7 +41,11 @@ class LoginView extends React.Component{
             }
         })
     }
-
+    onKeyDown(e){
+        if (e.key === 'Enter') {
+            this.onClickLogin();
+        }
+    }
     render(){
         return(
             <Container className={"h-100"}>
@@ -57,6 +61,8 @@ class LoginView extends React.Component{
                                          inputClass={'form-control'}
                                          onChange={(e) => this.onChange(e)}
                                          value={this.state.email}
+                                         onKeyDown={(c) => this.onKeyDown(c)}
+
                                 />
                                 <NPInput id={'pwd'}
                                          label={'Password'}
@@ -66,6 +72,7 @@ class LoginView extends React.Component{
                                          inputClass={'form-control'}
                                          onChange={(e) => this.onChange(e)}
                                          value={this.state.pwd}
+                                         onKeyDown={(c) => this.onKeyDown(c)}
                                 />
                                 <Button className={'mt-4'} block onClick={() => this.onClickLogin()}>LOGIN</Button>
                             </Card.Body>
