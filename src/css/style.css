@@ -1116,3 +1116,17 @@ search-box-wrapper{
     flex-direction: column;
     padding: 2rem;
 }
+.mw-header{
+    display: flex;
+    flex-direction: row;
+    color:white;
+}
+.mw-header .title{
+    font-size: 1.4rem;
+    font-weight: 500;
+}
+.mw-icon{
+    color: #ffffffab;
+    cursor: pointer;
+    align-self: flex-end;
+}
