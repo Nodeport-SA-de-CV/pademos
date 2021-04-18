@@ -288,6 +288,8 @@ class ScientistTreeMap extends React.Component {
                                                    onClickZoom={(topic) => this.props.onClickZoom(topic)}
                                                    isScientistTreeMap={true}
                                                    index={i}
+                                                   gutterHeight ={3}
+                                                   gutterWidth ={3}
                             />
                         })
                     }

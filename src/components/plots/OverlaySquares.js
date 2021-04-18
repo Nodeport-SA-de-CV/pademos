@@ -16,9 +16,9 @@ class OverlaySquares extends React.Component {
         const  style = {
             position:'absolute',
             left: group.x0,
-            width: group.x1 - group.x0 - 2, //2 is the padding(white gutter)
+            width: group.x1 - group.x0 - this.props.gutterWidth, //2 is the padding(white gutter)
             top: group.y0,
-            height: group.y1 - group.y0,
+            height: group.y1 - group.y0 - this.props.gutterHeight,
             backgroundColor: background,
             visibility: hidden,
             color: color,
@@ -65,7 +65,10 @@ OverlaySquares.propTypes = {
     hidden: PropTypes.bool,
     isScientistTreeMap: PropTypes.bool,
     onClickZoom:PropTypes.func,
-    topic: PropTypes.object
+    topic: PropTypes.object,
+    gutterHeight: PropTypes.number,
+    gutterWidth: PropTypes.number
+
 };
 
 OverlaySquares.defaultProps = {
@@ -75,6 +78,8 @@ OverlaySquares.defaultProps = {
     hidden: false,
     isScientistTreeMap: false,
     onClickZoom: () => {},
-    topic:null
+    topic:null,
+    gutterHeight: 0,
+    gutterWidth: 2
 };
 
