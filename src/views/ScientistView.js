@@ -69,18 +69,28 @@ class ScientistView extends React.Component {
             )
         });
     }
+
     onClickZoom(index){
         this.setState({
             level:'theme',
             selectedIndex:index
         })
     }
+
     onClickClosed(){
         this.setState({
             level:'scientist',
             selectedIndex:-1
         })
     }
+
+    onClickTile(){
+        this.setState({
+            level:'perspective',
+            selectedIndex:1
+        })
+    }
+
     renderContent(){
         switch (this.state.level){
             case "scientist":
@@ -89,7 +99,7 @@ class ScientistView extends React.Component {
                                          level={this.state.level}
                                          onHideGroup={(h) => this.setState({hiddenGroups:h})}
                                          onClickZoom={(i) => this.onClickZoom(i)}
-
+                                         onClickTile={() => this.onClickTile()}
                 />
                 break;
             case "theme":
@@ -100,7 +110,20 @@ class ScientistView extends React.Component {
                             data={this.state.topics}
                             topicIndex={this.state.selectedIndex}
                             level={this.state.level}
-                            />
+                            onClickTile={() => this.onClickTile()}
+                        />
+                    </MapWrapper>
+                )
+                break;
+            case "perspective":
+                const perspective = this.state.topics.length > 0 ? this.state.topics[this.state.selectedIndex] : {color:'transparent'};
+                return (
+                    <MapWrapper data={perspective}  level={this.state.level} color={perspective.color} onClickClose={(c) => this.onClickClosed()}>
+                        <ScientistTreeMap
+                            data={this.state.topics}
+                            topicIndex={this.state.selectedIndex}
+                            level={this.state.level}
+                        />
                     </MapWrapper>
                 )
                 break;

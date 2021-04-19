@@ -268,6 +268,8 @@ class ScientistTreeMap extends React.Component {
                 <RecreatedScientistTreemap data={this.state.leafsArray}
                                            widthTreemap={this.props.w}
                                            heightTreemap={this.props.h}
+                                           onClickTile={() => this.props.onClickTile()}
+
                 />
                 <NPIf condition={this.props.isLoading}>
                     <Spinner className={'spinner_scientist'} animation={'grow'}
@@ -315,28 +317,25 @@ ScientistTreeMap.propTypes = {
     onHideGroup: PropTypes.func,
     topicIndex: PropTypes.number,
     level: PropTypes.string,
-    onClickZoom:PropTypes.func
+    onClickZoom:PropTypes.func,
+    onClickTile: PropTypes.func
 };
 
 ScientistTreeMap.defaultProps = {
     data: [],
     isLoading: false,
-    onContributionSelected: () => {
-    },
+    onContributionSelected: () => {},
     selectedTopic: null,
-    onTopicsLoaded: () => {
-    },
+    onTopicsLoaded: () => {},
     searchKeyWord: '',
     searchDocumentType: '',
-    onShowContributionsDetails: () => {
-    },
+    onShowContributionsDetails: () => {},
     hiddenGroups: [],
-    onHideGroup: () => {
-    },
+    onHideGroup: () => {},
     topicIndex: -1,
     level: 'scientist',
-    onClickZoom: () => {
-    },
+    onClickZoom: () => {},
+    onClickTile: () => {}
 };
 
 export default ScientistTreeMap;

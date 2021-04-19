@@ -12,6 +12,48 @@ class MapWrapper extends React.Component {
         this.state = {}
     }
 
+    renderHeader(){
+        const data = this.props.data;
+
+        switch (this.props.level){
+            case 'theme':
+                return(
+                    <div className={'mw-header mb-3'}>
+                        <img className={'mr-3'}
+                             src={`${API.API_URL}/icons/${data.icon}`}
+                             height={36}/>
+                        <div>
+                            <div className={'title'}>
+                                Thema: {data.topic}
+                            </div>
+                            <div>
+                                Ein Forschungsthema kann mehrere Perspektiven haben, die von Wissenschaftler:innen angelegt wurden. Bitte wählen Sie eine:
+                            </div>
+                        </div>
+                    </div>
+                )
+                break;
+            case 'perspective':
+                return(
+                    <div className={'mw-header mb-3'}>
+                        <img className={'mr-3'}
+                             src={`${API.API_URL}/icons/${data.icon}`}
+                             height={36}/>
+                        <div>
+                            <div className={'title'}>
+                                Perspektive: PERSPECKTIVE NAME
+                            </div>
+                            <div>
+                                Dies sind die mit dieser Perspektive verbundenen Beiträge, bitte wählen Sie einen, um weitere Details zu sehen:
+                            </div>
+                        </div>
+                    </div>
+                )
+                break;
+            default: return null;
+        }
+    }
+
     render() {
         const color = this.props.color;
         const style = {
@@ -23,19 +65,7 @@ class MapWrapper extends React.Component {
                 <FontAwesomeIcon className={'mw-icon'} size={'lg'}
                                  icon={'times'}
                                  onClick={() => this.props.onClickClose()}/>
-                <div className={'mw-header mb-3'}>
-                    <img className={'mr-3'}
-                         src={`${API.API_URL}/icons/${data.icon}`}
-                         height={36}/>
-                    <div>
-                        <div className={'title'}>
-                            {data.topic}
-                        </div>
-                        <div>
-                            Ein Forschungsthema kann mehrere Perspektiven haben, die von Wissenschaftler:innen angelegt wurden. Bitte wählen Sie eine:
-                        </div>
-                    </div>
-                </div>
+                {this.renderHeader()}
                 {this.props.children}
             </div>
         );

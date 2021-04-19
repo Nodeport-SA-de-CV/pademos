@@ -33,7 +33,9 @@ class RecreatedScientistTile extends React.Component {
         let tileData = this.props.tileData;
         tileData.color = this.props.color;
         return (
-            <div className={`recreated-scientist-tile`} style={styleTile}>
+            <div className={`recreated-scientist-tile`}
+                 style={styleTile}
+                 onClick={this.props.onClickTile}>
                 {this.renderContent()}
             </div>
         )
@@ -49,6 +51,7 @@ RecreatedScientistTile.propTypes = {
     selectedTopic: PropTypes.object,
     widthTreemap: PropTypes.number,
     heightTreemap: PropTypes.number,
+    onClickTile: PropTypes.func
 };
 
 RecreatedScientistTile.defaultProps = {
@@ -59,6 +62,7 @@ RecreatedScientistTile.defaultProps = {
     tileData:{},
     isSelected: false,
     selectedTopic: {},
+    onClickTile: () => {}
 };
 export default RecreatedScientistTile;
 
