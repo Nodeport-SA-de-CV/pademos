@@ -9,6 +9,7 @@ import Form from "react-bootstrap/Form";
 import ScientistTreeMap from "./plots/scientist/ScientistTreeMap";
 import Select from 'react-select'
 import MapWrapper from "../components/scientist/MapWrapper";
+import BreadCrumbs from "../components/scientist/BreadCrumbs";
 
 const _ = require('underscore');
 
@@ -145,6 +146,7 @@ class ScientistView extends React.Component {
                                 </div>
                             </div>
                             <div className={'d-flex mb-auto'}></div>
+                            <BreadCrumbs level={this.state.level}> </BreadCrumbs>
                             {this.renderContent()}
                             {/*<PlotView ref={(ref) => this.plotView = ref}*/}
                             {/*          selectedTopic={this.state.selectedTopic}*/}
