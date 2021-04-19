@@ -1130,3 +1130,27 @@ search-box-wrapper{
     cursor: pointer;
     align-self: flex-end;
 }
+/*--------------------------------------------------------------------------------------------------------------------*/
+/*--------------------------------------------------BREADCRUMBS--------------------------------------------------------/
+/*--------------------------------------------------------------------------------------------------------------------*/
+.pd_breadcrumbs{
+    display: flex;
+    min-height: 50px;
+    align-items: center;
+}
+.pd_breadcrumb{
+    font-size: 1rem;
+    cursor: pointer;
+
+}
+.pd_breadcrumb:not(:last-child)::after{
+    content: '>';
+    margin-left: 20px;
+    margin-right: 20px;
+    color: gray;
+    font-size: 1.2rem;
+    cursor: auto;
+}
+.pd_breadcrumb:last-child{
+    font-weight: bold;
+}
