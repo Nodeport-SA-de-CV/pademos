@@ -103,6 +103,18 @@ class ScientistView extends React.Component {
                     </MapWrapper>
                 )
                 break;
+            case "perspective":
+                const perspective = this.state.topics.length > 0 ? this.state.topics[this.state.selectedIndex] : {color:'transparent'};
+                return (
+                    <MapWrapper data={perspective}  level={this.state.level} color={perspective.color} onClickClose={(c) => this.onClickClosed()}>
+                        <ScientistTreeMap
+                            data={this.state.topics}
+                            topicIndex={this.state.selectedIndex}
+                            level={this.state.level}
+                        />
+                    </MapWrapper>
+                )
+                break;
             default:
                 return null;
         }
