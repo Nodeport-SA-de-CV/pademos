@@ -3,12 +3,6 @@ import PropTypes from "prop-types";
 import RecreatedScientistTile from "./RecreatedScientistTile";
 
 class RecreatedScientistTreemap extends React.Component {
-    constructor() {
-        super();
-        this.state = {
-        }
-    }
-
     render(){
         return this.props.data.map((tile) =>{
             return(
@@ -20,7 +14,7 @@ class RecreatedScientistTreemap extends React.Component {
                                tileData={tile.tileData}
                                widthTreemap={this.props.widthTreemap}
                                heightTreemap={this.props.heightTreemap}
-
+                               onClickTile={() => this.props.onClickTile()}
                 />
             )
         })
@@ -28,10 +22,14 @@ class RecreatedScientistTreemap extends React.Component {
 }
 RecreatedScientistTreemap.propTypes = {
     data: PropTypes.array,
+    onClickTile: PropTypes.func
+
 };
 
 RecreatedScientistTreemap.defaultProps = {
     data: [],
+    onClickTile: () => {}
+
 };
 export default RecreatedScientistTreemap;
 
