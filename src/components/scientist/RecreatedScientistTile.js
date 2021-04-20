@@ -1,8 +1,8 @@
 import React from "react";
 import PropTypes from "prop-types";
 import PerspectiveTile from "./PerspectiveTile";
-import RecreatedTile from "../plots/RecreatedTile";
 import ContributionTile from "./ContributionTile";
+import ConnectionTile from "./ConnectionTile";
 
 class RecreatedScientistTile extends React.Component {
     constructor(props) {
@@ -11,25 +11,22 @@ class RecreatedScientistTile extends React.Component {
         }
     }
 
-    componentDidMount() {
-    }
-
     renderContent(){
         const data = this.props.tileData;
         switch (this.props.level) {
             case 'perspective':
                 return(
-                    <ContributionTile contribution={data}/>
+                    <ContributionTile contribution={data} index={this.props.index}/>
                 )
                 break;
             case 'contribution':
                 return(
-                    <div>contribution</div>
+                    <ConnectionTile connection={data}  index={this.props.index}/>
                 )
                 break;
             default:
                 return(
-                    <PerspectiveTile perspective={data}/>
+                    <PerspectiveTile perspective={data} index={this.props.index}/>
                 )
         }
     }
@@ -66,7 +63,8 @@ RecreatedScientistTile.propTypes = {
     selectedTopic: PropTypes.object,
     widthTreemap: PropTypes.number,
     heightTreemap: PropTypes.number,
-    onClickTile: PropTypes.func
+    onClickTile: PropTypes.func,
+    index: PropTypes.number
 };
 
 RecreatedScientistTile.defaultProps = {
@@ -77,7 +75,8 @@ RecreatedScientistTile.defaultProps = {
     tileData:{},
     isSelected: false,
     selectedTopic: {},
-    onClickTile: () => {}
+    onClickTile: () => {},
+    index: 0
 };
 export default RecreatedScientistTile;
 

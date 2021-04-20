@@ -72,7 +72,6 @@ class ContributionTile extends React.Component {
                 {/*        {contribution.document_what_response}*/}
                 {/*    </div>*/}
                 {/*</div>*/}
-
                 <div className={'rt-footer'}>
                     {
                         icons.map((i,index) =>{

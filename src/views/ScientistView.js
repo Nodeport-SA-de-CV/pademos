@@ -114,7 +114,7 @@ class ScientistView extends React.Component {
 
         API.findConnections(contributionId).then((r) =>{
             if(r.success){
-                debugger;
+                // debugger;
                 this.setState({
                     connections:r.connections
                 })

@@ -17,6 +17,7 @@ class RecreatedScientistTreemap extends React.Component {
                                        heightTreemap={this.props.heightTreemap}
                                        onClickTile={() => this.props.onClickTile(tile)}
                                         level={this.props.level}
+                                        index={index}
                 />
             )
         })
@@ -25,13 +26,13 @@ class RecreatedScientistTreemap extends React.Component {
 RecreatedScientistTreemap.propTypes = {
     data: PropTypes.array,
     onClickTile: PropTypes.func,
-    level: PropTypes.string
+    level: PropTypes.string,
 };
 
 RecreatedScientistTreemap.defaultProps = {
     data: [],
     onClickTile: () => {},
-    level: ''
+    level: '',
 };
 export default RecreatedScientistTreemap;
 
