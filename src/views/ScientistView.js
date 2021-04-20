@@ -22,7 +22,7 @@ class ScientistView extends React.Component {
             topics: [],
             groupsOptions: [],
             hiddenGroups: [],
-            level: 'scientist', // scientist, theme, perspective,contribution,
+            level: 'connection', // scientist, theme, perspective,contribution, connection
             selectedIndex: -1,
             selectedTheme: {},
             perspectiveData:null,
@@ -179,6 +179,13 @@ class ScientistView extends React.Component {
                             level={this.state.level}
                             onClickTile={(tile) => this.onClickContributionTile(tile)}
                         />
+                    </MapWrapper>
+                )
+                break;
+            case "connection":
+                return (
+                    <MapWrapper>
+                        <div>connection</div>
                     </MapWrapper>
                 )
                 break;
