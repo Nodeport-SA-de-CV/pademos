@@ -84,15 +84,14 @@ class RecreatedTile extends React.Component {
                 showConnections = true;
             }
         }
-        const selectedTopicColor = this.props.selectedTopic ? this.props.selectedTopic.color : '';
         const styleTile = {
             width:this.props.width,
             height:this.props.height,
             left: this.props.left,
             top:this.props.top,
             backgroundColor: this.props.contribution.isDisabled ? 'gray' : this.props.color,
-            border: showConnections ? `5px solid ${selectedTopicColor}` : '',
-            boxShadow: showConnections ? `0px 0px 4px 2px ${selectedTopicColor}ab` : '',
+            border: showConnections ? `5px solid ${this.props.selectedTopic.color}` : '',
+            boxShadow: showConnections ? `0px 0px 4px 2px ${this.props.selectedTopic.color}ab` : '',
             color: this.props.contribution.isDisabled ? 'rgb(66, 66, 66)' : '#01080D'
         }
         let contribution = this.props.contribution;
