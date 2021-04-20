@@ -27,7 +27,8 @@ class ScientistView extends React.Component {
             selectedTheme: {},
             perspectiveData:null,
             perspectiveTreeMap:null,
-            contributionData:null
+            contributionData:null,
+            connections:[]
         }
 
         this.setGroupsOptions          = this.setGroupsOptions.bind(this);
@@ -109,7 +110,16 @@ class ScientistView extends React.Component {
     onClickContributionTile(tile){
         // const children = tile.tileData.children;
         // const contributions = tile.d.data.contributions;
-        // debugger
+        const contributionId = tile.d.data.data._id;
+
+        API.findConnections(contributionId).then((r) =>{
+            if(r.success){
+                debugger;
+                this.setState({
+                    connections:r.connections
+                })
+            }
+        })
         this.setState({
             level:'contribution',
             contributionData:tile.d.data.data
@@ -163,12 +173,12 @@ class ScientistView extends React.Component {
                 // const perspective = this.state.topics[this.state.selectedIndex].children;
                 return (
                     <MapWrapper data={this.state.contributionData}  level={this.state.level} color={this.state.contributionData.color} onClickClose={(c) => this.onClickClosed()}>
-                        {/*<ScientistTreeMap*/}
-                        {/*    data={this.state.perspectiveData}*/}
-                        {/*    topicIndex={this.state.selectedIndex}*/}
-                        {/*    level={this.state.level}*/}
-                        {/*    onClickTile={(tile) => this.onClickContributionTile(tile)}*/}
-                        {/*/>*/}
+                        <ScientistTreeMap
+                            data={this.state.connections}
+                            topicIndex={this.state.selectedIndex}
+                            level={this.state.level}
+                            onClickTile={(tile) => this.onClickContributionTile(tile)}
+                        />
                     </MapWrapper>
                 )
                 break;

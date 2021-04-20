@@ -69,12 +69,6 @@ class ScientistTreeMap extends React.Component {
 
     buildTree(groups) {
         if(this.props.level === 'perspective') {
-            // debugger;
-            // return {
-            //     data:groups,
-            //     name:'asd',
-            //     group:groups,
-            //     children: groups.contributions
             let children = groups.contributions.map((g) => {
                 return {
                     data: g,
@@ -84,12 +78,20 @@ class ScientistTreeMap extends React.Component {
                     value:1
                 }
             });
-            // return {
-            //     data: this.props.data.contributions,
-            //     name: this.props.data.perspective,
-            //     group: this.props.data.perspectiveData,
-            //     children: this.props.data.contributions
-            // }
+            const tree = {
+                children: children
+            }
+            return tree;
+        }else if(this.props.level === 'contribution'){
+            let children = groups.map((g) => {
+                return {
+                    data: g,
+                    name: g.document_title_response,
+                    group: g.topic_label,
+                    children: [],
+                    value:1
+                }
+            });
             const tree = {
                 children: children
             }

@@ -147,5 +147,19 @@ const API = {
                 return error;
             });
     },
+    findConnections(contributionId) {
+        return fetch(`${API.API_URL}/topics/connections?contributionId=${contributionId}`, {
+            method: "GET",
+            credentials: "include",
+        })
+            .then((response) => response.json())
+            .then((response) => {
+                return response;
+            })
+            .catch((error) => {
+                return error;
+            });
+    },
+
 };
 export default API;
