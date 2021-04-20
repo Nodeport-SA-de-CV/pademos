@@ -92,6 +92,7 @@ class ScientistView extends React.Component {
     onClickTile(tile){
         // const children = tile.tileData.children;
         // const contributions = tile.d.data.contributions;
+        debugger;
         this.setState({
             level:'perspective',
             perspectiveData:tile.d.data,
@@ -124,7 +125,7 @@ class ScientistView extends React.Component {
                             data={this.state.topics}
                             topicIndex={this.state.selectedIndex}
                             level={this.state.level}
-                            onClickTile={() => this.onClickTile()}
+                            onClickTile={(tile) => this.onClickTile(tile)}
                         />
                     </MapWrapper>
                 )
