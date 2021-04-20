@@ -86,8 +86,8 @@ class ScientistTreeMap extends React.Component {
             let children = groups.map((g) => {
                 return {
                     data: g,
-                    name: g.document_title_response,
-                    group: g.topic_label,
+                    name: g.perspective,
+                    group: g.topic,
                     children: [],
                     value:1
                 }
@@ -196,10 +196,15 @@ class ScientistTreeMap extends React.Component {
                 leafsArray[i].height = d.y1 - d.y0;
                 return d.y1 - d.y0;
             })
-            .style("stroke", "white")
+            .style("stroke", function (d,i){
+                if(_this.props.level === 'contribution'){
+                    return 'transparent'
+                }
+                return 'white'
+            })
             .style("fill", function (d, i) {
                 try {
-                    if(_this.props.level === 'perspective'){
+                    if(_this.props.level === 'perspective' || 'contribution'){
                         leafsArray[i].color = d.data.data.color;
                     }
                     leafsArray[i].color = d.parent.data.data.color;

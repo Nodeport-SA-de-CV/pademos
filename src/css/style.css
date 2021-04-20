@@ -1191,7 +1191,9 @@ search-box-wrapper{
 .connection-tile{
     flex:1;
     padding: 1rem 0.5rem;
+    display: flex;
+    flex-direction: column;
 }
 .connection-tile-title{
-
+    flex:1;
 }
