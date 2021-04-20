@@ -37,11 +37,11 @@ class MapWrapper extends React.Component {
                 return(
                     <div className={'mw-header mb-3'}>
                         <img className={'mr-3'}
-                             src={`${API.API_URL}/icons/${data.icon}`}
+                             src={`${API.API_URL}/icons/${this.props.data.data.icon}`}
                              height={36}/>
                         <div>
                             <div className={'title'}>
-                                Perspektive: PERSPECKTIVE NAME
+                                Perspektive: {this.props.data.name}
                             </div>
                             <div>
                                 Dies sind die mit dieser Perspektive verbundenen Beiträge, bitte wählen Sie einen, um weitere Details zu sehen:

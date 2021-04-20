@@ -53,6 +53,7 @@ class ScientistTreeMap extends React.Component {
     componentDidUpdate(prevProps, prevState, snapshot) {
         if (prevProps.data.length !== this.props.data.length) {
             const tree = this.buildTree(this.props.data);
+            debugger;
             this.setState({
                 data: tree
             }, () => {
@@ -68,6 +69,33 @@ class ScientistTreeMap extends React.Component {
     }
 
     buildTree(groups) {
+        if(this.props.level === 'perspective') {
+            // debugger;
+            // return {
+            //     data:groups,
+            //     name:'asd',
+            //     group:groups,
+            //     children: groups.contributions
+            let children = groups.contributions.map((g) => {
+                return {
+                    data: g,
+                    name: g.topic,
+                    group: g.topic,
+                    children: [],
+                    value:1
+                }
+            });
+            // return {
+            //     data: this.props.data.contributions,
+            //     name: this.props.data.perspective,
+            //     group: this.props.data.perspectiveData,
+            //     children: this.props.data.contributions
+            // }
+            const tree = {
+                children: children
+            }
+            return tree;
+        }
         let children = groups.sort((g, g1) => g1.children.length - g.children.length).map((g) => {
             const children = [...[g], ...g.children];
             return {
@@ -75,11 +103,18 @@ class ScientistTreeMap extends React.Component {
                 name: g.topic,
                 group: g.topic,
                 children: children.map((c) => {
+                    let contributions = c.contributions ? c.contributions : [];
+                    contributions = contributions.map((c) => {
+                        c.children = [];
+                        return c;
+                    });
                     return {
                         data: c,
                         name: c.perspective,
                         group: c.topic,
                         value: this.calculateContributionWeight(c),
+                        contributions: c.contributions,
+                        contributionsTreeMap:this.buildTree(contributions)
                     }
                 }).sort((a, b) => b.value - a.value)
             }
@@ -171,27 +206,30 @@ class ScientistTreeMap extends React.Component {
                 }
             })
         this.setState({leafsArray: leafsArray});
+        if(this.props.level === 'scientist'){
+            //Get groups
+            const groups = _.groupBy(leafsArray, ((l) => {
+                return l.d.parent.data.data.topic
+            }));
 
-        //Get groups
-        const groups = _.groupBy(leafsArray, ((l) => {
-            return l.d.parent.data.data.topic
-        }));
-
-        let overlaySquares = [];
-        Object.keys(groups).forEach((k) => {
-            overlaySquares.push({
-                color: groups[k][0].color,
-                name: groups[k][0].d.parent.data.name,
-                x0: groups[k][0].d.parent.x0,
-                y0: groups[k][0].d.parent.y0,
-                x1: groups[k][0].d.parent.x1,
-                y1: groups[k][0].d.parent.y1,
-                perspectiveCount: groups[k].length,
-                icon: groups[k][0].d.data.data.icon
+            let overlaySquares = [];
+            Object.keys(groups).forEach((k) => {
+                overlaySquares.push({
+                    color: groups[k][0].color,
+                    name: groups[k][0].d.parent.data.name,
+                    x0: groups[k][0].d.parent.x0,
+                    y0: groups[k][0].d.parent.y0,
+                    x1: groups[k][0].d.parent.x1,
+                    y1: groups[k][0].d.parent.y1,
+                    perspectiveCount: groups[k].length,
+                    icon: groups[k][0].d.data.data.icon
+                });
             });
-        });
+            this.setState({overlaySquares: overlaySquares});
 
-        this.setState({overlaySquares: overlaySquares});
+        }
+
+
     }
 
     onResize(w, h) {
@@ -268,7 +306,7 @@ class ScientistTreeMap extends React.Component {
                 <RecreatedScientistTreemap data={this.state.leafsArray}
                                            widthTreemap={this.props.w}
                                            heightTreemap={this.props.h}
-                                           onClickTile={() => this.props.onClickTile()}
+                                           onClickTile={(tile) => this.props.onClickTile(tile)}
 
                 />
                 <NPIf condition={this.props.isLoading}>

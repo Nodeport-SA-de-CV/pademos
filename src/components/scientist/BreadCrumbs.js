@@ -15,19 +15,19 @@ class BreadCrumbs extends React.Component {
                         Übersicht
                     </div>
                 </NPIf>
-                <NPIf condition={['scientist', 'theme'].includes(level)}>
+                <NPIf condition={['theme','perspective'].includes(level)}>
                     <div className={'pd_breadcrumb'}
                          onClick={() => this.props.onThemeClicked(this.props.theme)}>
-                        Thema: {this.props.theme.name}
+                        Thema: {this.props.theme.topic}
                     </div>
                 </NPIf>
-                <NPIf condition={['scientist', 'theme', 'perspective'].includes(level)}>
+                <NPIf condition={['perspective'].includes(level)}>
                     <div className={'pd_breadcrumb'}
                          onClick={() => this.props.onPerspectiveClicked(this.props.perspective)}>
                         Perspektive: {this.props.perspective.name}
                     </div>
                 </NPIf>
-                <NPIf condition={['scientist', 'theme', 'perspective', 'contribution'].includes(level)}>
+                <NPIf condition={['contribution'].includes(level)}>
                     <div className={'pd_breadcrumb'}
                          onClick={() => this.props.onContributionClicked(this.props.contribution)}>
                         Bürgerbeitrag 1

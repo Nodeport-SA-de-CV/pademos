@@ -4,7 +4,7 @@ import RecreatedScientistTile from "./RecreatedScientistTile";
 
 class RecreatedScientistTreemap extends React.Component {
     render(){
-        return this.props.data.map((tile) =>{
+        return this.props.data.map((tile,index) =>{
             return(
                 <RecreatedScientistTile key={tile.tileData.id} height={tile.height}
                                width={tile.width}
@@ -14,7 +14,7 @@ class RecreatedScientistTreemap extends React.Component {
                                tileData={tile.tileData}
                                widthTreemap={this.props.widthTreemap}
                                heightTreemap={this.props.heightTreemap}
-                               onClickTile={() => this.props.onClickTile()}
+                               onClickTile={() => this.props.onClickTile(tile)}
                 />
             )
         })

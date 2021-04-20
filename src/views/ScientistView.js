@@ -20,11 +20,15 @@ class ScientistView extends React.Component {
         super();
         this.state = {
             topics: [],
-            groupsOptions:[],
-            hiddenGroups:[],
-            level:'scientist', // scientist, theme, perspective,contribution,
-            selectedIndex:-1
+            groupsOptions: [],
+            hiddenGroups: [],
+            level: 'scientist', // scientist, theme, perspective,contribution,
+            selectedIndex: -1,
+            selectedTheme: {},
+            perspectiveData:null,
+            perspectiveTreeMap:null
         }
+
         this.setGroupsOptions          = this.setGroupsOptions.bind(this);
         this.onSelectGroup             = this.onSelectGroup.bind(this);
         this.getValue                  = this.getValue.bind(this);
@@ -73,7 +77,8 @@ class ScientistView extends React.Component {
     onClickZoom(index){
         this.setState({
             level:'theme',
-            selectedIndex:index
+            selectedIndex:index,
+            selectedTheme:this.state.topics[index]
         })
     }
 
@@ -84,10 +89,22 @@ class ScientistView extends React.Component {
         })
     }
 
-    onClickTile(){
+    onClickTile(tile){
+        // const children = tile.tileData.children;
+        // const contributions = tile.d.data.contributions;
+        const contributionsTreeMap = tile.d.data.contributionsTreeMap;
+        debugger;
         this.setState({
             level:'perspective',
-            selectedIndex:1
+            perspectiveData:tile.d.data,
+            contributionsTreeMap:contributionsTreeMap,
+            selectedTheme:{
+                topic:tile.d.data.group
+            },
+            selectedPerspective:{
+                name:tile.d.data.name
+            }
+
         })
     }
 
@@ -99,7 +116,7 @@ class ScientistView extends React.Component {
                                          level={this.state.level}
                                          onHideGroup={(h) => this.setState({hiddenGroups:h})}
                                          onClickZoom={(i) => this.onClickZoom(i)}
-                                         onClickTile={() => this.onClickTile()}
+                                         onClickTile={(tile) => this.onClickTile(tile)}
                 />
                 break;
             case "theme":
@@ -117,10 +134,11 @@ class ScientistView extends React.Component {
                 break;
             case "perspective":
                 const perspective = this.state.topics.length > 0 ? this.state.topics[this.state.selectedIndex] : {color:'transparent'};
+                // const perspective = this.state.topics[this.state.selectedIndex].children;
                 return (
-                    <MapWrapper data={perspective}  level={this.state.level} color={perspective.color} onClickClose={(c) => this.onClickClosed()}>
+                    <MapWrapper data={this.state.perspectiveData}  level={this.state.level} color={this.state.perspectiveData.data.color} onClickClose={(c) => this.onClickClosed()}>
                         <ScientistTreeMap
-                            data={this.state.topics}
+                            data={this.state.perspectiveData}
                             topicIndex={this.state.selectedIndex}
                             level={this.state.level}
                         />
@@ -147,6 +165,7 @@ class ScientistView extends React.Component {
                                     contributions={this.state.topics.length}
                                     subContributions={'definierte Verbindungen'}
                             />
+                            <NPIf condition={this.state.level === 'scientist'}>
                             <div className={'header-row align-items-start pt-3 pb-3'}>
                                 Übersicht
                                 <div className={'header-select-wrapper ml-4'} style={{fontSize:'0.8rem'}}>
@@ -168,8 +187,12 @@ class ScientistView extends React.Component {
                                     />
                                 </div>
                             </div>
+                            </NPIf>
                             <div className={'d-flex mb-auto'}></div>
-                            <BreadCrumbs level={this.state.level}> </BreadCrumbs>
+                            <BreadCrumbs level={this.state.level}
+                                         onScientistClicked={() => this.setState({'level':'scientist'})}
+                                         theme={this.state.selectedTheme} perspective={this.state.selectedPerspective}
+                            > </BreadCrumbs>
                             {this.renderContent()}
                             {/*<PlotView ref={(ref) => this.plotView = ref}*/}
                             {/*          selectedTopic={this.state.selectedTopic}*/}
