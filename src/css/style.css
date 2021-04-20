@@ -1154,3 +1154,22 @@ search-box-wrapper{
 .pd_breadcrumb:last-child{
     font-weight: bold;
 }
+/*--------------------------------------------------------------------------------------------------------------------*/
+/*--------------------------------------------------CONTRIBUTION TILE----------------------------------------------------*/
+/*--------------------------------------------------------------------------------------------------------------------*/
+.contribution-tile{
+    font-size: 1.2rem;
+    overflow: hidden;
+    color: #01080D;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    flex:1;
+    padding: 1rem 0.5rem;
+}
+.ct-title{
+    width: 100%;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
