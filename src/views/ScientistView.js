@@ -26,7 +26,8 @@ class ScientistView extends React.Component {
             selectedIndex: -1,
             selectedTheme: {},
             perspectiveData:null,
-            perspectiveTreeMap:null
+            perspectiveTreeMap:null,
+            contributionData:null
         }
 
         this.setGroupsOptions          = this.setGroupsOptions.bind(this);
@@ -92,12 +93,9 @@ class ScientistView extends React.Component {
     onClickTile(tile){
         // const children = tile.tileData.children;
         // const contributions = tile.d.data.contributions;
-        const contributionsTreeMap = tile.d.data.contributionsTreeMap;
-        debugger;
         this.setState({
             level:'perspective',
             perspectiveData:tile.d.data,
-            contributionsTreeMap:contributionsTreeMap,
             selectedTheme:{
                 topic:tile.d.data.group
             },
@@ -108,6 +106,21 @@ class ScientistView extends React.Component {
         })
     }
 
+    onClickContributionTile(tile){
+        // const children = tile.tileData.children;
+        // const contributions = tile.d.data.contributions;
+        // debugger
+        this.setState({
+            level:'contribution',
+            contributionData:tile.d.data.data
+            // selectedTheme:{
+            //     topic:tile.d.data.group
+            // },
+            // selectedPerspective:{
+            //     name:tile.d.data.name
+            // }
+        })
+    }
     renderContent(){
         switch (this.state.level){
             case "scientist":
@@ -127,21 +140,35 @@ class ScientistView extends React.Component {
                             data={this.state.topics}
                             topicIndex={this.state.selectedIndex}
                             level={this.state.level}
-                            onClickTile={() => this.onClickTile()}
+                            onClickTile={(tile) => this.onClickTile(tile)}
                         />
                     </MapWrapper>
                 )
                 break;
             case "perspective":
-                const perspective = this.state.topics.length > 0 ? this.state.topics[this.state.selectedIndex] : {color:'transparent'};
-                // const perspective = this.state.topics[this.state.selectedIndex].children;
+                // const perspective = this.state.topics.length > 0 ? this.state.topics[this.state.selectedIndex] : {color:'transparent'};
                 return (
                     <MapWrapper data={this.state.perspectiveData}  level={this.state.level} color={this.state.perspectiveData.data.color} onClickClose={(c) => this.onClickClosed()}>
                         <ScientistTreeMap
                             data={this.state.perspectiveData}
                             topicIndex={this.state.selectedIndex}
                             level={this.state.level}
+                            onClickTile={(tile) => this.onClickContributionTile(tile)}
                         />
+                    </MapWrapper>
+                )
+                break;
+            case "contribution":
+                // const contribution = this.state.topics.length > 0 ? this.state.topics[this.state.selectedIndex] : {color:'transparent'};
+                // const perspective = this.state.topics[this.state.selectedIndex].children;
+                return (
+                    <MapWrapper data={this.state.contributionData}  level={this.state.level} color={this.state.contributionData.color} onClickClose={(c) => this.onClickClosed()}>
+                        {/*<ScientistTreeMap*/}
+                        {/*    data={this.state.perspectiveData}*/}
+                        {/*    topicIndex={this.state.selectedIndex}*/}
+                        {/*    level={this.state.level}*/}
+                        {/*    onClickTile={(tile) => this.onClickContributionTile(tile)}*/}
+                        {/*/>*/}
                     </MapWrapper>
                 )
                 break;

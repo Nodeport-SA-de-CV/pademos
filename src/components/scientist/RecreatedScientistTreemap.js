@@ -6,15 +6,17 @@ class RecreatedScientistTreemap extends React.Component {
     render(){
         return this.props.data.map((tile,index) =>{
             return(
-                <RecreatedScientistTile key={tile.tileData.id} height={tile.height}
-                               width={tile.width}
-                               left={tile.x}
-                               top={tile.y}
-                               color={tile.color}
-                               tileData={tile.tileData}
-                               widthTreemap={this.props.widthTreemap}
-                               heightTreemap={this.props.heightTreemap}
-                               onClickTile={() => this.props.onClickTile(tile)}
+                <RecreatedScientistTile key={tile.tileData.id}
+                                        height={tile.height}
+                                       width={tile.width}
+                                       left={tile.x}
+                                       top={tile.y}
+                                       color={tile.color}
+                                       tileData={tile.tileData}
+                                       widthTreemap={this.props.widthTreemap}
+                                       heightTreemap={this.props.heightTreemap}
+                                       onClickTile={() => this.props.onClickTile(tile)}
+                                        level={this.props.level}
                 />
             )
         })
@@ -22,14 +24,14 @@ class RecreatedScientistTreemap extends React.Component {
 }
 RecreatedScientistTreemap.propTypes = {
     data: PropTypes.array,
-    onClickTile: PropTypes.func
-
+    onClickTile: PropTypes.func,
+    level: PropTypes.string
 };
 
 RecreatedScientistTreemap.defaultProps = {
     data: [],
-    onClickTile: () => {}
-
+    onClickTile: () => {},
+    level: ''
 };
 export default RecreatedScientistTreemap;
 

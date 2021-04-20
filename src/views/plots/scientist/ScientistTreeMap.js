@@ -53,7 +53,6 @@ class ScientistTreeMap extends React.Component {
     componentDidUpdate(prevProps, prevState, snapshot) {
         if (prevProps.data.length !== this.props.data.length) {
             const tree = this.buildTree(this.props.data);
-            debugger;
             this.setState({
                 data: tree
             }, () => {
@@ -79,8 +78,8 @@ class ScientistTreeMap extends React.Component {
             let children = groups.contributions.map((g) => {
                 return {
                     data: g,
-                    name: g.topic,
-                    group: g.topic,
+                    name: g.document_title_response,
+                    group: g.topic_label,
                     children: [],
                     value:1
                 }
@@ -198,11 +197,14 @@ class ScientistTreeMap extends React.Component {
             .style("stroke", "white")
             .style("fill", function (d, i) {
                 try {
+                    if(_this.props.level === 'perspective'){
+                        leafsArray[i].color = d.data.data.color;
+                    }
                     leafsArray[i].color = d.parent.data.data.color;
+
                     return "transparent";
                 } catch (e) {
                     return "transparent";
-
                 }
             })
         this.setState({leafsArray: leafsArray});
@@ -307,6 +309,7 @@ class ScientistTreeMap extends React.Component {
                                            widthTreemap={this.props.w}
                                            heightTreemap={this.props.h}
                                            onClickTile={(tile) => this.props.onClickTile(tile)}
+                                           level={this.props.level}
 
                 />
                 <NPIf condition={this.props.isLoading}>
