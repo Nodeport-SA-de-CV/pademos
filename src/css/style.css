@@ -1130,6 +1130,11 @@ search-box-wrapper{
     cursor: pointer;
     align-self: flex-end;
 }
+.mw-map{
+    flex: 1;
+    border: 2px solid white;
+    padding:  0.5rem 1.5rem;
+}
 /*--------------------------------------------------------------------------------------------------------------------*/
 /*--------------------------------------------------BREADCRUMBS--------------------------------------------------------/
 /*--------------------------------------------------------------------------------------------------------------------*/
@@ -1172,4 +1177,11 @@ search-box-wrapper{
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
+}
+.ct-show-all-btn{
+    font-size: 0.75rem;
+    cursor: pointer;
+    padding: 0.5rem;
+    float: right;
+    width: max-content;
 }

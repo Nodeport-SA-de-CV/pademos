@@ -2,6 +2,8 @@ import React from 'react';
 import PropTypes from "prop-types";
 import API from "../../lib/api/API";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+import NPIf from "np-if";
+import NPElse from "np-if/src/NPElse";
 
 
 const _ = require('underscore');
@@ -37,11 +39,11 @@ class MapWrapper extends React.Component {
                 return(
                     <div className={'mw-header mb-3'}>
                         <img className={'mr-3'}
-                             src={`${API.API_URL}/icons/${this.props.data.data.icon}`}
+                             src={`${API.API_URL}/icons/${data.data.icon}`}
                              height={36}/>
                         <div>
                             <div className={'title'}>
-                                Perspektive: {this.props.data.name}
+                                Perspektive: {data.name}
                             </div>
                             <div>
                                 Dies sind die mit dieser Perspektive verbundenen Beiträge, bitte wählen Sie einen, um weitere Details zu sehen:
@@ -50,23 +52,48 @@ class MapWrapper extends React.Component {
                     </div>
                 )
                 break;
+            case 'contribution':
+                return(
+                    <div className={'mw-header mb-3'}>
+                        <div>
+                            <div className={'title'} onClick={() => this.props.onClickNavigation()}>
+                                Bürgerbeitrag: {data.document_title_response}
+                            </div>
+                            <div>
+                                {data.document_what_response}
+                            </div>
+                            <div className={'ct-show-all-btn'} onClick={() => this.props.onClickNavigation()}>... alles anzeigen</div>
+                        </div>
+                    </div>
+                )
+                break;
             default: return null;
         }
     }
+
 
     render() {
         const color = this.props.color;
         const style = {
             backgroundColor: color
         }
-        const data = this.props.data;
         return (
             <div className={'h-100 d-flex map-wrapper'} style={style}>
                 <FontAwesomeIcon className={'mw-icon'} size={'lg'}
                                  icon={'times'}
                                  onClick={() => this.props.onClickClose()}/>
                 {this.renderHeader()}
-                {this.props.children}
+                <NPIf condition={this.props.level === 'contribution'}>
+                    <div className={'mw-map'}>
+                        <div className={'mb-3'} style={{color:'white'}}>Dies sind die Verbindungen, die zu diesem Beitrag angelegt wurden.
+                            Wählen Sie eine aus, um zu sehen, warum die Wissenschaftler:
+                            innen diesen Beitrag mit einem Forschungsthema verbunden haben:</div>
+                        {this.props.children}
+                    </div>
+                    <NPElse>
+                        {this.props.children}
+                    </NPElse>
+                </NPIf>
             </div>
         );
     }
@@ -75,11 +102,15 @@ export  default MapWrapper;
 MapWrapper.propTypes = {
     data                  : PropTypes.object,
     color                 : PropTypes.string,
-    onClickClose          : PropTypes.func
+    onClickClose          : PropTypes.func,
+    level                 : PropTypes.string,
+    onClickNavigation     : PropTypes.func,
 };
 
 MapWrapper.defaultProps = {
     data                  : {},
     color                 : '',
-    onClickClose          : () => {}
+    onClickClose          : () => {},
+    level                 : '',
+    onClickNavigation     : () => {}
 };
