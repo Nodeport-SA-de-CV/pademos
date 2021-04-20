@@ -1,6 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import PerspectiveTile from "./PerspectiveTile";
+import RecreatedTile from "../plots/RecreatedTile";
 
 class RecreatedScientistTile extends React.Component {
     constructor(props) {
@@ -14,9 +15,22 @@ class RecreatedScientistTile extends React.Component {
 
     renderContent(){
         const data = this.props.tileData;
-        return(
-            <PerspectiveTile perspective={data}/>
-        )
+        switch (this.props.level) {
+            case 'perspective':
+                return(
+                    <div style={{backgroundColor:data.color}}>contribution</div>
+                )
+                break;
+            case 'contribution':
+                return(
+                    <div>contribution</div>
+                )
+                break;
+            default:
+                return(
+                    <PerspectiveTile perspective={data}/>
+                )
+        }
     }
 
     render(){

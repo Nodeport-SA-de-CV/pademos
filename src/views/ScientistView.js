@@ -92,12 +92,9 @@ class ScientistView extends React.Component {
     onClickTile(tile){
         // const children = tile.tileData.children;
         // const contributions = tile.d.data.contributions;
-        const contributionsTreeMap = tile.d.data.contributionsTreeMap;
-        debugger;
         this.setState({
             level:'perspective',
             perspectiveData:tile.d.data,
-            contributionsTreeMap:contributionsTreeMap,
             selectedTheme:{
                 topic:tile.d.data.group
             },
