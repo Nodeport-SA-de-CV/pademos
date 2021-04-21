@@ -146,6 +146,7 @@ class ScientistView extends React.Component {
                                          onHideGroup={(h) => this.setState({hiddenGroups:h})}
                                          onClickZoom={(i) => this.onClickZoom(i)}
                                          onClickTile={(tile) => this.onClickTile(tile)}
+                                         selectedGroups={this.state.selectedGroups}
                 />
                 break;
             case "theme":
@@ -300,7 +301,11 @@ class ScientistView extends React.Component {
                             </div>
 
                         </div>
-                        <SidebarScientist/>
+                        <SidebarScientist onSelectedItems={(selectedItems) => {
+                            this.setState({
+                                selectedGroups:selectedItems
+                            })
+                        }}/>
                     </div>
                 </div>
             </NPIf>
