@@ -5,31 +5,39 @@ import API from "../lib/api/API";
 const _ = require('underscore');
 
 
-class Topic extends React.Component{
+class Topic extends React.Component {
     constructor(props) {
         super(props);
-        this.state = {
-        }
+        this.state       = {}
         this.onClickHelp = this.onClickHelp.bind(this);
         this.hideGroups  = this.hideGroups.bind(this);
     }
 
-    onClickHelp(){
+    onClickHelp() {
         console.log('help clicked');
     }
 
-    hideGroups(contributions){
-        let groups = contributions.map(c => c.topic_label);
-        groups = _.uniq(groups);
-        this.props.onHideGroup( groups );
+    hideGroups(contributions) {
+        let groups = contributions.map(c => {
+            return c.topic_label
+        });
+        groups     = _.uniq(groups);
+        debugger;
+        this.props.onHideGroup(groups);
         this.props.onClick()
     }
 
-    render(){
-        return(
-            <div className={`topic ${this.props.className}`} style={{backgroundColor:this.props.color}}
+    render() {
+        return (
+            <div className={`topic ${this.props.className}`} style={{backgroundColor: this.props.color}}
                  onClick={() => {
-                     this.hideGroups(this.props.topic.contributions)
+                     const contributions  = this.props.topic.contributions;
+                     let childrenContributions = this.props.topic.children.map((c) => c.contributions);
+                     childrenContributions = [].concat.apply([],childrenContributions);
+                     const groups = contributions.concat(childrenContributions);
+                     debugger;
+
+                     this.hideGroups(groups)
                  }}>
                 {this.props.title}
                 <img src={`${API.API_URL}/icons/${this.props.icon}`} height={20}></img>
@@ -41,21 +49,23 @@ class Topic extends React.Component{
 export default Topic;
 
 Topic.propTypes = {
-    topic      : PropTypes.object,
-    title      : PropTypes.string,
-    icon       : PropTypes.string,
-    color      : PropTypes.string,
-    className  : PropTypes.string,
-    onClick    : PropTypes.func,
+    topic: PropTypes.object,
+    title: PropTypes.string,
+    icon: PropTypes.string,
+    color: PropTypes.string,
+    className: PropTypes.string,
+    onClick: PropTypes.func,
     onHideGroup: PropTypes.func
 };
 
 Topic.defaultProps = {
-    topic      : {},
-    title      : '',
-    icon       : '',
-    color      : 'burgundy',
-    className  : '',
-    onClick    : () => {},
-    onHideGroup: () => {}
+    topic: {},
+    title: '',
+    icon: '',
+    color: 'burgundy',
+    className: '',
+    onClick: () => {
+    },
+    onHideGroup: () => {
+    }
 };
