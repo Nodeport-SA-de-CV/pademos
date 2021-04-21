@@ -13,7 +13,7 @@ class UIQuestion extends React.Component {
         const question = this.cleanQuestion(this.props.question);
         return(
             <div className={`ui-question ${this.props.className}`}>
-                <div className={'question'}>{question}?</div>
+                <div className={'question'}>{question}</div>
                 <div className={'answer'}>{this.props.answer}</div>
             </div>
         )

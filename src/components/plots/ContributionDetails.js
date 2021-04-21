@@ -144,16 +144,16 @@ class ContributionDetails extends React.Component {
                             return <div key={index}>{keyword}</div>
                         })}
                     </div>
-                    <UIQuestion question={this.props.contribution.document_what_question}
+                    <UIQuestion question={`${this.props.contribution.document_what_question}?`}
                                 answer={this.props.contribution.document_what_response}
                                 className={'mb-4'}/>
-                    <UIQuestion question={this.props.contribution.document_why_question}
+                    <UIQuestion question={`${this.props.contribution.document_why_question}?`}
                                 answer={this.props.contribution.document_why_response}
                                 className={'mb-4'}/>
-                    <UIQuestion question={this.props.contribution.document_for_whom_question}
+                    <UIQuestion question={`${this.props.contribution.document_for_whom_question}?`}
                                 answer={this.props.contribution.document_for_whom_response}
                                 className={'mb-4'}/>
-                    <UIQuestion question={this.props.contribution.document_effect_question}
+                    <UIQuestion question={`${this.props.contribution.document_effect_question}?`}
                                 answer={this.props.contribution.document_effect_response}/>
                 </div>
                 <div className={'cd-footer'}>
