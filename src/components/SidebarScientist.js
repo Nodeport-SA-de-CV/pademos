@@ -39,7 +39,9 @@ class SidebarScientist extends React.Component{
 
                 {/*render sidebar content and form*/}
                 <div className={'sidebar-content'}>
-                    <GroupList onLoadedGroups={(d) => this.setState({groups: d})}/>
+                    <GroupList
+                        onLoadedGroups={(d) => this.setState({groups: d})}
+                        onSelectedItems={(selectedItems) => this.props.onSelectedItems(selectedItems)}/>
                 </div>
                 <div className={'sidebar-footer'}>
                     Klicken Sie auf eine Gruppe, um zu sehen, in welchen wissenschaftlichen
@@ -58,7 +60,9 @@ SidebarScientist.propTypes = {
     onTopicSelected       : PropTypes.func,
     onFormSaved           : PropTypes.func,
     onRemoveContribution  : PropTypes.func,
-    onHideGroup           : PropTypes.func
+    onHideGroup           : PropTypes.func,
+    onSelectedItems       : PropTypes.func,
+
 };
 
 SidebarScientist.defaultProps = {
@@ -66,6 +70,6 @@ SidebarScientist.defaultProps = {
     onTopicSelected       : () => {},
     onFormSaved           : () => {},
     onRemoveContribution  : () => {},
-    onHideGroup           : () => {}
-
+    onHideGroup           : () => {},
+    onSelectedItems       : () => {}
 };

@@ -21,11 +21,18 @@ class GroupTitle extends React.Component {
         const group = this.props.group;
         const color = this.props.group.color;
         const keywords = this.props.group.contributions ? this.props.group.contributions[0].topic_keywords : [];
+        const isSelected = this.props.isSelected;
+        const style = {
+            backgroundColor: isSelected ? color : 'white',
+            borderColor: color,
+            color: isSelected ? 'white' : color,
+            flex:1
+        }
         return(
-            <div style={{flex:1}} onMouseLeave={() => this.showOverlay(false)}>
+            <div  onMouseLeave={() => this.showOverlay(false)} onClick={() => this.props.onClick(group)}>
                 <div key={group._id}
                      className={'group-name'}
-                     style={{color:group.color,borderColor:group.color}}
+                     style={style}
                      ref={(ref) => (this.divTarget)= ref}
                      onMouseEnter={() => {
                          this.setState({groupSelected:group});
@@ -67,9 +74,13 @@ class GroupTitle extends React.Component {
 }
 GroupTitle.propTypes = {
     group                  : PropTypes.object,
+    onClick                : PropTypes.func,
+    isSelected             : PropTypes.bool
 };
 
 GroupTitle.defaultProps = {
     group                  : {},
+    onClick                : ()=> {},
+    isSelected             : false
 };
 export default GroupTitle;

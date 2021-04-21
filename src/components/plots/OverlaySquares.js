@@ -12,7 +12,7 @@ class OverlaySquares extends React.Component {
         const background = this.props.group.disabled ? 'gray' : group.color;
         const color = this.props.group.disabled ? 'rgb(66, 66, 66)' : '';
         const colorFooter = this.props.group.disabled ? 'rgb(66, 66, 66)' : 'black';
-
+        const isSelected = this.props.isSelected;
         const  style = {
             position:'absolute',
             left: group.x0,
@@ -22,6 +22,7 @@ class OverlaySquares extends React.Component {
             backgroundColor: background,
             visibility: hidden,
             color: color,
+            border: isSelected ? `10px solid ${this.props.borderColor}` : ''
         }
         return(
             <div className={'overlay-squares'} style={style} onClick={() => {this.props.onHide(group.name)}}>
@@ -67,7 +68,8 @@ OverlaySquares.propTypes = {
     onClickZoom:PropTypes.func,
     topic: PropTypes.object,
     gutterHeight: PropTypes.number,
-    gutterWidth: PropTypes.number
+    gutterWidth: PropTypes.number,
+    isSelected: PropTypes.bool
 
 };
 
@@ -80,6 +82,7 @@ OverlaySquares.defaultProps = {
     onClickZoom: () => {},
     topic:null,
     gutterHeight: 0,
-    gutterWidth: 2
+    gutterWidth: 2,
+    isSelected: false
 };
 

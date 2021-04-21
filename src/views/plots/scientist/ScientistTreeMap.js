@@ -205,6 +205,7 @@ class ScientistTreeMap extends React.Component {
             .style("fill", function (d, i) {
                 try {
                     if(_this.props.level === 'perspective' || 'contribution'){
+                        debugger;
                         leafsArray[i].color = d.data.data.color;
                     }
                     leafsArray[i].color = d.parent.data.data.color;
@@ -220,7 +221,6 @@ class ScientistTreeMap extends React.Component {
             const groups = _.groupBy(leafsArray, ((l) => {
                 return l.d.parent.data.data.topic
             }));
-
             let overlaySquares = [];
             Object.keys(groups).forEach((k) => {
                 overlaySquares.push({
@@ -231,7 +231,8 @@ class ScientistTreeMap extends React.Component {
                     x1: groups[k][0].d.parent.x1,
                     y1: groups[k][0].d.parent.y1,
                     perspectiveCount: groups[k].length,
-                    icon: groups[k][0].d.data.data.icon
+                    icon: groups[k][0].d.data.data.icon,
+                    topic_labels:groups[k][0].d.data.data.topic_labels
                 });
             });
             this.setState({overlaySquares: overlaySquares});
@@ -331,6 +332,9 @@ class ScientistTreeMap extends React.Component {
                 <NPIf condition={this.props.level === 'scientist'}>
                     {
                         overlaySquares.map((square, i) => {
+                            const intersection = _.intersection(this.props.selectedGroups.map((s) => s.name),square.topic_labels);
+                            const isSelected  = intersection.length > 0;
+                            const borderColor = isSelected ? this.props.selectedGroups.find((g) => g.name === intersection[0]).color : ''
                             return <OverlaySquares key={square.name}
                                                    group={square}
                                                    hidden={this.isSquareHidden(square)}
@@ -340,6 +344,8 @@ class ScientistTreeMap extends React.Component {
                                                    index={i}
                                                    gutterHeight ={3}
                                                    gutterWidth ={3}
+                                                   isSelected={isSelected}
+                                                   borderColor={borderColor}
                             />
                         })
                     }
@@ -366,7 +372,8 @@ ScientistTreeMap.propTypes = {
     topicIndex: PropTypes.number,
     level: PropTypes.string,
     onClickZoom:PropTypes.func,
-    onClickTile: PropTypes.func
+    onClickTile: PropTypes.func,
+    selectedGroups:PropTypes.array
 };
 
 ScientistTreeMap.defaultProps = {
@@ -383,7 +390,8 @@ ScientistTreeMap.defaultProps = {
     topicIndex: -1,
     level: 'scientist',
     onClickZoom: () => {},
-    onClickTile: () => {}
+    onClickTile: () => {},
+    selectedGroups: []
 };
 
 export default ScientistTreeMap;
