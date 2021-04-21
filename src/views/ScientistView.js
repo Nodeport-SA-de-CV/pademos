@@ -10,6 +10,9 @@ import ScientistTreeMap from "./plots/scientist/ScientistTreeMap";
 import Select from 'react-select'
 import MapWrapper from "../components/scientist/MapWrapper";
 import BreadCrumbs from "../components/scientist/BreadCrumbs";
+import ContributionDetails from "../components/plots/ContributionDetails";
+import NPElse from "np-if/src/NPElse";
+import ReactResizeDetector from "react-resize-detector";
 
 const _ = require('underscore');
 
@@ -22,13 +25,16 @@ class ScientistView extends React.Component {
             topics: [],
             groupsOptions: [],
             hiddenGroups: [],
-            level: 'connection', // scientist, theme, perspective,contribution, connection
+            level: 'scientist', // scientist, theme, perspective,contribution, connection
             selectedIndex: -1,
             selectedTheme: {},
             perspectiveData:null,
             perspectiveTreeMap:null,
             contributionData:null,
-            connections:[]
+            connections:[],
+            showContributionsDetails:false,
+            w: null,
+            h: null
         }
 
         this.setGroupsOptions          = this.setGroupsOptions.bind(this);
@@ -172,14 +178,37 @@ class ScientistView extends React.Component {
                 // const contribution = this.state.topics.length > 0 ? this.state.topics[this.state.selectedIndex] : {color:'transparent'};
                 // const perspective = this.state.topics[this.state.selectedIndex].children;
                 return (
-                    <MapWrapper data={this.state.contributionData}  level={this.state.level} color={this.state.contributionData.color} onClickClose={(c) => this.onClickClosed()}>
-                        <ScientistTreeMap
-                            data={this.state.connections}
-                            topicIndex={this.state.selectedIndex}
-                            level={this.state.level}
-                            onClickTile={(tile) => this.onClickContributionTile(tile)}
-                        />
-                    </MapWrapper>
+                    <NPIf condition={! this.state.showContributionsDetails}>
+                        <MapWrapper data={this.state.contributionData}
+                                    level={this.state.level}
+                                    color={this.state.contributionData.color}
+                                    onClickClose={(c) => this.onClickClosed()}
+                                    onClickNavigation={() => {
+                                        // debugger;
+                                        this.setState({showContributionsDetails: true})
+                                    }}
+                        >
+                            <ScientistTreeMap
+                                data={this.state.connections}
+                                topicIndex={this.state.selectedIndex}
+                                level={this.state.level}
+                                onClickTile={(tile) => this.onClickContributionTile(tile)}
+                            />
+                        </MapWrapper>
+                        <NPElse>
+                            <div className={'h-100 d-flex'}>
+                                <ReactResizeDetector handleWidth handleHeight
+                                                     onResize={(w, h) => this.setState({w:w, h:h})}>
+                                </ReactResizeDetector>
+                                <ContributionDetails contribution={this.state.contributionData}
+                                                     h={this.state.h}
+                                                     w={this.state.w}
+                                                     scientistView={true}
+                                                     onClickClose={() => this.setState({showContributionsDetails:false})}
+                                />
+                            </div>
+                        </NPElse>
+                    </NPIf>
                 )
                 break;
             case "connection":
