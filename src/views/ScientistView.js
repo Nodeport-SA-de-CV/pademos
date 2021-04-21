@@ -32,7 +32,7 @@ class ScientistView extends React.Component {
             perspectiveTreeMap:null,
             contributionData:null,
             connections:[],
-            showContributionDetails:false,
+            showContributionsDetails:false,
             w: null,
             h: null
         }
@@ -178,11 +178,16 @@ class ScientistView extends React.Component {
                 // const contribution = this.state.topics.length > 0 ? this.state.topics[this.state.selectedIndex] : {color:'transparent'};
                 // const perspective = this.state.topics[this.state.selectedIndex].children;
                 return (
-                    <NPIf condition={! this.state.showContributionDetails}>
+                    <NPIf condition={! this.state.showContributionsDetails}>
                         <MapWrapper data={this.state.contributionData}
                                     level={this.state.level}
                                     color={this.state.contributionData.color}
-                                    onClickClose={(c) => this.onClickClosed()}>
+                                    onClickClose={(c) => this.onClickClosed()}
+                                    onClickNavigation={() => {
+                                        // debugger;
+                                        this.setState({showContributionsDetails: true})
+                                    }}
+                        >
                             <ScientistTreeMap
                                 data={this.state.connections}
                                 topicIndex={this.state.selectedIndex}
@@ -198,7 +203,9 @@ class ScientistView extends React.Component {
                                 <ContributionDetails contribution={this.state.contributionData}
                                                      h={this.state.h}
                                                      w={this.state.w}
-                                                     scientistView={true}/>
+                                                     scientistView={true}
+                                                     onClickClose={() => this.setState({showContributionsDetails:false})}
+                                />
                             </div>
                         </NPElse>
                     </NPIf>
