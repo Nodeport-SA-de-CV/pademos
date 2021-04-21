@@ -205,7 +205,6 @@ class ScientistTreeMap extends React.Component {
             .style("fill", function (d, i) {
                 try {
                     if(_this.props.level === 'perspective' || 'contribution'){
-                        debugger;
                         leafsArray[i].color = d.data.data.color;
                     }
                     leafsArray[i].color = d.parent.data.data.color;

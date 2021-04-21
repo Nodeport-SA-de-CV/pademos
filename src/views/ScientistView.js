@@ -13,6 +13,7 @@ import BreadCrumbs from "../components/scientist/BreadCrumbs";
 import ContributionDetails from "../components/plots/ContributionDetails";
 import NPElse from "np-if/src/NPElse";
 import ReactResizeDetector from "react-resize-detector";
+import ConnectionDetails from "../components/scientist/ConnectionDetails";
 
 const _ = require('underscore');
 
@@ -34,7 +35,8 @@ class ScientistView extends React.Component {
             connections:[],
             showContributionsDetails:false,
             w: null,
-            h: null
+            h: null,
+            connectionData:null
         }
 
         this.setGroupsOptions          = this.setGroupsOptions.bind(this);
@@ -114,13 +116,10 @@ class ScientistView extends React.Component {
     }
 
     onClickContributionTile(tile){
-        // const children = tile.tileData.children;
-        // const contributions = tile.d.data.contributions;
         const contributionId = tile.d.data.data._id;
 
         API.findConnections(contributionId).then((r) =>{
             if(r.success){
-                // debugger;
                 this.setState({
                     connections:r.connections
                 })
@@ -129,14 +128,17 @@ class ScientistView extends React.Component {
         this.setState({
             level:'contribution',
             contributionData:tile.d.data.data
-            // selectedTheme:{
-            //     topic:tile.d.data.group
-            // },
-            // selectedPerspective:{
-            //     name:tile.d.data.name
-            // }
         })
     }
+
+    onClickConnectionTile(tile){
+        // debugger;
+        this.setState({
+            level:'connection',
+            connectionData:tile.d.data.data
+        })
+    }
+
     renderContent(){
         switch (this.state.level){
             case "scientist":
@@ -163,7 +165,6 @@ class ScientistView extends React.Component {
                 )
                 break;
             case "perspective":
-                // const perspective = this.state.topics.length > 0 ? this.state.topics[this.state.selectedIndex] : {color:'transparent'};
                 return (
                     <MapWrapper data={this.state.perspectiveData}  level={this.state.level} color={this.state.perspectiveData.data.color} onClickClose={(c) => this.onClickClosed()}>
                         <ScientistTreeMap
@@ -176,8 +177,6 @@ class ScientistView extends React.Component {
                 )
                 break;
             case "contribution":
-                // const contribution = this.state.topics.length > 0 ? this.state.topics[this.state.selectedIndex] : {color:'transparent'};
-                // const perspective = this.state.topics[this.state.selectedIndex].children;
                 return (
                     <NPIf condition={! this.state.showContributionsDetails}>
                         <MapWrapper data={this.state.contributionData}
@@ -185,7 +184,6 @@ class ScientistView extends React.Component {
                                     color={this.state.contributionData.color}
                                     onClickClose={(c) => this.onClickClosed()}
                                     onClickNavigation={() => {
-                                        // debugger;
                                         this.setState({showContributionsDetails: true})
                                     }}
                         >
@@ -193,7 +191,7 @@ class ScientistView extends React.Component {
                                 data={this.state.connections}
                                 topicIndex={this.state.selectedIndex}
                                 level={this.state.level}
-                                onClickTile={(tile) => this.onClickContributionTile(tile)}
+                                onClickTile={(tile) => this.onClickConnectionTile(tile)}
                             />
                         </MapWrapper>
                         <NPElse>
@@ -214,9 +212,9 @@ class ScientistView extends React.Component {
                 break;
             case "connection":
                 return (
-                    <MapWrapper>
-                        <div>connection</div>
-                    </MapWrapper>
+                    <div className={'h-100 d-flex'}>
+                        <ConnectionDetails connection={this.state.connectionData} onClickClose={() =>this.setState({level:'contribution'})}/>
+                    </div>
                 )
                 break;
             default:
@@ -268,17 +266,6 @@ class ScientistView extends React.Component {
                                          theme={this.state.selectedTheme} perspective={this.state.selectedPerspective}
                             > </BreadCrumbs>
                             {this.renderContent()}
-                            {/*<PlotView ref={(ref) => this.plotView = ref}*/}
-                            {/*          selectedTopic={this.state.selectedTopic}*/}
-                            {/*          onTopicsLoaded={(topics) => this.onTopicsLoaded(topics)}*/}
-                            {/*          searchKeyWord={this.state.searchKeyWord}*/}
-                            {/*          searchDocumentType={this.state.searchDocumentType}*/}
-                            {/*          selectedContributions={this.state.selectedContributions}*/}
-                            {/*          onContributionSelected={(contribution) => {*/}
-                            {/*              this.onContributionSelected(contribution)*/}
-                            {/*          }}*/}
-                            {/*          onShowContributionsDetails={(show) => this.setState({isActionsDisabled: show})}*/}
-                            {/*/>*/}
 
                             <div className={'header-row align-items-center pt-3 pb-3'} style={{fontSize:'0.8rem'}}>
                                 <strong className={'mr-auto'}>Verbindungen markieren, die</strong>
