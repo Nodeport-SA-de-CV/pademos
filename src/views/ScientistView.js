@@ -10,6 +10,8 @@ import ScientistTreeMap from "./plots/scientist/ScientistTreeMap";
 import Select from 'react-select'
 import MapWrapper from "../components/scientist/MapWrapper";
 import BreadCrumbs from "../components/scientist/BreadCrumbs";
+import ContributionDetails from "../components/plots/ContributionDetails";
+import NPElse from "np-if/src/NPElse";
 
 const _ = require('underscore');
 
@@ -22,13 +24,14 @@ class ScientistView extends React.Component {
             topics: [],
             groupsOptions: [],
             hiddenGroups: [],
-            level: 'connection', // scientist, theme, perspective,contribution, connection
+            level: 'scientist', // scientist, theme, perspective,contribution, connection
             selectedIndex: -1,
             selectedTheme: {},
             perspectiveData:null,
             perspectiveTreeMap:null,
             contributionData:null,
-            connections:[]
+            connections:[],
+            showContributionDetails:false,
         }
 
         this.setGroupsOptions          = this.setGroupsOptions.bind(this);
@@ -172,14 +175,21 @@ class ScientistView extends React.Component {
                 // const contribution = this.state.topics.length > 0 ? this.state.topics[this.state.selectedIndex] : {color:'transparent'};
                 // const perspective = this.state.topics[this.state.selectedIndex].children;
                 return (
-                    <MapWrapper data={this.state.contributionData}  level={this.state.level} color={this.state.contributionData.color} onClickClose={(c) => this.onClickClosed()}>
-                        <ScientistTreeMap
-                            data={this.state.connections}
-                            topicIndex={this.state.selectedIndex}
-                            level={this.state.level}
-                            onClickTile={(tile) => this.onClickContributionTile(tile)}
-                        />
-                    </MapWrapper>
+                    <NPIf condition={! this.state.showContributionDetails}>
+                        <MapWrapper data={this.state.contributionData}  level={this.state.level} color={this.state.contributionData.color} onClickClose={(c) => this.onClickClosed()}>
+                            <ScientistTreeMap
+                                data={this.state.connections}
+                                topicIndex={this.state.selectedIndex}
+                                level={this.state.level}
+                                onClickTile={(tile) => this.onClickContributionTile(tile)}
+                            />
+                        </MapWrapper>
+                        <NPElse>
+                            <div className={'h-100 d-flex'}>
+                                <ContributionDetails contribution={this.state.contributionData}></ContributionDetails>
+                            </div>
+                        </NPElse>
+                    </NPIf>
                 )
                 break;
             case "connection":
