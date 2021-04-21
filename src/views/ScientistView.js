@@ -12,6 +12,7 @@ import MapWrapper from "../components/scientist/MapWrapper";
 import BreadCrumbs from "../components/scientist/BreadCrumbs";
 import ContributionDetails from "../components/plots/ContributionDetails";
 import NPElse from "np-if/src/NPElse";
+import ReactResizeDetector from "react-resize-detector";
 
 const _ = require('underscore');
 
@@ -32,6 +33,8 @@ class ScientistView extends React.Component {
             contributionData:null,
             connections:[],
             showContributionDetails:false,
+            w: null,
+            h: null
         }
 
         this.setGroupsOptions          = this.setGroupsOptions.bind(this);
@@ -176,7 +179,10 @@ class ScientistView extends React.Component {
                 // const perspective = this.state.topics[this.state.selectedIndex].children;
                 return (
                     <NPIf condition={! this.state.showContributionDetails}>
-                        <MapWrapper data={this.state.contributionData}  level={this.state.level} color={this.state.contributionData.color} onClickClose={(c) => this.onClickClosed()}>
+                        <MapWrapper data={this.state.contributionData}
+                                    level={this.state.level}
+                                    color={this.state.contributionData.color}
+                                    onClickClose={(c) => this.onClickClosed()}>
                             <ScientistTreeMap
                                 data={this.state.connections}
                                 topicIndex={this.state.selectedIndex}
@@ -186,7 +192,13 @@ class ScientistView extends React.Component {
                         </MapWrapper>
                         <NPElse>
                             <div className={'h-100 d-flex'}>
-                                <ContributionDetails contribution={this.state.contributionData}></ContributionDetails>
+                                <ReactResizeDetector handleWidth handleHeight
+                                                     onResize={(w, h) => this.setState({w:w, h:h})}>
+                                </ReactResizeDetector>
+                                <ContributionDetails contribution={this.state.contributionData}
+                                                     h={this.state.h}
+                                                     w={this.state.w}
+                                                     scientistView={true}/>
                             </div>
                         </NPElse>
                     </NPIf>
