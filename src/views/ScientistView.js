@@ -112,6 +112,14 @@ class ScientistView extends React.Component {
     }
 
     onClickTile(tile){
+        // Load Theme level as well
+        const selectedIndex = this.state.topics.findIndex((t) => t.topic === tile.d.data.group);
+        this.setState({
+            selectedIndex:selectedIndex,
+            selectedTheme:this.state.topics[selectedIndex]
+        })
+        debugger;
+
         // const children = tile.tileData.children;
         // const contributions = tile.d.data.contributions;
         const parentData = tile.d.parent.data;
@@ -171,7 +179,7 @@ class ScientistView extends React.Component {
                                          level={this.state.level}
                                          onHideGroup={(h) => this.setState({hiddenGroups:h})}
                                          onClickZoom={(i) => this.onClickZoom(i)}
-                                         onClickTile={(tile) => this.onClickTile(tile)}
+                                         onClickTile={(tile,index) => this.onClickTile(tile,index)}
                                          selectedGroups={this.state.selectedGroups}
                 />
                 break;
@@ -293,6 +301,7 @@ class ScientistView extends React.Component {
                             <div className={'d-flex mb-auto'}></div>
                             <BreadCrumbs level={this.state.level}
                                          onScientistClicked={() => this.setState({'level':'scientist'})}
+                                         onThemeClicked={() => this.setState({'level':'theme'})}
                                          theme={this.state.selectedTheme} perspective={this.state.selectedPerspective}
                             > </BreadCrumbs>
                             {this.renderContent()}
