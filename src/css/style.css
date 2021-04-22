@@ -819,6 +819,18 @@ search-box-wrapper{
     height: 30px;
     width: 30px;
 }
+.cd-footer-with-names{
+    display: flex;
+    flex-direction: column;
+    padding: 1rem 1rem 0.5rem 1rem;
+}
+.cd-footer-with-names img:not(:last-child){
+    margin-right: 10px;
+}
+.cd-footer-with-names .c-icon{
+    height: 30px;
+    width: 30px;
+}
 .contribution-details-header .ui-selector{
     width: 60px;
     height: 60px;
