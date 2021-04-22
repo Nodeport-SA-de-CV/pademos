@@ -17,7 +17,6 @@ class Header extends React.Component {
 
 
     onClickHelp() {
-        console.log('help clicked');
     }
 
     getValue(groups){

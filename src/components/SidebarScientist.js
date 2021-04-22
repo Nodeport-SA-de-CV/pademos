@@ -16,7 +16,6 @@ class SidebarScientist extends React.Component{
     }
 
     onClickHelp(){
-        console.log('help clicked');
     }
 
     showTopicDetails(topic){
