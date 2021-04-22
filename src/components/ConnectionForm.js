@@ -174,6 +174,8 @@ class ConnectionForm extends React.Component{
                     <label className={'mt-2'}>3. Aus welcher Perspektive (einer Fachrichtung oder Ihrer Position) legen Sie diese Verbindung an? (*)   </label>
                     <select onChange={this.onPerspectiveChange}>
                         <option value={''}>Wählen Sie eine Perspektive </option>
+                        <option value={'Journalismus'}>Journalismus</option>
+                        <option value={'Wissenschaftliche Kommunikation'}>Wissenchaftliche Kommunikation</option>
                         {
                             this.props.perspectivesList.map((t,i) => {
                                 return(
