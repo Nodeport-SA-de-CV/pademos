@@ -117,7 +117,8 @@ class ContributionDetails extends React.Component {
         const bgColor = this.props.contribution.color ? this.props.contribution.color : '#1A87D7';
         const keywords = this.props.contribution.document_keywords ? Object.keys(this.props.contribution.document_keywords[0]) : [];
         const type = this.props.contribution.document_type ? this.props.contribution.document_type : '1';
-        const icons = this.props.contribution.icons ? this.props.contribution.icons : [];
+        const icons = this.props.contribution.iconsWithName ? this.props.contribution.iconsWithName : [];
+        debugger;
         const maxWidth = this.props.scientistView ? this.props.w : this.props.w - 50;
         const maxHeight = this.props.scientistView ? this.props.h : this.props.h - 50;
 
@@ -156,12 +157,15 @@ class ContributionDetails extends React.Component {
                     <UIQuestion question={`${this.props.contribution.document_effect_question}?`}
                                 answer={this.props.contribution.document_effect_response}/>
                 </div>
-                <div className={'cd-footer'}>
-                    <span className={'mr-auto'}>Wissenschaftsthemen zu denen der Beitrag zugeordnet wurde:</span>
+                <div className={'cd-footer-with-names'}>
+                    <div className={'mr-auto'}>Wissenschaftsthemen zu denen der Beitrag zugeordnet wurde:</div>
                     {
                         icons.map((i,index) =>{
                             return(
-                                <img key={index} className={'c-icon'} src={`${API.API_URL}/icons/${i}`}></img>
+                                <div className={'m-t-10'} >
+                                    <img key={index} className={'c-icon'} src={`${API.API_URL}/icons/${i.icon}`}></img>
+                                    <span>{i.name}</span>
+                                </div>
                             )
                         })
                     }
