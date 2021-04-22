@@ -28,7 +28,9 @@ class RecreatedScientistTreemap extends React.Component {
                                        tileData={tile.tileData}
                                        widthTreemap={this.props.widthTreemap}
                                        heightTreemap={this.props.heightTreemap}
-                                       onClickTile={() => this.props.onClickTile(tile)}
+                                       onClickTile={() => {
+                                           this.props.onClickTile(tile,index)
+                                       }}
                                         level={this.props.level}
                                         index={index}
                                         isSelected={isSelected}

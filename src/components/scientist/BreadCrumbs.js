@@ -29,14 +29,16 @@ class BreadCrumbs extends React.Component {
                 </NPIf>
                 <NPIf condition={['contribution','connection'].includes(level)}>
                     <div className={'pd_breadcrumb'}
-                         onClick={() => this.props.onContributionClicked(this.props.contribution)}>
-                        Bürgerbeitrag 1
+                         onClick={() => {
+                             this.props.onContributionClicked(this.props.contribution)
+                         }}>
+                        Bürgerbeitrag {this.props.contributionIndex}
                     </div>
                 </NPIf>
                 <NPIf condition={['connection'].includes(level)}>
                     <div className={'pd_breadcrumb'}
-                         onClick={() => this.props.onContributionClicked(this.props.contribution)}>
-                        Verbindung 1
+                         onClick={() => this.props.onConnectionClicked(this.props.contribution)}>
+                        Verbindung {this.props.connectionIndex}
                     </div>
                 </NPIf>
             </div>
@@ -52,7 +54,11 @@ BreadCrumbs.propTypes = {
     onScientistClicked: PropTypes.func,
     onThemeClicked: PropTypes.func,
     onPerspectiveClicked: PropTypes.func,
+    onConnectionClicked: PropTypes.func,
     onContributionClicked: PropTypes.func,
+    contributionIndex:PropTypes.number,
+    connectionIndex:PropTypes.number,
+
 
 };
 
@@ -67,8 +73,13 @@ BreadCrumbs.defaultProps = {
     },
     onPerspectiveClicked: () => {
     },
+    onConnectionClicked: () => {
+    },
     onContributionClicked: () => {
-    }
+    },
+    contributionIndex:1,
+    connectionIndex:1
+
 };
 export default BreadCrumbs;
 
