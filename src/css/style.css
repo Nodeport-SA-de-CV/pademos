@@ -1244,3 +1244,6 @@ search-box-wrapper{
     flex:1;
     overflow-y: auto;
 }
+.connection-details.citizen{
+    position: absolute;
+}

@@ -9,10 +9,13 @@ class ConnectionDetails extends React.Component {
 
     render() {
         const bgColor = this.props.connection.color ? this.props.connection.color : '#1A87D7';
+        const w = this.props.w !== 0 ? this.props.w : 'auto';
+        const h = this.props.h !== 0 ? this.props.h : 'auto';
+        debugger;
 
         return (
-            <div className={'connection-details'}
-                 style={{backgroundColor: bgColor}}>
+            <div className={`connection-details ${this.props.className}`}
+                 style={{backgroundColor: bgColor, width:w, height:h}}>
                 <div className={'contribution-details-header mt-2'}>
                     <img className={'cd-icon'} src={`${API.API_URL}/icons/${this.props.connection.icon}`} />
 
@@ -45,12 +48,20 @@ class ConnectionDetails extends React.Component {
 ConnectionDetails.propTypes = {
     connection: PropTypes.object,
     onClickClose: PropTypes.func,
-    index:        PropTypes.number
+    index:        PropTypes.number,
+    className: PropTypes.string,
+    w: PropTypes.number,
+    h: PropTypes.number
+
 };
 
 ConnectionDetails.defaultProps = {
     connection: {},
     onClickClose: () => {},
-    index       : ''
+    index       : '',
+    className: '',
+    w: 0,
+    h: 0
+
 };
 export default ConnectionDetails;

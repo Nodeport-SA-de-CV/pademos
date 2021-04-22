@@ -5,7 +5,6 @@ import NavBar from "../components/NavBar";
 import Sidebar from "../components/Sidebar";
 import Header from "../components/Header";
 import PlotView from "./plots/PlotView";
-import {parse} from "@fortawesome/fontawesome-svg-core";
 import API from "../lib/api/API";
 
 const _ = require('underscore');
@@ -25,7 +24,9 @@ class MainView extends React.Component{
             searchBoxValue:'',
             groupsOptions:[],
             hiddenGroups:[],
-            showConnectionForm:false
+            showConnectionForm:false,
+            showConnectionDetails:false,
+            connectionData:{}
         }
         this.onKeyWordChange            = this.onKeyWordChange.bind(this);
         this.onSearchBoxChange          = this.onSearchBoxChange.bind(this);
@@ -82,8 +83,6 @@ class MainView extends React.Component{
             }
         });
         keywordsArray = keywordsArray.map((k) => Object.keys(k)[0])
-        // topics (list)
-        // perspectives (list)
 
         this.setState({
             topics : topics,
@@ -179,6 +178,11 @@ class MainView extends React.Component{
                                       onSetGroups={(g) => this.setGroupsOptions(g)}
                                       hiddenGroups={this.state.hiddenGroups}
                                       onHideGroup={(h) => this.setState({hiddenGroups:h})}
+                                      showConnectionDetails={this.state.showConnectionDetails}
+                                      onSetConnectionDetails={(open,data) => this.setState(
+                                          {showConnectionDetails: open,connectionData:data})}
+                                      connectionData={this.state.connectionData}
+
                             />
                         </div>
                         <Sidebar selectedContributions={this.state.selectedContributions}
@@ -191,6 +195,11 @@ class MainView extends React.Component{
                                  setOpenConnectionForm={(open) => this.setState({showConnectionForm:open}) }
                                  showConnectionForm={this.state.showConnectionForm}
                                  onCancelForm={() => this.setState({selectedContributions:[]})}
+                                 onSetConnectionDetails={(open,data) => {
+                                     this.setState(
+                                         {showConnectionDetails: open, connectionData: data})
+                                 }
+                                 }
                         />
                     </div>
                 </div>

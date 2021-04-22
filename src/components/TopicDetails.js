@@ -2,48 +2,10 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import NPIf from "np-if";
-import { withRouter } from "react-router-dom";
 import API from "../lib/api/API";
 
-const Swal = require('sweetalert2');
-
-const CustomSwal = Swal.mixin({
-    customClass: {
-        popup: 'popup-custom',
-        confirmButton: 'confirm-custom',
-        cancelButton: 'cancel-custom',
-        content:'title-custom',
-        icon: 'icon-custom'
-    },
-});
 
 class TopicDetails extends React.Component{
-    constructor(props) {
-        super(props);
-        this.confirmSwal = this.confirmSwal.bind(this);
-    }
-
-    confirmSwal(){
-        CustomSwal.fire({
-            icon:'warning',
-            iconHtml:'',
-            text:'Hiermit verlassen Sie die Ansicht für Bürger:innen. Bitte bestätigen Sie.',
-            showCancelButton: true,
-            showConfirmButton:true,
-            confirmButtonText: 'BESTÄTIGEN',
-            cancelButtonText: 'ABBRECHEN',
-        }).then((result) => {
-            /* Read more about isConfirmed, isDenied below */
-            if (result.isConfirmed) {
-                this.props.history.push({
-                    pathname:'/scientist',
-                    state:{
-                        topic:this.props.topic
-                    }
-                });
-            }
-        });
-    }
 
     render(){
         const topic = this.props.topic;
@@ -65,11 +27,17 @@ class TopicDetails extends React.Component{
                 <div className={'perspective-wrapper mb-2'}>
                     {
                         list.map((perspective,index) =>{
+                            perspective.index = index;
+                            perspective.color = topic.color;
+                            perspective.icon = topic.icon;
                             return (
                                 <div className={'perspective mb-2'} key={index}>
                                     <div>Verbindung { index + 1 }, Perspektive:<br/>{perspective.perspective}</div>
                                     <div className={'perspective-ex mt-2 mb-1'}>{perspective.connection_explanation}</div>
-                                    <div className={'btn btn-tiny'} onClick={() => this.confirmSwal()}>alles anzeigen</div>
+                                    <div className={'btn btn-tiny'}
+                                         onClick={() => {
+                                             this.props.onSetConnectionDetails(perspective)
+                                         }}>alles anzeigen</div>
                                 </div>
                             )
                         })
@@ -81,12 +49,13 @@ class TopicDetails extends React.Component{
     }
 }
 
-export default withRouter (TopicDetails);
+export default TopicDetails;
 
 TopicDetails.propTypes = {
     className: PropTypes.string,
     onClickHide: PropTypes.func,
     topic:PropTypes.object,
+    onSetConnectionDetails: PropTypes.func
 };
 
 TopicDetails.defaultProps = {
@@ -97,4 +66,5 @@ TopicDetails.defaultProps = {
         icon: '',
         color:'burgundy',
     },
+    onSetConnectionDetails: () => {}
 };

@@ -4,6 +4,7 @@ import TreeMap from "../../components/plots/TreeMap";
 import ReactResizeDetector from "react-resize-detector";
 import ContributionDetails from "../../components/plots/ContributionDetails";
 import NPIf from "np-if";
+import ConnectionDetails from "../../components/scientist/ConnectionDetails";
 
 class PlotView extends React.Component {
 
@@ -25,9 +26,6 @@ class PlotView extends React.Component {
             showContributionsDetails: false,
             clickedContribution:{}
         }
-    }
-
-    componentDidMount() {
     }
 
     search(value) {
@@ -127,7 +125,15 @@ class PlotView extends React.Component {
                                          }}
                     />
                 </NPIf>
-
+                <NPIf condition={this.props.showConnectionDetails}>
+                    <ConnectionDetails w={this.state.w}
+                                       h={this.state.h}
+                                       className={'citizen'}
+                                       connection={this.props.connectionData}
+                                       onClickClose={() => this.props.onSetConnectionDetails(false,{})}
+                                       index={this.props.connectionData.index}
+                    />
+                </NPIf>
             </div>
 
         )
@@ -143,7 +149,10 @@ PlotView.propTypes = {
     onShowContributionsDetails: PropTypes.func,
     onSetGroups               : PropTypes.func,
     hiddenGroups              : PropTypes.array,
-    onHideGroup               : PropTypes.func
+    onHideGroup               : PropTypes.func,
+    showConnectionDetails     : PropTypes.bool,
+    connectionData            : PropTypes.object,
+    onSetConnectionDetails    : PropTypes.func,
 };
 
 PlotView.defaultProps = {
@@ -155,7 +164,10 @@ PlotView.defaultProps = {
     onShowContributionsDetails: () => {},
     onSetGroups               : () => {},
     hiddenGroups              : [],
-    onHideGroup               : () => {}
+    onHideGroup               : () => {},
+    showConnectionDetails     : false,
+    connectionData            : {index:0},
+    onSetConnectionDetails    : () => {}
 };
 
 export default PlotView;
