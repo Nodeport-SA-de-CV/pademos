@@ -5,7 +5,6 @@ import NavBar from "../components/NavBar";
 import Sidebar from "../components/Sidebar";
 import Header from "../components/Header";
 import PlotView from "./plots/PlotView";
-import {parse} from "@fortawesome/fontawesome-svg-core";
 import API from "../lib/api/API";
 
 const _ = require('underscore');
@@ -47,7 +46,6 @@ class MainView extends React.Component{
     }
 
     onDocumentTypeChange(documentType){
-        console.log(documentType)
         this.setState({
             searchDocumentType:documentType
         }, () =>{
@@ -83,8 +81,6 @@ class MainView extends React.Component{
             }
         });
         keywordsArray = keywordsArray.map((k) => Object.keys(k)[0])
-        // topics (list)
-        // perspectives (list)
 
         this.setState({
             topics : topics,
