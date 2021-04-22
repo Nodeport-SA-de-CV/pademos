@@ -16,6 +16,7 @@ import ReactResizeDetector from "react-resize-detector";
 import ConnectionDetails from "../components/scientist/ConnectionDetails";
 import {withRouter} from "react-router-dom";
 import OverlaySquares from "../components/plots/OverlaySquares";
+import RecreatedScientistTreemap from "../components/scientist/RecreatedScientistTreemap";
 
 const _ = require('underscore');
 
@@ -197,6 +198,8 @@ class ScientistView extends React.Component {
                             topicIndex={this.state.selectedIndex}
                             level={this.state.level}
                             onClickTile={(tile) => this.onClickTile(tile)}
+                            filterLinks={this.state.filterLinks}
+                            filterFinancing={this.state.filterFinancing}
                         />
                     </MapWrapper>
                 )

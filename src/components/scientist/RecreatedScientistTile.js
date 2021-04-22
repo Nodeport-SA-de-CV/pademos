@@ -34,7 +34,7 @@ class RecreatedScientistTile extends React.Component {
     render(){
         let background = this.props.tileData.isDisabled ? 'gray' : this.props.color;
 
-        if(this.props.level === 'scientist' || this.props.level === 'perspective'){
+        if(this.props.level === 'scientist' || this.props.level === 'theme'){
             if(this.props.filterLinks){
                 let parentHasLinks = !! this.props.tileData.links;
                 // let childrenHasLinks = topic.children.map((child) => !!child.links).includes(true);
