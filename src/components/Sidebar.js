@@ -127,7 +127,11 @@ class Sidebar extends React.Component{
                         {/*/render topic details*/}
                         <NPElse>
                             <TopicDetails topic={this.state.topicSelected}
-                                          onClickHide={() => this.hideTopicDetails()}/>
+                                          onClickHide={() => this.hideTopicDetails()}
+                                          onSetConnectionDetails={(data) => {
+                                              this.props.onSetConnectionDetails(true,data)
+                                          }}
+                            />
                         </NPElse>
                     </NPIf>
                 </div>
