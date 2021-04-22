@@ -200,7 +200,6 @@ class TreeMap extends React.Component {
         const _this = this;
         // w = 500;
         // h = 500;
-        console.log(w,h)
         this.setState({
             w,
             h,

@@ -20,6 +20,23 @@ class GroupList extends React.Component {
 
     componentDidMount() {
         this.loadData();
+        window.addEventListener('perspectivesChanged', (ev) => {
+            const groups = ev.detail;
+
+            // unselect all
+            this.props.onSelectedItems([])
+            this.setState({selectedItems: []})
+            // select matching items
+            // groups.forEach((group) =>{
+            let _groups = groups.map((group) => {
+                return this.state.data.find((g) => {
+                    return g.name === group
+                })
+            })
+
+            this.props.onSelectedItems(_groups)
+            this.setState({selectedItems: _groups})
+        })
     }
 
     loadData() {
@@ -49,17 +66,19 @@ class GroupList extends React.Component {
             </div>
         )
     }
-    isSelected(group){
+
+    isSelected(group) {
         let selectedItems = this.state.selectedItems;
-        const found = selectedItems.find((g) => {
+        const found       = selectedItems.find((g) => {
             return g.name === group.name
         });
 
         return found;
     }
+
     onItemClick(group) {
         let selectedItems = this.state.selectedItems;
-        const found = selectedItems.find((g) => {
+        const found       = selectedItems.find((g) => {
             return g.name === group.name
         });
 
@@ -85,7 +104,7 @@ GroupList.propTypes = {
 GroupList.defaultProps = {
     onLoadedGroups: () => {
     },
-    onSelectedItems: () =>{
+    onSelectedItems: () => {
 
     }
 

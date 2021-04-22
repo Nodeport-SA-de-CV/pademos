@@ -28,7 +28,6 @@ class NavBar extends React.Component{
     }
     onChange(event){
         const val = event.target.value;
-        console.log(val)
         if(val === 'Wissenschaftler'){
             this.props.history.push('/scientist');
         }else{

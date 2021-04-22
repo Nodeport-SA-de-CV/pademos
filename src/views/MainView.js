@@ -47,7 +47,6 @@ class MainView extends React.Component{
     }
 
     onDocumentTypeChange(documentType){
-        console.log(documentType)
         this.setState({
             searchDocumentType:documentType
         }, () =>{

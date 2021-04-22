@@ -14,7 +14,6 @@ class Topic extends React.Component {
     }
 
     onClickHelp() {
-        console.log('help clicked');
     }
 
     hideGroups(contributions) {

@@ -40,7 +40,6 @@ class ConnectionForm extends React.Component{
     }
 
     onClickHelp(){
-        console.log('help clicked');
     }
     validatedContributions() {
         const contributions = this.props.selectedContributions;
