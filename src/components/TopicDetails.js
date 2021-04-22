@@ -35,7 +35,12 @@ class TopicDetails extends React.Component{
         }).then((result) => {
             /* Read more about isConfirmed, isDenied below */
             if (result.isConfirmed) {
-                this.props.history.push('/scientist');
+                this.props.history.push({
+                    pathname:'/scientist',
+                    state:{
+                        topic:this.props.topic
+                    }
+                });
             }
         });
     }

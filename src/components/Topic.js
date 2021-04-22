@@ -22,7 +22,6 @@ class Topic extends React.Component {
             return c.topic_label
         });
         groups     = _.uniq(groups);
-        debugger;
         this.props.onHideGroup(groups);
         this.props.onClick()
     }
