@@ -102,9 +102,21 @@ class ScientistView extends React.Component {
     onClickTile(tile){
         // const children = tile.tileData.children;
         // const contributions = tile.d.data.contributions;
+        const parentData = tile.d.parent.data;
+        const pdata = tile.d.data;
+        //override icon and color
+        pdata.data.icon = parentData.data.icon;
+        pdata.data.color = parentData.data.color;
+
+        // pdata.contributions = pdata.data.contributions.map((c) =>{
+        //     debugger;
+        //     c.icons.push(pdata.data.icon)
+        //     c.icons = _.uniq(c.icons);
+        //     return c
+        // })
         this.setState({
             level:'perspective',
-            perspectiveData:tile.d.data,
+            perspectiveData:pdata,
             selectedTheme:{
                 topic:tile.d.data.group
             },
