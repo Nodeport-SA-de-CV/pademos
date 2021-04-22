@@ -6,7 +6,7 @@ import NavDropdown from "react-bootstrap/cjs/NavDropdown";
 import Form from "react-bootstrap/Form";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {AuthContext} from "../lib/AuthContext";
-import {Link} from "react-router-dom";
+import {Link, withRouter} from "react-router-dom";
 
 
 
@@ -17,15 +17,25 @@ class NavBar extends React.Component{
             enabledWissenschaftler: false,
         }
         this.onClickHelp = this.onClickHelp.bind(this);
+        this.onChange = this.onChange.bind(this);
+
     }
 
     static contextType = AuthContext;
 
 
     onClickHelp(){
-        console.log('help clicked');
     }
+    onChange(event){
+        const val = event.target.value;
+        console.log(val)
+        if(val === 'Wissenschaftler'){
+            this.props.history.push('/scientist');
+        }else{
+            this.props.history.push('/');
 
+        }
+    }
     render(){
         return(
             <Navbar bg="dark" variant="dark" expand="lg">
@@ -34,10 +44,12 @@ class NavBar extends React.Component{
                 <Navbar.Toggle aria-controls="basic-navbar-nav" />
                 <Navbar.Collapse id="basic-navbar-nav" className="justify-content-end">
                     <Form inline className={'mr-auto ml-auto'}>
-                        <Form.Control as="select" custom id="custom-select" disabled>
+                        <Form.Control as="select" custom id="custom-select"
+                                      onChange={(event => this.onChange(event))}
+                                      value={this.props.pickerValue}
+                        >
                             <option value={'bürger'}>Bürger:innen</option>
                             <option value={'Wissenschaftler'}>Wissenschaftler:innen</option>
-                            <option value={'journalist'}>Journalist:innen</option>
                         </Form.Control>
                     </Form>
                     <Nav>
@@ -53,13 +65,13 @@ class NavBar extends React.Component{
         )
     }
 }
-
-export default NavBar;
+export default withRouter (NavBar);
 
 NavBar.propTypes = {
-
+    pickerValue:PropTypes.string
 };
 
 NavBar.defaultProps = {
+    pickerValue:'bürger'
 
 };
