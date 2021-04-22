@@ -35,6 +35,8 @@ class RecreatedScientistTreemap extends React.Component {
                                         index={index}
                                         isSelected={isSelected}
                                         borderColor={borderColor}
+                                        filterLinks={this.props.filterLinks}
+                                        filterFinancing={this.props.filterFinancing}
                 />
             )
         })
@@ -45,7 +47,9 @@ RecreatedScientistTreemap.propTypes = {
     data: PropTypes.array,
     onClickTile: PropTypes.func,
     level: PropTypes.string,
-    selectedGroups: PropTypes.array
+    selectedGroups: PropTypes.array,
+    filterLinks:PropTypes.bool,
+    filterFinancing:PropTypes.bool
 };
 
 RecreatedScientistTreemap.defaultProps = {
@@ -53,7 +57,9 @@ RecreatedScientistTreemap.defaultProps = {
     onClickTile: () => {
     },
     level: '',
-    selectedGroups: []
+    selectedGroups: [],
+    filterLinks:false,
+    filterFinancing:false
 
 };
 export default RecreatedScientistTreemap;

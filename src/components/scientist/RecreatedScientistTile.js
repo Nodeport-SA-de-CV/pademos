@@ -32,12 +32,29 @@ class RecreatedScientistTile extends React.Component {
     }
 
     render(){
+        let background = this.props.tileData.isDisabled ? 'gray' : this.props.color;
+
+        if(this.props.level === 'scientist' || this.props.level === 'theme'){
+            if(this.props.filterLinks){
+                let parentHasLinks = !! this.props.tileData.links;
+                // let childrenHasLinks = topic.children.map((child) => !!child.links).includes(true);
+                background = parentHasLinks ? background :'gray'
+            }
+            if(this.props.filterFinancing){
+                let parentHasFinancing = !! this.props.tileData.proposed_topics;
+                // let childrenHasFinancing = topic.children.map((child) => !!child.proposed_topics).includes(true);
+                background = parentHasFinancing ? background :'gray'
+            }
+        }
+
+
+
         const styleTile = {
             width:this.props.width - 2, //padding to show the gutter
             height:this.props.height -2,
             left: this.props.left + 1,
             top:this.props.top + 1 ,
-            backgroundColor: this.props.tileData.isDisabled ? 'gray' : this.props.color,
+            backgroundColor: background,
             border:  this.props.isSelected ? `10px solid ${this.props.borderColor}` : '',
             boxShadow: '',
             color: this.props.tileData.isDisabled ? 'rgb(66, 66, 66)' : 'white'
@@ -65,7 +82,9 @@ RecreatedScientistTile.propTypes = {
     heightTreemap: PropTypes.number,
     onClickTile: PropTypes.func,
     index: PropTypes.number,
-    borderColor:PropTypes.string
+    borderColor:PropTypes.string,
+    filterLinks:PropTypes.bool,
+    filterFinancing:PropTypes.bool
 };
 
 RecreatedScientistTile.defaultProps = {
@@ -78,7 +97,9 @@ RecreatedScientistTile.defaultProps = {
     selectedTopic: {},
     onClickTile: () => {},
     index: 0,
-    borderColor:''
+    borderColor:'',
+    filterLinks:false,
+    filterFinancing:false
 };
 export default RecreatedScientistTile;
 
