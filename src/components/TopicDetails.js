@@ -57,18 +57,19 @@ class TopicDetails extends React.Component{
                     </NPIf>
                 </div>
                 <div className={'mt-2 mb-2'}>Beispielverbindungen, die Wissenschaftler:innen angelegt haben</div>
-                {
-                    list.map((perspective,index) =>{
-                        return (
-                            <div className={'perspective mb-2'} key={index}>
-                                <div>{perspective.perspective} --> Verbindung { index + 1 }</div>
-                                <div className={'perspective-ex mt-1 mb-1'}>{perspective.connection_explanation}</div>
-                                <div className={'btn btn-tiny'} onClick={() => this.confirmSwal()}>alles anzeigen</div>
-                            </div>
-                        )
-                    })
-                }
-
+                <div className={'perspective-wrapper mb-2'}>
+                    {
+                        list.map((perspective,index) =>{
+                            return (
+                                <div className={'perspective mb-2'} key={index}>
+                                    <div>Verbindung { index + 1 }, Perspektive:<br/>{perspective.perspective}</div>
+                                    <div className={'perspective-ex mt-2 mb-1'}>{perspective.connection_explanation}</div>
+                                    <div className={'btn btn-tiny'} onClick={() => this.confirmSwal()}>alles anzeigen</div>
+                                </div>
+                            )
+                        })
+                    }
+                </div>
                 <div className={'mt-auto'}>Sie können weitere Verbindungen in der Ansicht für Wissenschaftler*innen sehen oder hier eine neue Verbindung anlegen..</div>
             </div>
         )

@@ -115,8 +115,7 @@ class RecreatedTile extends React.Component {
                  onClick={(c) => this.onClickShowDetails(contribution)}>
                 <div className={'rt-header'}>
                     <UISelector isSelected={this.props.isSelected}
-                                onClick={(isSelected,e) => {
-                                    // e.stopPropagation();
+                                onClick={(isSelected) => {
                                     this.calcRtContentHeight();
                                     this.props.onContributionSelected(contribution);
                                 }} />

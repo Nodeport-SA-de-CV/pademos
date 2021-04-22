@@ -193,21 +193,20 @@ class ConnectionForm extends React.Component{
 
                     <NPInput wrapperClass={'mt-2'}
                              type={'text-area'}
-                             label={'4. Erklären Sie die Verbindung der gewählten Bürgerbeiträge zum Forschungsthema oder beantworten Sie die Bürgerfrage(n) (*) '}
-                             placeholder={'Der Beitrag ergänzt das Thema X, weil ... '}
+                             label={'4. Erklären Sie den Bürger:innen die Verbindung der ausgewählten Beiträge zum Forschungsthema oder beantworten Sie die Bürgerfrage(n) (*)'}
                              id={'explanation'}
                              onChange={(e) => this.onChange(e)}
                              value={this.state.explanation}/>
                     <NPInput wrapperClass={'mt-2'}
                              type={'text-area'}
-                             label={'5. Fügen Sie Links zu wissenschaftlichen Quellen hinzu:'}
-                             placeholder={'Forschung zu KI (www.researchgate.net/789890) '}
+                             label={'Welche fachspezifischen Informationen möchten Sie anderen Wissenschaftler:innen zu dieser Verbindung mitgeben?'}
+                             placeholder={'Diese Perspektive wird beleuchtet im Paper von ...'}
                              id={'links'}
                              onChange={(e) => this.onChange(e)}
                              value={this.state.links}/>
                     <NPInput wrapperClass={'mt-2'}
                              type={'text-area'}
-                             label={'6. Möchten Sie dem Bundesministerium für Bildung und Forschung einen neuen Förderschwerpunkt vorschlagen?'}
+                             label={'6. Skizzieren Sie einen neuen Förderschwerpunkt für das Bundesministerium für Bildung und Forschung:'}
                              placeholder={'Der Förderschwerpunkt könnte sein... '}
                              id={'proposeTopics'}
                              onChange={(e) => this.onChange(e)}

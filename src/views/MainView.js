@@ -25,6 +25,7 @@ class MainView extends React.Component{
             searchBoxValue:'',
             groupsOptions:[],
             hiddenGroups:[],
+            showConnectionForm:false
         }
         this.onKeyWordChange            = this.onKeyWordChange.bind(this);
         this.onSearchBoxChange          = this.onSearchBoxChange.bind(this);
@@ -172,6 +173,7 @@ class MainView extends React.Component{
                                       searchDocumentType={this.state.searchDocumentType}
                                       selectedContributions={this.state.selectedContributions}
                                       onContributionSelected={(contribution) =>{
+                                          this.setState({showConnectionForm:true});
                                           this.onContributionSelected(contribution)
                                       }}
                                       onShowContributionsDetails={(show) => this.setState({isActionsDisabled:show})}
@@ -187,6 +189,9 @@ class MainView extends React.Component{
                                  perspectivesList={this.state.perspectivesList}
                                  onRemoveContribution={(c) => this.onRemoveContribution(c)}
                                  onHideGroup={(h) => this.setState({hiddenGroups: h})}
+                                 setOpenConnectionForm={(open) => this.setState({showConnectionForm:open}) }
+                                 showConnectionForm={this.state.showConnectionForm}
+                                 onCancelForm={() => this.setState({selectedContributions:[]})}
                         />
                     </div>
                 </div>
@@ -198,6 +203,7 @@ class MainView extends React.Component{
         this.loadSideBarLists();
         this.plotView.loadData();
         this.setState({
+            showConnectionForm:false,
             selectedContributions:[]
         })
 
