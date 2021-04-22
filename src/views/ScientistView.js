@@ -240,7 +240,7 @@ class ScientistView extends React.Component {
         return (
             <NPIf condition={this.context.isLoggedIn}>
                 <div className={'h-100'}>
-                    <NavBar/>
+                    <NavBar pickerValue={'Wissenschaftler'}/>
                     <div className={'wrapper-content'}>
                         <div className={'content'}>
                             <Header title={'Forschungsthemen'}
