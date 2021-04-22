@@ -178,7 +178,7 @@ class MainView extends React.Component{
                                       onSetGroups={(g) => this.setGroupsOptions(g)}
                                       hiddenGroups={this.state.hiddenGroups}
                                       onHideGroup={(h) => this.setState({hiddenGroups:h})}
-                                      showConnectionDetails={() => this.state.showConnectionDetails}
+                                      showConnectionDetails={this.state.showConnectionDetails}
                                       onSetConnectionDetails={(open,data) => this.setState(
                                           {showConnectionDetails: open,connectionData:data})}
                                       connectionData={this.state.connectionData}
@@ -196,7 +196,6 @@ class MainView extends React.Component{
                                  showConnectionForm={this.state.showConnectionForm}
                                  onCancelForm={() => this.setState({selectedContributions:[]})}
                                  onSetConnectionDetails={(open,data) => {
-                                     debugger;
                                      this.setState(
                                          {showConnectionDetails: open, connectionData: data})
                                  }

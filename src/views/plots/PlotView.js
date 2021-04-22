@@ -28,9 +28,6 @@ class PlotView extends React.Component {
         }
     }
 
-    componentDidMount() {
-    }
-
     search(value) {
         this.treeMap.search(value);
     }
@@ -129,8 +126,13 @@ class PlotView extends React.Component {
                     />
                 </NPIf>
                 <NPIf condition={this.props.showConnectionDetails}>
-                    <ConnectionDetails w={this.state.w} h={this.state.h} className={'citizen'}
-                                       connection={this.props.connectionData}/>
+                    <ConnectionDetails w={this.state.w}
+                                       h={this.state.h}
+                                       className={'citizen'}
+                                       connection={this.props.connectionData}
+                                       onClickClose={() => this.props.onSetConnectionDetails(false,{})}
+                                       index={this.props.connectionData.index}
+                    />
                 </NPIf>
             </div>
 
@@ -149,7 +151,8 @@ PlotView.propTypes = {
     hiddenGroups              : PropTypes.array,
     onHideGroup               : PropTypes.func,
     showConnectionDetails     : PropTypes.bool,
-    connectionData            : PropTypes.object
+    connectionData            : PropTypes.object,
+    onSetConnectionDetails    : PropTypes.func,
 };
 
 PlotView.defaultProps = {
@@ -163,7 +166,8 @@ PlotView.defaultProps = {
     hiddenGroups              : [],
     onHideGroup               : () => {},
     showConnectionDetails     : false,
-    connectionData            : {}
+    connectionData            : {index:0},
+    onSetConnectionDetails    : () => {}
 };
 
 export default PlotView;

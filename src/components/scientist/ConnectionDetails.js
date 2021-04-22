@@ -11,7 +11,7 @@ class ConnectionDetails extends React.Component {
         const bgColor = this.props.connection.color ? this.props.connection.color : '#1A87D7';
         const w = this.props.w !== 0 ? this.props.w : 'auto';
         const h = this.props.h !== 0 ? this.props.h : 'auto';
-
+        debugger;
 
         return (
             <div className={`connection-details ${this.props.className}`}

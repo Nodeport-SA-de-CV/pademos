@@ -27,14 +27,16 @@ class TopicDetails extends React.Component{
                 <div className={'perspective-wrapper mb-2'}>
                     {
                         list.map((perspective,index) =>{
+                            perspective.index = index;
+                            perspective.color = topic.color;
+                            perspective.icon = topic.icon;
                             return (
                                 <div className={'perspective mb-2'} key={index}>
                                     <div>Verbindung { index + 1 }, Perspektive:<br/>{perspective.perspective}</div>
                                     <div className={'perspective-ex mt-2 mb-1'}>{perspective.connection_explanation}</div>
                                     <div className={'btn btn-tiny'}
                                          onClick={() => {
-                                             // debugger;
-                                             this.props.onSetConnectionDetails(topic)
+                                             this.props.onSetConnectionDetails(perspective)
                                          }}>alles anzeigen</div>
                                 </div>
                             )
