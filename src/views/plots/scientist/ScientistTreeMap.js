@@ -315,7 +315,9 @@ class ScientistTreeMap extends React.Component {
                 <RecreatedScientistTreemap data={this.state.leafsArray}
                                            widthTreemap={this.props.w}
                                            heightTreemap={this.props.h}
-                                           onClickTile={(tile) => this.props.onClickTile(tile)}
+                                           onClickTile={(tile,index) => {
+                                               this.props.onClickTile(tile,index)
+                                           }}
                                            level={this.props.level}
                                            selectedGroups={this.props.selectedGroups}
 

@@ -112,6 +112,14 @@ class ScientistView extends React.Component {
     }
 
     onClickTile(tile){
+        // Load Theme level as well
+        const selectedIndex = this.state.topics.findIndex((t) => t.topic === tile.d.data.group);
+        this.setState({
+            selectedIndex:selectedIndex,
+            selectedTheme:this.state.topics[selectedIndex]
+        })
+        debugger;
+
         // const children = tile.tileData.children;
         // const contributions = tile.d.data.contributions;
         const parentData = tile.d.parent.data;
@@ -139,27 +147,29 @@ class ScientistView extends React.Component {
         })
     }
 
-    onClickContributionTile(tile){
+    onClickContributionTile(tile,index){
         const contributionId = tile.d.data.data._id;
-
         API.findConnections(contributionId).then((r) =>{
             if(r.success){
                 this.setState({
-                    connections:r.connections
+                    connections:r.connections,
+
                 })
             }
         })
         this.setState({
             level:'contribution',
-            contributionData:tile.d.data.data
+            contributionData:tile.d.data.data,
+            contributionIndex:index +1
         })
     }
 
-    onClickConnectionTile(tile){
-        // debugger;
+    onClickConnectionTile(tile,index){
         this.setState({
             level:'connection',
-            connectionData:tile.d.data.data
+            connectionData:tile.d.data.data,
+            connectionIndex:index +1
+
         })
     }
 
@@ -171,14 +181,17 @@ class ScientistView extends React.Component {
                                          level={this.state.level}
                                          onHideGroup={(h) => this.setState({hiddenGroups:h})}
                                          onClickZoom={(i) => this.onClickZoom(i)}
-                                         onClickTile={(tile) => this.onClickTile(tile)}
+                                         onClickTile={(tile,index) => this.onClickTile(tile,index)}
                                          selectedGroups={this.state.selectedGroups}
                 />
                 break;
             case "theme":
                 const topic = this.state.topics.length > 0 ? this.state.topics[this.state.selectedIndex] : {color:'transparent'};
                 return (
-                    <MapWrapper data={topic}  level={this.state.level} color={topic.color} onClickClose={(c) => this.onClickClosed()}>
+                    <MapWrapper data={topic}  level={this.state.level} color={topic.color}
+                                onClickClose={(c) => {
+                                    this.setState({'level':'scientist'})
+                                }}>
                         <ScientistTreeMap
                             data={this.state.topics}
                             topicIndex={this.state.selectedIndex}
@@ -190,12 +203,16 @@ class ScientistView extends React.Component {
                 break;
             case "perspective":
                 return (
-                    <MapWrapper data={this.state.perspectiveData}  level={this.state.level} color={this.state.perspectiveData.data.color} onClickClose={(c) => this.onClickClosed()}>
+                    <MapWrapper data={this.state.perspectiveData}  level={this.state.level}
+                                color={this.state.perspectiveData.data.color}
+                                onClickClose={(c) => {
+                                    this.setState({'level':'theme'})
+                                }}>
                         <ScientistTreeMap
                             data={this.state.perspectiveData}
                             topicIndex={this.state.selectedIndex}
                             level={this.state.level}
-                            onClickTile={(tile) => this.onClickContributionTile(tile)}
+                            onClickTile={(tile,index) => this.onClickContributionTile(tile,index)}
                         />
                     </MapWrapper>
                 )
@@ -206,7 +223,9 @@ class ScientistView extends React.Component {
                         <MapWrapper data={this.state.contributionData}
                                     level={this.state.level}
                                     color={this.state.contributionData.color}
-                                    onClickClose={(c) => this.onClickClosed()}
+                                    onClickClose={(c) => {
+                                        this.setState({'level':'perspective'})
+                                    }}
                                     onClickNavigation={() => {
                                         this.setState({showContributionsDetails: true})
                                     }}
@@ -215,7 +234,7 @@ class ScientistView extends React.Component {
                                 data={this.state.connections}
                                 topicIndex={this.state.selectedIndex}
                                 level={this.state.level}
-                                onClickTile={(tile) => this.onClickConnectionTile(tile)}
+                                onClickTile={(tile,index) => this.onClickConnectionTile(tile,index)}
                             />
                         </MapWrapper>
                         <NPElse>
@@ -293,6 +312,15 @@ class ScientistView extends React.Component {
                             <div className={'d-flex mb-auto'}></div>
                             <BreadCrumbs level={this.state.level}
                                          onScientistClicked={() => this.setState({'level':'scientist'})}
+                                         onThemeClicked={() => this.setState({'level':'theme'})}
+                                         onPerspectiveClicked={() => {
+                                             this.setState({'level':'perspective'})
+                                         }}
+                                         onContributionClicked={() =>{
+                                             this.setState({'level':'contribution'})
+                                         }}
+                                         contributionIndex={this.state.contributionIndex}
+                                         connectionIndex={this.state.connectionIndex}
                                          theme={this.state.selectedTheme} perspective={this.state.selectedPerspective}
                             > </BreadCrumbs>
                             {this.renderContent()}
