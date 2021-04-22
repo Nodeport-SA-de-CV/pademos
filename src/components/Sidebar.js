@@ -69,6 +69,13 @@ class Sidebar extends React.Component{
         this.props.onFormSaved();
     }
 
+    onChange(e){
+        const value = e.target.value;
+        if(value !== ''){
+            window.open(value,"_blank");
+        }
+    }
+
     render(){
         return(
             <NPIf condition={!this.props.showConnectionForm}>
@@ -109,7 +116,14 @@ class Sidebar extends React.Component{
                                         type="checkbox"
                                         label="Alle angelegten Verbindungen von Bürgerbeiträgen zu Forschungsthemen anzeigen" />
                         </Form>
-
+                        <div className={'sidebar-journalist-section'}>
+                            <label>Erlärungen der Journalist:innen</label>
+                            <select style={{width:'100%'}} onChange={(e) => this.onChange(e)}>
+                                <option value={''}> </option>
+                                <option value={'https://tiny.url/123'}>Max Mustermanns Tour durch die Karte</option>
+                                <option value={'https://tiny.url/456'}>Hans Herbert erklärt die Wissenskarte</option>
+                            </select>
+                        </div>
                         {/*/render topic details*/}
                         <NPElse>
                             <TopicDetails topic={this.state.topicSelected}
