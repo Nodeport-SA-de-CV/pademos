@@ -317,6 +317,7 @@ class ScientistTreeMap extends React.Component {
                                            heightTreemap={this.props.h}
                                            onClickTile={(tile) => this.props.onClickTile(tile)}
                                            level={this.props.level}
+                                           selectedGroups={this.props.selectedGroups}
 
                 />
                 <NPIf condition={this.props.isLoading}>
