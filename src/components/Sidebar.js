@@ -9,13 +9,11 @@ import ConnectionForm from "./ConnectionForm";
 import TopicDetails from "./TopicDetails";
 import API from "../lib/api/API";
 
-const topic = {id:'div',title:'Diversity',icon: 'arrow-up',color:'burgundy'};
 
 class Sidebar extends React.Component{
     constructor(props) {
         super(props);
         this.state = {
-            showConnectionForm:false,
             showTopicDetails:false,
             topicSelected:{
                 id:'',
@@ -64,14 +62,16 @@ class Sidebar extends React.Component{
             })
         })
     }
+
     onFormSaved(){
-        this.setState({showConnectionForm:false});
+        this.props.setOpenConnectionForm(false);
         this.loadTopics();
         this.props.onFormSaved();
     }
+
     render(){
         return(
-            <NPIf condition={!this.state.showConnectionForm}>
+            <NPIf condition={!this.props.showConnectionForm}>
                 <div className={'sidebar'}>
                     <h4>Forschungsthemen</h4>
                     <div style={{visibility:'hidden'}} className={'btn btn-tiny txt-right'}>Was können Sie hier tun? <FontAwesomeIcon icon={'caret-down'}/></div>
@@ -80,7 +80,7 @@ class Sidebar extends React.Component{
                         <div className={'sidebar-header-row'}>
                             <div>angelegte Verbindungen</div>
                             <div className={'sidebar-icon-link'}
-                                 onClick={() => this.setState({showConnectionForm:true})}>
+                                 onClick={() => this.props.setOpenConnectionForm(true)}>
                                 <FontAwesomeIcon icon={'link'}/>
                             </div>
                         </div>
@@ -119,7 +119,10 @@ class Sidebar extends React.Component{
                 </div>
                 <NPElse>
                     <ConnectionForm  onFormSaved={() => this.onFormSaved()}
-                                     onCancel={() => this.setState({showConnectionForm:false})}
+                                     onCancel={() => {
+                                         this.props.onCancelForm();
+                                         this.props.setOpenConnectionForm(false)
+                                     }}
                                      selectedContributions={this.props.selectedContributions}
                                      topicsList={this.props.topicsList}
                                      perspectivesList={this.props.perspectivesList}
@@ -139,7 +142,10 @@ Sidebar.propTypes = {
     onTopicSelected       : PropTypes.func,
     onFormSaved           : PropTypes.func,
     onRemoveContribution  : PropTypes.func,
-    onHideGroup           : PropTypes.func
+    onHideGroup           : PropTypes.func,
+    showConnectionForm    : PropTypes.bool,
+    setOpenConnectionForm : PropTypes.func,
+    onCancelForm          : PropTypes.func
 };
 
 Sidebar.defaultProps = {
@@ -147,6 +153,9 @@ Sidebar.defaultProps = {
     onTopicSelected       : () => {},
     onFormSaved           : () => {},
     onRemoveContribution  : () => {},
-    onHideGroup           : () => {}
+    onHideGroup           : () => {},
+    showConnectionForm    : false,
+    setOpenConnectionForm : () => {},
+    onCancelForm          : () => {}
 
 };
