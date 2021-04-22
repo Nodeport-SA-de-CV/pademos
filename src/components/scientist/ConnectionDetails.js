@@ -26,13 +26,16 @@ class ConnectionDetails extends React.Component {
                 <div className={'cd-content'}>
                     <UIQuestion question={'Erklärung der Verbindung des Beitrags zum Forschungsthema' }
                                 answer={this.props.connection.connection_explanation}
-                                className={'mb-4'}/>
+                                cleanQuestion={false}
+                                className={'answer-white mb-4'}/>
                     <UIQuestion question={'Links zu bestehenden Forschungsarbeiten zum Thema'}
                                 answer={this.props.connection.links}
-                                className={'mb-4'}/>
+                                cleanQuestion={false}
+                                className={'answer-white mb-4'}/>
                     <UIQuestion question={'Vorschläge für Fördermöglichkeiten'}
                                 answer={this.props.connection.proposed_topics}
-                                className={'mb-4'}/>
+                                cleanQuestion={false}
+                                className={'answer-white mb-4'}/>
                 </div>
             </div>
         )
