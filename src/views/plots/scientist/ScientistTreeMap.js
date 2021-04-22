@@ -322,6 +322,8 @@ class ScientistTreeMap extends React.Component {
                                            }}
                                            level={this.props.level}
                                            selectedGroups={this.props.selectedGroups}
+                                           filterLinks={this.props.filterLinks}
+                                           filterFinancing={this.props.filterFinancing}
 
                 />
                 <NPIf condition={this.props.isLoading}>
