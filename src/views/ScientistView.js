@@ -14,6 +14,7 @@ import ContributionDetails from "../components/plots/ContributionDetails";
 import NPElse from "np-if/src/NPElse";
 import ReactResizeDetector from "react-resize-detector";
 import ConnectionDetails from "../components/scientist/ConnectionDetails";
+import {withRouter} from "react-router-dom";
 
 const _ = require('underscore');
 
@@ -45,6 +46,17 @@ class ScientistView extends React.Component {
     }
 
     componentDidMount() {
+        const location = this.props.location;
+        if(location.state){
+            if(location.state.topic){
+                const topic = location.state.topic;
+                debugger;
+                this.setState({
+                    connectionData:topic,
+                    level:'connection'
+                })
+            }
+        }
         API.getTopics().then((topics) =>{
             this.setGroupsOptions(topics.topics);
             this.setState({
@@ -225,7 +237,13 @@ class ScientistView extends React.Component {
             case "connection":
                 return (
                     <div className={'h-100 d-flex'}>
-                        <ConnectionDetails connection={this.state.connectionData} onClickClose={() =>this.setState({level:'contribution'})}/>
+                        <ConnectionDetails connection={this.state.connectionData} onClickClose={() =>{
+                            if(this.state.contributionData){
+                                this.setState({level:'contribution'})
+                            }else{
+                                this.setState({level:'scientist'})
+                            }
+                        }}/>
                     </div>
                 )
                 break;
@@ -312,5 +330,4 @@ class ScientistView extends React.Component {
     }
 
 }
-
-export default ScientistView;
+export default withRouter (ScientistView);

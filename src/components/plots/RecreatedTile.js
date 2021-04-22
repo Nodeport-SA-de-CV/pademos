@@ -88,7 +88,6 @@ class RecreatedTile extends React.Component {
             if(conversationThreadIds.includes(this.props.contribution.conversation_thread_id)){
                 showConnections = true;
             }
-        debugger;
         }
         const styleTile = {
             width:this.props.width,
