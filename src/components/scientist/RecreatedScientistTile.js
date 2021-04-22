@@ -38,7 +38,7 @@ class RecreatedScientistTile extends React.Component {
             left: this.props.left + 1,
             top:this.props.top + 1 ,
             backgroundColor: this.props.tileData.isDisabled ? 'gray' : this.props.color,
-            border:  '',
+            border:  this.props.isSelected ? `10px solid ${this.props.borderColor}` : '',
             boxShadow: '',
             color: this.props.tileData.isDisabled ? 'rgb(66, 66, 66)' : 'white'
         }
@@ -64,7 +64,8 @@ RecreatedScientistTile.propTypes = {
     widthTreemap: PropTypes.number,
     heightTreemap: PropTypes.number,
     onClickTile: PropTypes.func,
-    index: PropTypes.number
+    index: PropTypes.number,
+    borderColor:PropTypes.string
 };
 
 RecreatedScientistTile.defaultProps = {
@@ -76,7 +77,8 @@ RecreatedScientistTile.defaultProps = {
     isSelected: false,
     selectedTopic: {},
     onClickTile: () => {},
-    index: 0
+    index: 0,
+    borderColor:''
 };
 export default RecreatedScientistTile;
 
