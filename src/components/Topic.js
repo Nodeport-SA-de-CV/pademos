@@ -35,8 +35,6 @@ class Topic extends React.Component {
                      let childrenContributions = this.props.topic.children.map((c) => c.contributions);
                      childrenContributions = [].concat.apply([],childrenContributions);
                      const groups = contributions.concat(childrenContributions);
-                     debugger;
-
                      this.hideGroups(groups)
                  }}>
                 {this.props.title}
