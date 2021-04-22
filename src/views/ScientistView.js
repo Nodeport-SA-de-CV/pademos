@@ -15,6 +15,7 @@ import NPElse from "np-if/src/NPElse";
 import ReactResizeDetector from "react-resize-detector";
 import ConnectionDetails from "../components/scientist/ConnectionDetails";
 import {withRouter} from "react-router-dom";
+import OverlaySquares from "../components/plots/OverlaySquares";
 
 const _ = require('underscore');
 
@@ -37,7 +38,9 @@ class ScientistView extends React.Component {
             showContributionsDetails: false,
             w: null,
             h: null,
-            connectionData: null
+            connectionData: null,
+            filterLinks:false,
+            filterFinancing:false
         }
 
         this.setGroupsOptions = this.setGroupsOptions.bind(this);
@@ -178,6 +181,8 @@ class ScientistView extends React.Component {
                                          onClickZoom={(i) => this.onClickZoom(i)}
                                          onClickTile={(tile, index) => this.onClickTile(tile, index)}
                                          selectedGroups={this.state.selectedGroups}
+                                         filterLinks={this.state.filterLinks}
+                                         filterFinancing={this.state.filterFinancing}
                 />
                 break;
             case "theme":
@@ -326,12 +331,18 @@ class ScientistView extends React.Component {
                                     <Form.Check
                                         id="links"
                                         type="checkbox"
+                                        name={'filterLinks'}
+                                        value={this.state.filterLinks}
+                                        onChange={(ev) => this.onFilterChange(ev)}
                                         label="Links zu Forschungsressourcen"/>
                                 </Form>
                                 <Form>
                                     <Form.Check
                                         id="financing"
                                         type="checkbox"
+                                        name={'filterFinancing'}
+                                        value={this.state.filterFinancing}
+                                        onChange={(ev) => this.onFilterChange(ev)}
                                         label="Finanzierungsvorschläge enthalten"/>
                                 </Form>
                             </div>
@@ -354,6 +365,12 @@ class ScientistView extends React.Component {
         )
     }
 
+    onFilterChange(ev) {
+        this.setState({
+            [ev.target.name]:ev.target.checked
+        })
+
+    }
 }
 
 export default withRouter(ScientistView);

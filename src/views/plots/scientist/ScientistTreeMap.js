@@ -222,6 +222,7 @@ class ScientistTreeMap extends React.Component {
             }));
             let overlaySquares = [];
             Object.keys(groups).forEach((k) => {
+
                 overlaySquares.push({
                     color: groups[k][0].color,
                     name: groups[k][0].d.parent.data.name,
@@ -231,7 +232,8 @@ class ScientistTreeMap extends React.Component {
                     y1: groups[k][0].d.parent.y1,
                     perspectiveCount: groups[k].length,
                     icon: groups[k][0].d.data.data.icon,
-                    topic_labels:groups[k][0].d.data.data.topic_labels
+                    topic_labels:groups[k][0].d.data.data.topic_labels,
+                    topic:groups[k][0].d.data.data
                 });
             });
             this.setState({overlaySquares: overlaySquares});
@@ -348,6 +350,8 @@ class ScientistTreeMap extends React.Component {
                                                    gutterWidth ={3}
                                                    isSelected={isSelected}
                                                    borderColor={borderColor}
+                                                   filterLinks={this.props.filterLinks}
+                                                   filterFinancing={this.props.filterFinancing}
                             />
                         })
                     }
@@ -375,7 +379,9 @@ ScientistTreeMap.propTypes = {
     level: PropTypes.string,
     onClickZoom:PropTypes.func,
     onClickTile: PropTypes.func,
-    selectedGroups:PropTypes.array
+    selectedGroups:PropTypes.array,
+    filterLinks:PropTypes.bool,
+    filterFinancing:PropTypes.bool
 };
 
 ScientistTreeMap.defaultProps = {
@@ -393,7 +399,9 @@ ScientistTreeMap.defaultProps = {
     level: 'scientist',
     onClickZoom: () => {},
     onClickTile: () => {},
-    selectedGroups: []
+    selectedGroups: [],
+    filterLinks:false,
+    filterFinancing:false
 };
 
 export default ScientistTreeMap;

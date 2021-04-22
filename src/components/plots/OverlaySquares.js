@@ -9,7 +9,18 @@ class OverlaySquares extends React.Component {
     render(){
         const group = this.props.group;
         const hidden = this.props.hidden ? 'hidden' : '';
-        const background = this.props.group.disabled ? 'gray' : group.color;
+        let background = this.props.group.disabled ? 'gray' : group.color;
+        const topic = this.props.group.topic;
+        if(this.props.filterLinks){
+            let parentHasLinks = !! topic.links;
+            let childrenHasLinks = topic.children.map((child) => !!child.links).includes(true);
+            background = (parentHasLinks || childrenHasLinks) ? background :'gray'
+        }
+        if(this.props.filterFinancing){
+            let parentHasFinancing = !! topic.proposed_topics;
+            let childrenHasFinancing = topic.children.map((child) => !!child.proposed_topics).includes(true);
+            background = (parentHasFinancing || childrenHasFinancing) ? background :'gray'
+        }
         const color = this.props.group.disabled ? 'rgb(66, 66, 66)' : '';
         const colorFooter = this.props.group.disabled ? 'rgb(66, 66, 66)' : 'black';
         const isSelected = this.props.isSelected;
@@ -69,7 +80,10 @@ OverlaySquares.propTypes = {
     topic: PropTypes.object,
     gutterHeight: PropTypes.number,
     gutterWidth: PropTypes.number,
-    isSelected: PropTypes.bool
+    isSelected: PropTypes.bool,
+    filterLinks:PropTypes.bool,
+    filterFinancing:PropTypes.bool
+
 
 };
 
@@ -83,6 +97,8 @@ OverlaySquares.defaultProps = {
     topic:null,
     gutterHeight: 0,
     gutterWidth: 2,
-    isSelected: false
+    isSelected: false,
+    filterLinks:false,
+    filterFinancing:false
 };
 
