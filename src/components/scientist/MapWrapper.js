@@ -55,7 +55,7 @@ class MapWrapper extends React.Component {
             case 'contribution':
                 return(
                     <div className={'mw-header mb-3'}>
-                        <div>
+                        <div className={`${this.props.classNameHeaderTitle}`}>
                             <div className={'title'} onClick={() => this.props.onClickNavigation()}>
                                 Bürgerbeitrag: {data.document_title_response}
                             </div>
@@ -105,6 +105,7 @@ MapWrapper.propTypes = {
     onClickClose          : PropTypes.func,
     level                 : PropTypes.string,
     onClickNavigation     : PropTypes.func,
+    classNameHeaderTitle  : PropTypes.string
 };
 
 MapWrapper.defaultProps = {
@@ -112,5 +113,6 @@ MapWrapper.defaultProps = {
     color                 : '',
     onClickClose          : () => {},
     level                 : '',
-    onClickNavigation     : () => {}
+    onClickNavigation     : () => {},
+    classNameHeaderTitle  : ''
 };

@@ -1217,7 +1217,7 @@ search-box-wrapper{
     font-size: 0.75rem;
     cursor: pointer;
     padding: 0.5rem;
-    float: right;
+    align-self: flex-end;
     width: max-content;
 }
 /*--------------------------------------------------------------------------------------------------------------------*/
