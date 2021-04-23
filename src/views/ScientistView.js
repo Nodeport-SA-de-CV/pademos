@@ -232,6 +232,7 @@ class ScientistView extends React.Component {
                                     onClickNavigation={() => {
                                         this.setState({showContributionsDetails: true})
                                     }}
+                                    classNameHeaderTitle={'d-flex flex-column'}
                         >
                             <ScientistTreeMap
                                 data={this.state.connections}
