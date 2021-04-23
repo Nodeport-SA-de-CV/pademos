@@ -311,21 +311,24 @@ class ScientistView extends React.Component {
                                         />
                                     </div>
                                 </div>
+                                <NPElse>
+                                    <BreadCrumbs level={this.state.level}
+                                                 onScientistClicked={() => this.setState({'level': 'scientist'})}
+                                                 onThemeClicked={() => this.setState({'level': 'theme'})}
+                                                 onPerspectiveClicked={() => {
+                                                     this.setState({'level': 'perspective'})}}
+                                                 onContributionClicked={() => {
+                                                     this.setState({'level': 'contribution'})
+                                                 }}
+                                                 contributionIndex={this.state.contributionIndex}
+                                                 connectionIndex={this.state.connectionIndex}
+                                                 theme={this.state.selectedTheme}
+                                                 perspective={this.state.selectedPerspective}
+                                    />
+                                </NPElse>
                             </NPIf>
-                            <div className={'d-flex mb-auto'}></div>
-                            <BreadCrumbs level={this.state.level}
-                                         onScientistClicked={() => this.setState({'level': 'scientist'})}
-                                         onThemeClicked={() => this.setState({'level': 'theme'})}
-                                         onPerspectiveClicked={() => {
-                                             this.setState({'level': 'perspective'})
-                                         }}
-                                         onContributionClicked={() => {
-                                             this.setState({'level': 'contribution'})
-                                         }}
-                                         contributionIndex={this.state.contributionIndex}
-                                         connectionIndex={this.state.connectionIndex}
-                                         theme={this.state.selectedTheme} perspective={this.state.selectedPerspective}
-                            > </BreadCrumbs>
+
+
                             {this.renderContent()}
 
                             <div className={'header-row align-items-center pt-3 pb-3'} style={{fontSize: '0.8rem'}}>
