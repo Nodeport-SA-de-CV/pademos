@@ -32,7 +32,7 @@ class SidebarScientist extends React.Component{
                 <div className={'sidebar-header'}>
                     <h2>{this.state.groups.length}</h2>
                     <div className={'sidebar-header-row'}>
-                        <div>Eingereichte Beiträge</div>
+                        <div>verbundene Bürgerbeiträge</div>
                     </div>
                 </div>
 
