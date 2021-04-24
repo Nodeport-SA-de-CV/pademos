@@ -197,9 +197,6 @@ class ScientistTreeMap extends React.Component {
                 return d.y1 - d.y0;
             })
             .style("stroke", function (d,i){
-                if(_this.props.level === 'contribution'){
-                    return 'transparent'
-                }
                 return 'white'
             })
             .style("fill", function (d, i) {

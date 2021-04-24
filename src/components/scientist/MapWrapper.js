@@ -56,13 +56,13 @@ class MapWrapper extends React.Component {
                 return(
                     <div className={'mw-header mb-3'}>
                         <div className={`${this.props.classNameHeaderTitle}`}>
-                            <div className={'title'} onClick={() => this.props.onClickNavigation()}>
+                            <div className={'title'} style={{cursor:'pointer'}} onClick={() => this.props.onClickNavigation()}>
                                 Bürgerbeitrag: {data.document_title_response}
                             </div>
                             <div>
                                 {data.document_what_response}
                             </div>
-                            <div className={'ct-show-all-btn'} onClick={() => this.props.onClickNavigation()}>... alles anzeigen</div>
+                            <div className={'ct-show-all-btn'} onClick={() => this.props.onClickNavigation()}>... ganzen Bürgerbeitrag anzeigen</div>
                         </div>
                     </div>
                 )
@@ -84,12 +84,10 @@ class MapWrapper extends React.Component {
                                  onClick={() => this.props.onClickClose()}/>
                 {this.renderHeader()}
                 <NPIf condition={this.props.level === 'contribution'}>
-                    <div className={'mw-map'}>
-                        <div className={'mb-3'} style={{color:'white'}}>Dies sind die Verbindungen, die zu diesem Beitrag angelegt wurden.
-                            Wählen Sie eine aus, um zu sehen, warum die Wissenschaftler:
-                            innen diesen Beitrag mit einem Forschungsthema verbunden haben:</div>
-                        {this.props.children}
-                    </div>
+                    <div className={'mb-3'}>Dies sind die Verbindungen, die zu diesem Beitrag angelegt wurden.
+                        Wählen Sie eine aus, um zu sehen, warum die Wissenschaftler:
+                        innen diesen Beitrag mit einem Forschungsthema verbunden haben:</div>
+                    {this.props.children}
                     <NPElse>
                         {this.props.children}
                     </NPElse>

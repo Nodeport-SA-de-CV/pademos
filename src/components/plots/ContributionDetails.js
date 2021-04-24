@@ -118,7 +118,6 @@ class ContributionDetails extends React.Component {
         const keywords = this.props.contribution.document_keywords ? Object.keys(this.props.contribution.document_keywords[0]) : [];
         const type = this.props.contribution.document_type ? this.props.contribution.document_type : '1';
         const icons = this.props.contribution.iconsWithName ? this.props.contribution.iconsWithName : [];
-        debugger;
         const maxWidth = this.props.scientistView ? this.props.w : this.props.w - 50;
         const maxHeight = this.props.scientistView ? this.props.h : this.props.h - 50;
 
