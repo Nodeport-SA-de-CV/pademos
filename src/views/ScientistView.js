@@ -192,6 +192,9 @@ class ScientistView extends React.Component {
                     <MapWrapper data={topic} level={this.state.level} color={topic.color}
                                 onClickClose={(c) => {
                                     this.setState({'level': 'scientist'})
+                                    // emit event
+                                    const event  = new CustomEvent('perspectivesChanged', {detail: []});
+                                    window.dispatchEvent(event);
                                 }}>
                         <ScientistTreeMap
                             data={this.state.topics}
@@ -227,7 +230,10 @@ class ScientistView extends React.Component {
                                     level={this.state.level}
                                     color={this.state.contributionData.color}
                                     onClickClose={(c) => {
-                                        this.setState({'level': 'perspective'})
+                                        this.setState({
+                                            'level': 'perspective',
+                                            connections:[]
+                                        })
                                     }}
                                     onClickNavigation={() => {
                                         this.setState({showContributionsDetails: true})
@@ -274,7 +280,15 @@ class ScientistView extends React.Component {
                 return null;
         }
     }
-
+    onScientistClicked(){
+        this.setState({
+            'level': 'scientist',
+            connections:[]
+        });
+        // emit event
+        const event  = new CustomEvent('perspectivesChanged', {detail: []});
+        window.dispatchEvent(event);
+    }
     render() {
         const hiddenGroups = this.getValue(this.state.hiddenGroups);
 
@@ -314,10 +328,18 @@ class ScientistView extends React.Component {
                                 </div>
                                 <NPElse>
                                     <BreadCrumbs level={this.state.level}
-                                                 onScientistClicked={() => this.setState({'level': 'scientist'})}
-                                                 onThemeClicked={() => this.setState({'level': 'theme'})}
+                                                 onScientistClicked={() => this.onScientistClicked()}
+                                                 onThemeClicked={() => {
+                                                     this.setState({
+                                                         'level': 'theme',
+                                                         connections:[]
+                                                     })
+                                                 }}
                                                  onPerspectiveClicked={() => {
-                                                     this.setState({'level': 'perspective'})}}
+                                                     this.setState({
+                                                         'level': 'perspective',
+                                                         connections:[]
+                                                     })}}
                                                  onContributionClicked={() => {
                                                      this.setState({'level': 'contribution'})
                                                  }}
