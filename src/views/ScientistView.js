@@ -41,7 +41,8 @@ class ScientistView extends React.Component {
             h: null,
             connectionData: null,
             filterLinks:false,
-            filterFinancing:false
+            filterFinancing:false,
+            perspectiveGroups:[]
         }
 
         this.setGroupsOptions = this.setGroupsOptions.bind(this);
@@ -141,13 +142,16 @@ class ScientistView extends React.Component {
             },
             selectedPerspective: {
                 name: tile.d.data.name
-            }
+            },
+            perspectiveGroups:groups
 
         })
     }
 
     onClickContributionTile(tile, index) {
         const contributionId = tile.d.data.data._id;
+        const event  = new CustomEvent('perspectivesChanged', {detail: [tile.d.data.group]});
+        window.dispatchEvent(event);
         API.findConnections(contributionId).then((r) => {
             if (r.success) {
                 this.setState({
@@ -227,6 +231,8 @@ class ScientistView extends React.Component {
                                     level={this.state.level}
                                     color={this.state.contributionData.color}
                                     onClickClose={(c) => {
+                                        const event  = new CustomEvent('perspectivesChanged', {detail: this.state.perspectiveGroups});
+                                        window.dispatchEvent(event);
                                         this.setState({'level': 'perspective'})
                                     }}
                                     onClickNavigation={() => {
