@@ -232,7 +232,7 @@ class ScientistView extends React.Component {
                                     onClickNavigation={() => {
                                         this.setState({showContributionsDetails: true})
                                     }}
-                                    classNameHeaderTitle={'d-flex flex-column'}
+                                    classNameHeaderTitle={'d-flex flex-column w-100'}
                         >
                             <ScientistTreeMap
                                 data={this.state.connections}
@@ -251,6 +251,7 @@ class ScientistView extends React.Component {
                                                      w={this.state.w}
                                                      scientistView={true}
                                                      onClickClose={() => this.setState({showContributionsDetails: false})}
+
                                 />
                             </div>
                         </NPElse>
