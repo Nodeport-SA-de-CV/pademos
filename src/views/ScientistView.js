@@ -41,7 +41,8 @@ class ScientistView extends React.Component {
             h: null,
             connectionData: null,
             filterLinks:false,
-            filterFinancing:false
+            filterFinancing:false,
+            perspectiveGroups:[]
         }
 
         this.setGroupsOptions = this.setGroupsOptions.bind(this);
@@ -141,13 +142,19 @@ class ScientistView extends React.Component {
             },
             selectedPerspective: {
                 name: tile.d.data.name
-            }
+            },
+            perspectiveGroups:groups
 
         })
     }
 
     onClickContributionTile(tile, index) {
         const contributionId = tile.d.data.data._id;
+        // get groups
+        const group = tile.d.data.group;
+        // emit event
+        const event  = new CustomEvent('perspectivesChanged', {detail: [group]});
+        window.dispatchEvent(event);
         API.findConnections(contributionId).then((r) => {
             if (r.success) {
                 this.setState({
@@ -159,11 +166,15 @@ class ScientistView extends React.Component {
         this.setState({
             level: 'contribution',
             contributionData: tile.d.data.data,
-            contributionIndex: index + 1
+            contributionIndex: index + 1,
+            contributionGroups:[group]
         })
     }
 
     onClickConnectionTile(tile, index) {
+        // emit event
+        const event  = new CustomEvent('perspectivesChanged', {detail: []});
+        window.dispatchEvent(event);
         this.setState({
             level: 'connection',
             connectionData: tile.d.data.data,
@@ -212,6 +223,8 @@ class ScientistView extends React.Component {
                     <MapWrapper data={this.state.perspectiveData} level={this.state.level}
                                 color={this.state.perspectiveData.data.color}
                                 onClickClose={(c) => {
+                                    const event  = new CustomEvent('perspectivesChanged', {detail: []});
+                                    window.dispatchEvent(event);
                                     this.setState({'level': 'theme'})
                                 }}>
                         <ScientistTreeMap
@@ -230,6 +243,8 @@ class ScientistView extends React.Component {
                                     level={this.state.level}
                                     color={this.state.contributionData.color}
                                     onClickClose={(c) => {
+                                        const event  = new CustomEvent('perspectivesChanged', {detail: this.state.perspectiveGroups});
+                                        window.dispatchEvent(event);
                                         this.setState({
                                             'level': 'perspective',
                                             connections:[]
@@ -268,6 +283,8 @@ class ScientistView extends React.Component {
                 return (
                     <div className={'h-100 d-flex'}>
                         <ConnectionDetails connection={this.state.connectionData} onClickClose={() => {
+                            const event  = new CustomEvent('perspectivesChanged', {detail: this.state.contributionGroups});
+                            window.dispatchEvent(event);
                             if (this.state.contributionData) {
                                 this.setState({level: 'contribution'})
                             } else {
@@ -331,17 +348,24 @@ class ScientistView extends React.Component {
                                     <BreadCrumbs level={this.state.level}
                                                  onScientistClicked={() => this.onScientistClicked()}
                                                  onThemeClicked={() => {
+                                                     const event  = new CustomEvent('perspectivesChanged', {detail: []});
+                                                     window.dispatchEvent(event);
                                                      this.setState({
                                                          'level': 'theme',
                                                          connections:[]
                                                      })
                                                  }}
                                                  onPerspectiveClicked={() => {
+                                                     // emit event
+                                                     const event  = new CustomEvent('perspectivesChanged', {detail: this.state.perspectiveGroups});
+                                                     window.dispatchEvent(event);
                                                      this.setState({
                                                          'level': 'perspective',
                                                          connections:[]
                                                      })}}
                                                  onContributionClicked={() => {
+                                                     const event  = new CustomEvent('perspectivesChanged', {detail: this.state.contributionGroups});
+                                                     window.dispatchEvent(event);
                                                      this.setState({'level': 'contribution'})
                                                  }}
                                                  contributionIndex={this.state.contributionIndex}
