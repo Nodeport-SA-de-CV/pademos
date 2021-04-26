@@ -8,7 +8,7 @@ class ConnectionTile extends React.Component {
         return (
             <div className={`connection-tile`} >
                 Verbindung {this.props.index + 1}:
-                <div className={'mt-2 mb-2 connection-tile-title'}>{connection.connection_explanation}</div>
+                <div className={'mt-2 mb-auto connection-tile-title'}>{connection.connection_explanation}</div>
                 <div className={'rt-footer'}>
                     <img className={'rt-icon'} src={`${API.API_URL}/icons/${connection.icon}`} />
                 </div>
