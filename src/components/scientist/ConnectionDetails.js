@@ -57,7 +57,7 @@ ConnectionDetails.propTypes = {
 ConnectionDetails.defaultProps = {
     connection: {},
     onClickClose: () => {},
-    index       : '',
+    index       : 0,
     className: '',
     w: 0,
     h: 0

@@ -282,7 +282,7 @@ class ScientistView extends React.Component {
             case "connection":
                 return (
                     <div className={'h-100 d-flex'}>
-                        <ConnectionDetails connection={this.state.connectionData} onClickClose={() => {
+                        <ConnectionDetails connection={this.state.connectionData} index={this.state.connectionIndex - 1} onClickClose={() => {
                             const event  = new CustomEvent('perspectivesChanged', {detail: this.state.contributionGroups});
                             window.dispatchEvent(event);
                             if (this.state.contributionData) {
