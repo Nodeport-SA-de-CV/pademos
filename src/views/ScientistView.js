@@ -388,7 +388,7 @@ class ScientistView extends React.Component {
                                         name={'filterLinks'}
                                         value={this.state.filterLinks}
                                         onChange={(ev) => this.onFilterChange(ev)}
-                                        label="Links zu Forschungsressourcen"/>
+                                        label="Forschungshinweise"/>
                                 </Form>
                                 <Form>
                                     <Form.Check
@@ -397,7 +397,7 @@ class ScientistView extends React.Component {
                                         name={'filterFinancing'}
                                         value={this.state.filterFinancing}
                                         onChange={(ev) => this.onFilterChange(ev)}
-                                        label="Finanzierungsvorschläge enthalten"/>
+                                        label="Vorschläge für Förderschwerpunkte"/>
                                 </Form>
                             </div>
                             <div className={'header-row align-items-start justify-content-end pt-3 pb-3'}

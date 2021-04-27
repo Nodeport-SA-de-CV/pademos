@@ -20,6 +20,12 @@ class ConnectionDetails extends React.Component {
 
                     <div className={'cd-wrapper-title mr-auto'}>
                         <div className={'cd-title'}><b>Verbindung {this.props.index+1}</b></div>
+                        <div className={'cd-title'}><b>Zugehöriges Thema: {this.props.index+1}</b></div>
+                        <div className={'cd-title'}><b>Zugehörige Perspektive: {this.props.index+1}</b></div>
+
+                        Verwandte Verbindung 1
+                         name of topic
+                         name of perspective
                     </div>
                     <FontAwesomeIcon className={'cd-close-btn'}
                                      icon={'times'}
