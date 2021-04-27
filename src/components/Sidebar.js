@@ -74,7 +74,11 @@ class Sidebar extends React.Component{
             window.open(value,"_blank");
         }
     }
-
+    getConnectionsLength(){
+        const childLength = this.state.topics.map((t) => t.children.length).reduce((a,b) => a+b,0);
+        const length = this.state.topics.length + childLength;
+        return length;
+    }
     render(){
         return(
             <NPIf condition={!this.props.showConnectionForm}>
@@ -82,7 +86,7 @@ class Sidebar extends React.Component{
                     <h4>Forschungsthemen</h4>
                     <div style={{visibility:'hidden'}} className={'btn btn-tiny txt-right'}>Was können Sie hier tun? <FontAwesomeIcon icon={'caret-down'}/></div>
                     <div className={'sidebar-header'}>
-                        <h2>{this.state.topics.length}</h2>
+                        <h2>{this.getConnectionsLength()}</h2>
                         <div className={'sidebar-header-row'}>
                             <div>angelegte Verbindungen</div>
                             <div className={'sidebar-icon-link'}
