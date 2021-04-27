@@ -200,7 +200,7 @@ class ConnectionForm extends React.Component{
                              value={this.state.explanation}/>
                     <NPInput wrapperClass={'mt-2'}
                              type={'text-area'}
-                             label={'Welche fachspezifischen Informationen möchten Sie anderen Wissenschaftler:innen zu dieser Verbindung mitgeben?'}
+                             label={'5. Welche Forschungshinweise möchten Sie anderen Wissenschaftler:innen zu dieser Verbindung mitgeben?'}
                              placeholder={'Diese Perspektive wird beleuchtet im Paper von ...'}
                              id={'links'}
                              onChange={(e) => this.onChange(e)}

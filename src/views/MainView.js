@@ -95,7 +95,12 @@ class MainView extends React.Component{
         API.getTopics().then((r) =>{
             if(r.success){
                 let topicsList = _.uniq(r.topics.map((t) => t.topic));
-                let perspectivesList = _.uniq(r.topics.map((t) => t.perspective));
+                let perspectivesList = r.topics.map((t) => {
+                        return [t.perspective].concat(t.children.map((_t) => _t.perspective))
+                });
+                perspectivesList = _.uniq([].concat.apply([], perspectivesList).map((i) => i.trim()));
+
+                // perspectivesList = _.uniq(perspectivesList.concat(r.topics.map((t.) => t.perspective)));
                 this.setState({
                     topicsList:topicsList,
                     perspectivesList:perspectivesList
