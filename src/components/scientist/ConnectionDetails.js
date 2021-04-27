@@ -16,10 +16,15 @@ class ConnectionDetails extends React.Component {
             <div className={`connection-details ${this.props.className}`}
                  style={{backgroundColor: bgColor, width:w, height:h}}>
                 <div className={'contribution-details-header mt-2'}>
-                    <img className={'cd-icon'} src={`${API.API_URL}/icons/${this.props.connection.icon}`} />
+                    <img className={'cd-icon'} style={{alignSelf:'center'}} src={`${API.API_URL}/icons/${this.props.connection.icon}`} />
 
                     <div className={'cd-wrapper-title mr-auto'}>
                         <div className={'cd-title'}><b>Verbindung {this.props.index+1}</b></div>
+                        <div className={'cd-subtitle'}><b>Zugehöriges Thema: {this.props.connection.topic}</b></div>
+                        <div className={'cd-subtitle'}><b>Zugehörige Perspektive: {this.props.connection.perspective}</b></div>
+                        {/*Verwandte Verbindung 1*/}
+                        {/* name of topic*/}
+                        {/* name of perspective*/}
                     </div>
                     <FontAwesomeIcon className={'cd-close-btn'}
                                      icon={'times'}
@@ -57,7 +62,7 @@ ConnectionDetails.propTypes = {
 ConnectionDetails.defaultProps = {
     connection: {},
     onClickClose: () => {},
-    index       : '',
+    index       : 0,
     className: '',
     w: 0,
     h: 0

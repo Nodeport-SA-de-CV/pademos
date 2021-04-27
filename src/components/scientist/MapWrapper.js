@@ -62,7 +62,7 @@ class MapWrapper extends React.Component {
                             <div>
                                 {data.document_what_response}
                             </div>
-                            <div className={'ct-show-all-btn'} onClick={() => this.props.onClickNavigation()}>... ganzen Bürgerbeitrag anzeigen</div>
+                            <div className={'ct-show-all-btn'} style={{alignSelf:'flex-start'}} onClick={() => this.props.onClickNavigation()}>... ganzen Bürgerbeitrag anzeigen</div>
                         </div>
                     </div>
                 )
