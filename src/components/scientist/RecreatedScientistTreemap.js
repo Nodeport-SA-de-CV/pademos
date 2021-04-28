@@ -21,22 +21,23 @@ class RecreatedScientistTreemap extends React.Component {
             return (
                 <RecreatedScientistTile key={tile.tileData.id}
                                         height={tile.height}
-                                       width={tile.width}
-                                       left={tile.x}
-                                       top={tile.y}
-                                       color={tile.color}
-                                       tileData={tile.tileData}
-                                       widthTreemap={this.props.widthTreemap}
-                                       heightTreemap={this.props.heightTreemap}
-                                       onClickTile={() => {
-                                           this.props.onClickTile(tile,index)
-                                       }}
+                                        width={tile.width}
+                                        left={tile.x}
+                                        top={tile.y}
+                                        color={tile.color}
+                                        tileData={tile.tileData}
+                                        widthTreemap={this.props.widthTreemap}
+                                        heightTreemap={this.props.heightTreemap}
+                                        onClickTile={() => {
+                                            this.props.onClickTile(tile, index)
+                                        }}
                                         level={this.props.level}
                                         index={index}
                                         isSelected={isSelected}
                                         borderColor={borderColor}
                                         filterLinks={this.props.filterLinks}
                                         filterFinancing={this.props.filterFinancing}
+                                        selectedTheme={this.props.selectedTheme}
                 />
             )
         })
@@ -48,8 +49,10 @@ RecreatedScientistTreemap.propTypes = {
     onClickTile: PropTypes.func,
     level: PropTypes.string,
     selectedGroups: PropTypes.array,
-    filterLinks:PropTypes.bool,
-    filterFinancing:PropTypes.bool
+    filterLinks: PropTypes.bool,
+    filterFinancing: PropTypes.bool,
+    selectedTheme: PropTypes.func
+
 };
 
 RecreatedScientistTreemap.defaultProps = {
@@ -58,8 +61,10 @@ RecreatedScientistTreemap.defaultProps = {
     },
     level: '',
     selectedGroups: [],
-    filterLinks:false,
-    filterFinancing:false
+    filterLinks: false,
+    filterFinancing: false,
+    selectedTheme: {}
+
 
 };
 export default RecreatedScientistTreemap;

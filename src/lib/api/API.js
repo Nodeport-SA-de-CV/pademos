@@ -147,8 +147,8 @@ const API = {
                 return error;
             });
     },
-    findConnections(contributionId) {
-        return fetch(`${API.API_URL}/topics/connections?contributionId=${contributionId}`, {
+    findConnections(conversation_thread_id) {
+        return fetch(`${API.API_URL}/topics/connections?conversation_thread_id=${conversation_thread_id}`, {
             method: "GET",
             credentials: "include",
         })

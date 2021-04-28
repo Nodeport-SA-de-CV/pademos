@@ -21,7 +21,10 @@ class RecreatedScientistTile extends React.Component {
                 break;
             case 'contribution':
                 return(
-                    <ConnectionTile connection={data}  index={this.props.index}/>
+                    <ConnectionTile connection={data}  index={this.props.index}
+                                    selectedTheme={this.props.selectedTheme}
+
+                    />
                 )
                 break;
             default:
@@ -84,7 +87,9 @@ RecreatedScientistTile.propTypes = {
     index: PropTypes.number,
     borderColor:PropTypes.string,
     filterLinks:PropTypes.bool,
-    filterFinancing:PropTypes.bool
+    filterFinancing:PropTypes.bool,
+    selectedTheme:PropTypes.object
+
 };
 
 RecreatedScientistTile.defaultProps = {
@@ -99,7 +104,8 @@ RecreatedScientistTile.defaultProps = {
     index: 0,
     borderColor:'',
     filterLinks:false,
-    filterFinancing:false
+    filterFinancing:false,
+    selectedTheme:{}
 };
 export default RecreatedScientistTile;
 
