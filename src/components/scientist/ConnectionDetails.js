@@ -11,6 +11,7 @@ class ConnectionDetails extends React.Component {
         const bgColor = this.props.connection.color ? this.props.connection.color : '#1A87D7';
         const w = this.props.w !== 0 ? this.props.w : 'auto';
         const h = this.props.h !== 0 ? this.props.h : 'auto';
+        const isSameTheme = this.props.connection.topic === this.props.selectedTheme.topic;
 
         return (
             <div className={`connection-details ${this.props.className}`}
@@ -19,7 +20,7 @@ class ConnectionDetails extends React.Component {
                     <img className={'cd-icon'} style={{alignSelf:'center'}} src={`${API.API_URL}/icons/${this.props.connection.icon}`} />
 
                     <div className={'cd-wrapper-title mr-auto'}>
-                        <div className={'cd-title'}><b>Verbindung {this.props.index+1}</b></div>
+                        <div className={'cd-title'}><b>{isSameTheme ? 'Verbindung' : 'Verwandte Verbindung'} {this.props.index+1}</b></div>
                         <div className={'cd-subtitle'}><b>Zugehöriges Thema: {this.props.connection.topic}</b></div>
                         <div className={'cd-subtitle'}><b>Zugehörige Perspektive: {this.props.connection.perspective}</b></div>
                         {/*Verwandte Verbindung 1*/}
@@ -55,7 +56,9 @@ ConnectionDetails.propTypes = {
     index:        PropTypes.number,
     className: PropTypes.string,
     w: PropTypes.number,
-    h: PropTypes.number
+    h: PropTypes.number,
+    selectedTheme:PropTypes.object
+
 
 };
 
@@ -65,7 +68,8 @@ ConnectionDetails.defaultProps = {
     index       : 0,
     className: '',
     w: 0,
-    h: 0
+    h: 0,
+    selectedTheme:{}
 
 };
 export default ConnectionDetails;

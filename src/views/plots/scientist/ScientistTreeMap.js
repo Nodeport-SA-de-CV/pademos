@@ -321,6 +321,7 @@ class ScientistTreeMap extends React.Component {
                                            selectedGroups={this.props.selectedGroups}
                                            filterLinks={this.props.filterLinks}
                                            filterFinancing={this.props.filterFinancing}
+                                           selectedTheme={this.props.selectedTheme}
 
                 />
                 <NPIf condition={this.props.isLoading}>
@@ -380,7 +381,8 @@ ScientistTreeMap.propTypes = {
     onClickTile: PropTypes.func,
     selectedGroups:PropTypes.array,
     filterLinks:PropTypes.bool,
-    filterFinancing:PropTypes.bool
+    filterFinancing:PropTypes.bool,
+    selectedTheme:PropTypes.object
 };
 
 ScientistTreeMap.defaultProps = {
@@ -400,7 +402,8 @@ ScientistTreeMap.defaultProps = {
     onClickTile: () => {},
     selectedGroups: [],
     filterLinks:false,
-    filterFinancing:false
+    filterFinancing:false,
+    selectedTheme:{}
 };
 
 export default ScientistTreeMap;

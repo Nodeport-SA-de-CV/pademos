@@ -149,16 +149,25 @@ class ScientistView extends React.Component {
     }
 
     onClickContributionTile(tile, index) {
-        const contributionId = tile.d.data.data._id;
+        const conversation_thread_id = tile.d.data.data.conversation_thread_id;
         // get groups
         const group = tile.d.data.group;
         // emit event
         const event  = new CustomEvent('perspectivesChanged', {detail: [group]});
         window.dispatchEvent(event);
-        API.findConnections(contributionId).then((r) => {
+        API.findConnections(conversation_thread_id).then((r) => {
             if (r.success) {
+                let orderedConnections = r.connections.sort((a,b) =>{
+                    if(a.topic.trim() === this.state.selectedTheme.topic.trim() && b.topic.trim() !== this.state.selectedTheme.topic.trim()){
+                        return -1;
+                    }
+                    if(b.topic.trim() === this.state.selectedTheme.topic.trim() && a.topic.trim() !== this.state.selectedTheme.topic.trim()){
+                        return 1;
+                    }
+                    return 0;
+                })
                 this.setState({
-                    connections: r.connections,
+                    connections: orderedConnections
 
                 })
             }
@@ -195,6 +204,7 @@ class ScientistView extends React.Component {
                                          selectedGroups={this.state.selectedGroups}
                                          filterLinks={this.state.filterLinks}
                                          filterFinancing={this.state.filterFinancing}
+                                         selectedTheme={this.state.selectedTheme}
                 />
                 break;
             case "theme":
@@ -214,6 +224,7 @@ class ScientistView extends React.Component {
                             onClickTile={(tile) => this.onClickTile(tile)}
                             filterLinks={this.state.filterLinks}
                             filterFinancing={this.state.filterFinancing}
+                            selectedTheme={this.state.selectedTheme}
                         />
                     </MapWrapper>
                 )
@@ -232,6 +243,7 @@ class ScientistView extends React.Component {
                             topicIndex={this.state.selectedIndex}
                             level={this.state.level}
                             onClickTile={(tile, index) => this.onClickContributionTile(tile, index)}
+                            selectedTheme={this.state.selectedTheme}
                         />
                     </MapWrapper>
                 )
@@ -260,6 +272,7 @@ class ScientistView extends React.Component {
                                 topicIndex={this.state.selectedIndex}
                                 level={this.state.level}
                                 onClickTile={(tile, index) => this.onClickConnectionTile(tile, index)}
+                                selectedTheme={this.state.selectedTheme}
                             />
                         </MapWrapper>
                         <NPElse>
@@ -290,7 +303,9 @@ class ScientistView extends React.Component {
                             } else {
                                 this.setState({level: 'scientist'})
                             }
-                        }}/>
+                        }}
+                                           selectedTheme={this.state.selectedTheme}
+                        />
                     </div>
                 )
                 break;
