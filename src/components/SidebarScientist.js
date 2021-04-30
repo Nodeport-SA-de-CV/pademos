@@ -21,6 +21,9 @@ class SidebarScientist extends React.Component{
     showTopicDetails(topic){
         this.setState({showTopicDetails:true,topicSelected:topic});
     }
+    countContributions(){
+        return this.state.groups.map((g) => g.contributions.length).reduce((a,b) =>  a+b, 0)
+    }
 
     render(){
         return(
@@ -30,7 +33,7 @@ class SidebarScientist extends React.Component{
                      className={'btn btn-tiny txt-right'}>
                     Was können Sie hier tun? <FontAwesomeIcon icon={'caret-down'}/></div>
                 <div className={'sidebar-header'}>
-                    <h2>{this.state.groups.length}</h2>
+                    <h2>{this.countContributions()}</h2>
                     <div className={'sidebar-header-row'}>
                         <div>verbundene Bürgerbeiträge</div>
                     </div>
