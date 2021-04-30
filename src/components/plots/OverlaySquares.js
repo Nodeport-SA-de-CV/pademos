@@ -62,6 +62,15 @@ class OverlaySquares extends React.Component {
                             <div style={{fontSize:'0.9rem'}}>Anzahl der Beiträge</div>
                             <div className={'number ml-2'}>{group.contributionCount}</div>
                         </div>
+                        <NPIf condition={this.props.level === 'citizen'}>
+                            <div className={'os-icon-zoom ml-auto'} onClick={(ev) => {
+                                ev.stopPropagation();
+                                this.props.onClickZoom(this.props.index)
+                                this.props.onHide(group.name)
+                            }
+                            }></div>
+                        </NPIf>
+
                     </NPElse>
                 </NPIf>
             </div>
@@ -82,7 +91,8 @@ OverlaySquares.propTypes = {
     gutterWidth: PropTypes.number,
     isSelected: PropTypes.bool,
     filterLinks:PropTypes.bool,
-    filterFinancing:PropTypes.bool
+    filterFinancing:PropTypes.bool,
+    level: PropTypes.string
 
 
 };
@@ -99,6 +109,7 @@ OverlaySquares.defaultProps = {
     gutterWidth: 2,
     isSelected: false,
     filterLinks:false,
-    filterFinancing:false
+    filterFinancing:false,
+    level:'citizen'
 };
 

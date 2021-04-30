@@ -5,6 +5,7 @@ import ReactResizeDetector from "react-resize-detector";
 import ContributionDetails from "../../components/plots/ContributionDetails";
 import NPIf from "np-if";
 import ConnectionDetails from "../../components/scientist/ConnectionDetails";
+import CitizenBreadCrumbs from "../../components/citizen/CitizenBreadCrumbs";
 
 class PlotView extends React.Component {
 
@@ -24,7 +25,9 @@ class PlotView extends React.Component {
             rectX:0,
             rectY:0,
             showContributionsDetails: false,
-            clickedContribution:{}
+            clickedContribution:{},
+            level:'citizen',
+            group:''
         }
     }
 
@@ -87,12 +90,26 @@ class PlotView extends React.Component {
         })
         this.treeMap.drawChart(w,h);
     }
+    onClickZoom(index,group){
+        this.setState({
+            level:'group',
+            group:group
+        })
+        this.treeMap.loadData(index - 1);
+    }
+    reset(){
+        this.setState({
+            level:'citizen'
+        })
+        this.treeMap.loadData();
+    }
     render() {
         return (
-            <div className={'h-100 d-flex'}>
+            <div className={'h-100 d-flex'} style={{flexDirection:'column'}}>
                 <ReactResizeDetector handleWidth handleHeight
-                                     onResize={(w, h) => this.onResize(w, h)}>
+                                     onResize={(w, h) => this.onResize(w, h-100)}>
                 </ReactResizeDetector>
+                <CitizenBreadCrumbs level={this.state.level} group={this.state.group} onCitizenClicked={() => this.reset()}></CitizenBreadCrumbs>
                 <TreeMap ref={(ref) => this.treeMap = ref} w={this.state.w} h={this.state.h}
                          searchDocumentType={this.props.searchDocumentType}
                          onTopicsLoaded={(topics) => this.props.onTopicsLoaded(topics)}
@@ -108,6 +125,8 @@ class PlotView extends React.Component {
                          onSetGroups={(g) => this.props.onSetGroups(g)}
                          hiddenGroups={this.props.hiddenGroups}
                          onHideGroup={(h) => this.props.onHideGroup(h)}
+                         onClickZoom={(i,group) => this.onClickZoom(i,group)}
+                         level={this.state.level}
                 />
                 <NPIf condition={this.state.showContributionDetails}>
                     <ContributionDetails w={this.state.w} h={this.state.h}
