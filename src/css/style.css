@@ -891,7 +891,7 @@ search-box-wrapper{
 .recreated-tile{
     position: absolute;
     transition: 0.5s all;
-    font-size: 1.2rem;
+    font-size: 1.1rem;
     overflow: hidden;
     color: #01080D;
     cursor: pointer;
