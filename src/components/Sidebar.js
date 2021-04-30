@@ -120,7 +120,7 @@ class Sidebar extends React.Component{
                                         label="Alle angelegten Verbindungen von Bürgerbeiträgen zu Forschungsthemen anzeigen" />
                         </Form>
                         <div className={'sidebar-journalist-section'}>
-                            <label>Erlärungen der Journalist:innen</label>
+                            <label>Erklärungen der Journalist:innen</label>
                             <select style={{width:'100%'}} onChange={(e) => this.onChange(e)}>
                                 <option value={''}> </option>
                                 <option value={'https://tiny.url/123'}>Max Mustermanns Tour durch die Karte</option>

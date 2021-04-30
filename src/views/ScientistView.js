@@ -322,6 +322,11 @@ class ScientistView extends React.Component {
         const event  = new CustomEvent('perspectivesChanged', {detail: []});
         window.dispatchEvent(event);
     }
+    getConnectionsLength(){
+        const childLength = this.state.topics.map((t) => t.children.length).reduce((a,b) => a+b,0);
+        const length = this.state.topics.length + childLength;
+        return length;
+    }
     render() {
         const hiddenGroups = this.getValue(this.state.hiddenGroups);
 
@@ -334,8 +339,8 @@ class ScientistView extends React.Component {
                             <Header title={'Forschungsthemen'}
                                     subtitle={''}
                                     showActions={false}
-                                    contributions={this.state.topics.length}
-                                    subContributions={'definierte Verbindungen'}
+                                    contributions={this.getConnectionsLength()}
+                                    subContributions={'angelegte Verbindungen'}
                             />
                             <NPIf condition={this.state.level === 'scientist'}>
                                 <div className={'header-row align-items-start pt-3 pb-3'}>

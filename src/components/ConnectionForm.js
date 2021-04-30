@@ -207,7 +207,7 @@ class ConnectionForm extends React.Component{
                              value={this.state.links}/>
                     <NPInput wrapperClass={'mt-2'}
                              type={'text-area'}
-                             label={'6. Skizzieren Sie einen neuen Förderschwerpunkt für das Bundesministerium für Bildung und Forschung:'}
+                             label={'6. Welches Forschungsthema sollte mehr erforscht und mit öffentlichen Mitteln gefördert werden?'}
                              placeholder={'Der Förderschwerpunkt könnte sein... '}
                              id={'proposeTopics'}
                              onChange={(e) => this.onChange(e)}
