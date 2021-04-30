@@ -8,6 +8,7 @@ import NPIf from "np-if";
 import PropTypes from "prop-types";
 import RecreatedTile from "./RecreatedTile";
 import OverlaySquares from "./OverlaySquares"
+import CitizenBreadCrumbs from "../citizen/CitizenBreadCrumbs";
 const _ = require('underscore');
 
 
@@ -88,14 +89,19 @@ class TreeMap extends React.Component {
         }
         return tree;
     }
-    loadData() {
-        this.setState({isLoading: true})
+    loadData(i = null) {
+        this.setState({
+            isLoading: true,
+            leafsArray:[],
+            overlaySquares:[]
+        })
         this.changeColors();
         API.getContributions().then((res) => {
+            const topics = i === null ? res.topics : [res.topics[i]];
             if (res.success) {
                 this.props.onTopicsLoaded(res.topics);
                 this.setState({
-                    data: this.buildTree(res.topics),
+                    data: this.buildTree(topics),
                     topics: res.topics,
                     isLoading: false
                 }, () => {
@@ -291,7 +297,7 @@ class TreeMap extends React.Component {
         if(value === '' && this.props.searchDocumentType === '' && this.props.searchKeyWord === ''){
             return this.props.onHideGroup( [] );
         }
-        
+
         const contributions = this.state.leafsArray.filter(l => ! l.contribution.isDisabled);
         let groups = contributions.map(c => c.contribution.topic_label);
         groups = _.uniq(groups);
@@ -328,7 +334,6 @@ class TreeMap extends React.Component {
             this.props.onHideGroup(groups);
         }
     }
-
     render() {
         const disabledClass = this.props.disabledCursorEvents ? 'disabled' : '';
         const overlaySquares = this.state.overlaySquares;
@@ -357,8 +362,16 @@ class TreeMap extends React.Component {
                         return <OverlaySquares key={square.name}
                                                group={square}
                                                index={i+1}
+                                               onClickZoom={(i) => {
+                                                   this.setState({
+                                                       leafsArray:[],
+                                                       overlaySquares:[]
+                                                   })
+                                                   this.props.onClickZoom(i,square.name);
+                                               }}
                                                hidden={this.isSquareHidden(square)}
                                                onHide={(s) => this.onHideGroup(s)}
+                                               level={this.props.level}
                         />
                     })
                 }
@@ -379,7 +392,9 @@ TreeMap.propTypes = {
     disabledCursorEvents      : PropTypes.bool,
     onSetGroups               : PropTypes.func,
     hiddenGroups              : PropTypes.array,
-    onHideGroup               : PropTypes.func
+    onHideGroup               : PropTypes.func,
+    onClickZoom               : PropTypes.func,
+    level                     : PropTypes.string
 };
 
 TreeMap.defaultProps = {
@@ -393,6 +408,9 @@ TreeMap.defaultProps = {
     disabledCursorEvents      : false,
     onSetGroups               : () => {},
     hiddenGroups              : [],
-    onHideGroup               : () => {}
+    onHideGroup               : () => {},
+    onClickZoom               : () => {},
+    level                     : 'citizen'
+
 };
 export default TreeMap;
