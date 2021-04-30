@@ -57,19 +57,20 @@ class OverlaySquares extends React.Component {
                         <div className={'os-row flex-wrap'}>
                             <div className={'mr-4'}>Gruppe {this.props.index}</div>
                             <div>{group.name}</div>
+                            <NPIf condition={this.props.level === 'citizen'}>
+                                <div className={'os-icon-zoom ml-auto'} onClick={(ev) => {
+                                    ev.stopPropagation();
+                                    this.props.onClickZoom(this.props.index)
+                                    this.props.onHide(group.name)
+                                }
+                                }></div>
+                            </NPIf>
                         </div>
                         <div className={'os-row align-self-end'} style={{color:colorFooter}}>
                             <div style={{fontSize:'0.9rem'}}>Anzahl der Beiträge</div>
                             <div className={'number ml-2'}>{group.contributionCount}</div>
                         </div>
-                        <NPIf condition={this.props.level === 'citizen'}>
-                            <div className={'os-icon-zoom ml-auto'} onClick={(ev) => {
-                                ev.stopPropagation();
-                                this.props.onClickZoom(this.props.index)
-                                this.props.onHide(group.name)
-                            }
-                            }></div>
-                        </NPIf>
+
 
                     </NPElse>
                 </NPIf>
