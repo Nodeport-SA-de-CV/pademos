@@ -3,8 +3,12 @@ import PropTypes from 'prop-types';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import NPIf from "np-if";
 import API from "../lib/api/API";
-
-
+import Linkify from 'react-linkify';
+const componentDecorator = (href, text, key) => (
+    <a href={href} key={key} target="_blank">
+        {text}
+    </a>
+);
 class TopicDetails extends React.Component{
 
     render(){
@@ -33,7 +37,7 @@ class TopicDetails extends React.Component{
                             return (
                                 <div className={'perspective mb-2'} key={index}>
                                     <div>Verbindung { index + 1 }, Perspektive:<br/>{perspective.perspective}</div>
-                                    <div className={'perspective-ex mt-2 mb-1'}>{perspective.connection_explanation}</div>
+                                    <Linkify componentDecorator={componentDecorator} className={'perspective-ex mt-2 mb-1'}>{perspective.connection_explanation}</Linkify>
                                     <div className={'btn btn-tiny'}
                                          onClick={() => {
                                              this.props.onSetConnectionDetails(perspective)

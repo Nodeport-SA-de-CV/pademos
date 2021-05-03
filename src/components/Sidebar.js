@@ -120,11 +120,15 @@ class Sidebar extends React.Component{
                                         label="Alle angelegten Verbindungen von Bürgerbeiträgen zu Forschungsthemen anzeigen" />
                         </Form>
                         <div className={'sidebar-journalist-section'}>
-                            <label>Erklärungen der Journalist:innen</label>
+                            <label>Erklärungen von Wissenschaftskommunikator:innen</label>
                             <select style={{width:'100%'}} onChange={(e) => this.onChange(e)}>
                                 <option value={''}> </option>
-                                <option value={'https://tiny.url/123'}>Max Mustermanns Tour durch die Karte</option>
-                                <option value={'https://tiny.url/456'}>Hans Herbert erklärt die Wissenskarte</option>
+                                <option value={'https://youtu.be/0pXOM_IlzXI'}>KI in der Medizin (A. Hänsch)</option>
+                                <option value={'https://youtu.be/w8o_yRgQ3Rc'}>Bedroht KI Arbeitsplätze? (K.-K. Lurz)</option>
+                                <option value={'https://youtu.be/8jdrrjJJs04'}>Kann man KI missbrauchen? (X. Klinge)</option>
+                                <option value={'https://youtu.be/nEtaFzgUTKU'}>KI in der Energiewende (M. Deru)</option>
+                                <option value={'https://youtu.be/vzMXnY8sWhA'}>Führt KI zum Überwachungsstaat? (A. Meinke)</option>
+
                             </select>
                         </div>
                         {/*/render topic details*/}
